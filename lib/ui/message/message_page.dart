@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/ui/message/message_list_view.dart';
 
 class MessagePage extends StatelessWidget {
   @override
@@ -13,6 +14,7 @@ class MessagePage extends StatelessWidget {
             title: MessagePageTitle(),
             backgroundColor: Colors.white,
           ),
+          body: MessageListView(),
         ),
       ),
     );
