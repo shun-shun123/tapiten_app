@@ -14,7 +14,9 @@ class MessagePage extends StatelessWidget {
             title: MessagePageTitle(),
             backgroundColor: Colors.white,
           ),
-          body: MessageListView(),
+          body: SafeArea(
+            child: MessageListView(),
+          ),
         ),
       ),
     );
