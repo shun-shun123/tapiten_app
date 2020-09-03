@@ -13,7 +13,11 @@ class TopPageStartButton extends StatelessWidget {
               width: 300,
               height: 50,
               child: RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // NOTE: LoginPage マージ後にコメントイン
+                    // Navigator.push(context,
+                    // MaterialPageRoute(builder: (context) => LoginPage()))
+                  },
                   color: Colors.grey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
