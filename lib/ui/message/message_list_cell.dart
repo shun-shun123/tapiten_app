@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MessageListCell extends StatelessWidget {
+  final title;
+  MessageListCell({this.title});
   @override
   Widget build(BuildContext context) {
     return Card(
