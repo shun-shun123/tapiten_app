@@ -7,22 +7,13 @@ class MessageListCell extends StatelessWidget {
       color: Color(0xFFE9E9E9),
       child: Container(
         padding: EdgeInsets.only(top: 10, bottom: 10),
-        child: Row(
-          children: [
-            Icon(
-              Icons.circle,
-              color: Colors.white,
-              size: 40,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 10),
-              child: Column(
-                children: [
-                  Text('Message1'),
-                ],
-              ),
-            ),
-          ],
+        child: ListTile(
+          title: Text('Message1'),
+          subtitle: Text('Message subtitle'),
+          leading: Icon(
+            Icons.circle,
+            color: Colors.blue[500],
+          ),
         ),
       ),
     );
