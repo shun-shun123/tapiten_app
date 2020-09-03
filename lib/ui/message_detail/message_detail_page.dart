@@ -17,17 +17,19 @@ class MessageDetailPage extends StatelessWidget {
             backgroundColor: Colors.white,
             title: MessageDetailPageTitle(),
           ),
-          body: Container(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MessageDetailPageIcon(),
-                  MessageDetailPageQuestionText(
-                      content: '今日は布団から出たくありません。\n出るべきでしょうか？'),
-                  TwoAnswerButtons(),
-                  MessageDetailReview(),
-                ],
+          body: SafeArea(
+            child: Container(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MessageDetailPageIcon(),
+                    MessageDetailPageQuestionText(
+                        content: '今日は布団から出たくありません。\n出るべきでしょうか？'),
+                    TwoAnswerButtons(),
+                    MessageDetailReview(),
+                  ],
+                ),
               ),
             ),
           ),
