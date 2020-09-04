@@ -16,7 +16,7 @@ class _MessageListViewState extends State<MessageListView> {
     if (messageList != null) {
       for (var i = 0; i < messageList.length; i++) {
         Widget widget = MessageListCell(
-          title: messageList[i].answerChoise1,
+          answer: messageList[i],
         );
         data.add(widget);
       }
