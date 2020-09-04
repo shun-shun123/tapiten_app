@@ -11,7 +11,7 @@ class MessageListCell extends StatelessWidget {
           title: Text('Message1'),
           subtitle: Text('Message subtitle'),
           leading: Icon(
-            Icons.circle,
+            Icons.account_circle,
             color: Colors.blue[500],
           ),
         ),

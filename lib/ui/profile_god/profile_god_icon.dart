@@ -7,7 +7,7 @@ class ProfileGodIcon extends StatelessWidget {
       padding: EdgeInsets.only(top: 60, bottom: 60),
       child: Center(
         child: Icon(
-          Icons.circle,
+          Icons.account_circle,
           color: Colors.black,
           size: 100,
         ),
