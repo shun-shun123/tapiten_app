@@ -11,7 +11,7 @@ class TopPage extends StatelessWidget {
           home: Scaffold(
               body: Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TopPageIcon(),
                 TopPageStartButton(),
