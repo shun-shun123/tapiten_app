@@ -24,12 +24,9 @@ class _MessageListViewState extends State<MessageListView> {
       MessageListCell(),
     ];
     return Container(
-      margin: EdgeInsets.only(bottom: 100),
-      child: Container(
-        margin: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-        child: ListView(
-          children: data,
-        ),
+      margin: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
+      child: ListView(
+        children: data,
       ),
     );
   }
