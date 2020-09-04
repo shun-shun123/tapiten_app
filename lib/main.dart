@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tapiten_app/ui/main/main_god.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
+import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,6 +33,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PageController _myPage = PageController(initialPage: 0);
+  int currentPageIndex = 0;
+
+  void changePage(int pageIndex) {
+    setState(
+      () {
+        _myPage.jumpToPage(pageIndex);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,57 +76,23 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.email,
-                      color: Color(0xff909090),
-                      size: 28,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _myPage.jumpToPage(0);
-                      });
-                    },
-                  ),
-                  Text(
-                    'メッセージ',
-                    style: TextStyle(
-                      color: Color(0xff909090),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  )
-                ],
+              InkWell(
+                customBorder: CircleBorder(),
+                onTap: () => changePage(0),
+                child: BottomTabBarItem(
+                  Icons.email,
+                  'メッセージ',
+                  currentPageIndex == 0 ? Color(0xffF5DB28) : Color(0xff909090),
+                ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.person,
-                      color: Color(0xff909090),
-                      size: 32,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _myPage.jumpToPage(1);
-                      });
-                    },
-                  ),
-                  Text(
-                    'プロフィール',
-                    style: TextStyle(
-                      color: Color(0xff909090),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  )
-                ],
+              InkWell(
+                customBorder: CircleBorder(),
+                onTap: () => changePage(1),
+                child: BottomTabBarItem(
+                  Icons.person,
+                  'プロフィール',
+                  currentPageIndex == 1 ? Color(0xffF5DB28) : Color(0xff909090),
+                ),
               ),
             ],
           ),
@@ -124,8 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: PageView(
         controller: _myPage,
-        onPageChanged: (int) {
-          print('Page Changes to index $int');
+        onPageChanged: (int _currentPageIndex) {
+          currentPageIndex = _currentPageIndex;
         },
         children: <Widget>[
           MessagePage(),
