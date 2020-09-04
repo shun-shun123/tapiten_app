@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tapiten_app/ui/main/main_god.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
 
@@ -38,7 +39,16 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xffF8D825),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return MainGodPage();
+              },
+              fullscreenDialog: true,
+            ),
+          );
+        },
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
