@@ -17,9 +17,9 @@ void main() async {
 
 Future loadUserMode() async {
   var userMode = UserMode();
-  var isGod = await userMode.loadUserMode();
-  UserMode.isGod = isGod;
-  print('This user uses as ${isGod ? 'God-mode' : 'Sheep-mode'}');
+  await userMode.loadUserMode();
+  print('This user uses as ${UserMode.isGod ? 'God-mode' : 'Sheep-mode'}');
+}
 }
 
 class MyApp extends StatelessWidget {

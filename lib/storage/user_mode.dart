@@ -18,6 +18,7 @@ class UserMode {
   // モードが変更された場合はstaticな変数をそのまま書き換えれば良い
   Future<bool> loadUserMode() async {
     var sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getBool(SharedPreferencesKeys.userMode) ?? true;
+    UserMode.isGod = sharedPreferences.getBool(SharedPreferencesKeys.userMode) ?? true;
+    return UserMode.isGod;
   }
 }
