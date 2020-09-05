@@ -33,6 +33,11 @@ class MessageDetailPage extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: MessageDetailPageTitle(),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: Colors.black,
+              onPressed: () => Navigator.of(context).pop(),
+            ),
           ),
           body: _buildBaseBody(isGod ? _buildBodyForGod() : _buildBodyForSheep()),
         ),
