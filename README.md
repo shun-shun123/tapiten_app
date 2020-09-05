@@ -74,7 +74,8 @@
       id: {[
         "answerer_id": "回答者のログインID"(String),
         "question_content": "質問文"(String),
-        "answer_content": "回答できる選択肢"(String)
+        "answer1": "回答できる選択肢1"(String),
+        "answer2": "回答できる選択肢2"(String)
       ]}
     ]
   }
