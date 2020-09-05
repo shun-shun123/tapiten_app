@@ -107,7 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
           currentPageIndex = _currentPageIndex;
         },
         children: <Widget>[
-          MessagePage(),
+          MessagePage(
+            // TODO: 神様or子羊判定のフラグをここで代入する
+            isGod: false,
+          ),
           ProfileGodPage(),
         ],
         physics: NeverScrollableScrollPhysics(),
