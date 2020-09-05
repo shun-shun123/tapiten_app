@@ -67,7 +67,9 @@
       id: {[
         "questioner_id": "質問者のログインID"(String),
         "question_content": "質問文"(String),
-        "answer_content": "回答された選択肢"(String)
+        "answer1": "選択肢1"(String),
+        "answer2": "選択肢2"(String),
+        "review_score": 3(int),
       ]
     }],
     "questions": [
