@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
+import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/main/main_god.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
@@ -11,6 +12,7 @@ void main() async {
   await FirestoreManager.initialize();
 
   await loadUserMode();
+  await loadUserId();
 
   runApp(MyApp());
 }
@@ -20,6 +22,15 @@ Future loadUserMode() async {
   await userMode.loadUserMode();
   print('This user uses as ${UserMode.isGod ? 'God-mode' : 'Sheep-mode'}');
 }
+
+Future loadUserId() async {
+  var userId = UserId();
+  await userId.loadUserId();
+  if (UserId.userId == '') {
+    print('This user does NOT have a userId in local storage.');
+  } else {
+    print('This users userId is ${UserId.userId}');
+  }
 }
 
 class MyApp extends StatelessWidget {
