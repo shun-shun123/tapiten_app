@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Answer {
   final String questionerId;
   final String questionContent;
@@ -7,11 +9,11 @@ class Answer {
   final int selectedAnswerIndex;
 
   Answer({
-    this.questionerId,
-    this.questionContent,
-    this.answer1,
-    this.answer2,
-    this.reviewScore,
-    this.selectedAnswerIndex,
+    @required this.questionerId,
+    @required this.questionContent,
+    @required this.answer1,
+    @required this.answer2,
+    @required this.reviewScore,
+    @required this.selectedAnswerIndex,
   });
 }
