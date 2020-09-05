@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TwoAnswerButtons extends StatelessWidget {
+  final answer1;
+  final answer2;
+
+  TwoAnswerButtons({this.answer1, this.answer2});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -9,14 +13,14 @@ class TwoAnswerButtons extends StatelessWidget {
         child: Column(
           children: [
             AnswerButton(
-              text: '出る',
+              text: answer1,
               hasSelected: true,
             ),
             SizedBox(
               height: 15,
             ),
             AnswerButton(
-              text: '出ない',
+              text: answer2,
               hasSelected: false,
             ),
           ],

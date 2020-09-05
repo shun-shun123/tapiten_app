@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/ui/message/viewModel/message_list_cell_view_model.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_icon.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_question_text.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_review.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_two_answer_buttons.dart';
 
 class MessageDetailPage extends StatelessWidget {
+  final Answer answer;
+
+  MessageDetailPage({this.answer});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -25,8 +30,11 @@ class MessageDetailPage extends StatelessWidget {
                   children: [
                     MessageDetailPageIcon(),
                     MessageDetailPageQuestionText(
-                        content: '今日は布団から出たくありません。\n出るべきでしょうか？'),
-                    TwoAnswerButtons(),
+                        content: answer.questionContent),
+                    TwoAnswerButtons(
+                      answer1: answer.answerChoise1,
+                      answer2: answer.answerChoise2,
+                    ),
                     MessageDetailReview(),
                   ],
                 ),
