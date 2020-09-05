@@ -67,14 +67,20 @@
       id: {[
         "questioner_id": "質問者のログインID"(String),
         "question_content": "質問文"(String),
-        "answer_content": "回答された選択肢"(String)
+        "answer1": "選択肢1"(String),
+        "answer2": "選択肢2"(String),
+        "review_score": 3(int),
+        "selected_anser_index": 0(int),
       ]
     }],
     "questions": [
       id: {[
         "answerer_id": "回答者のログインID"(String),
         "question_content": "質問文"(String),
-        "answer_content": "回答できる選択肢"(String)
+        "answer1": "回答できる選択肢1"(String),
+        "answer2": "回答できる選択肢2"(String),
+        "god_message": "神様からの名言"(String),
+        "selected_answer_index": 0(int),
       ]}
     ]
   }
