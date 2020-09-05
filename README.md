@@ -70,6 +70,7 @@
         "answer1": "選択肢1"(String),
         "answer2": "選択肢2"(String),
         "review_score": 3(int),
+        "selected_anser_index": 0(int),
       ]
     }],
     "questions": [
@@ -79,6 +80,7 @@
         "answer1": "回答できる選択肢1"(String),
         "answer2": "回答できる選択肢2"(String),
         "god_message": "神様からの名言"(String),
+        "selected_answer_index": 0(int),
       ]}
     ]
   }
