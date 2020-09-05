@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/main/main_god.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
@@ -8,7 +9,17 @@ import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirestoreManager.initialize();
+
+  await loadUserMode();
+
   runApp(MyApp());
+}
+
+Future loadUserMode() async {
+  var userMode = UserMode();
+  var isGod = await userMode.loadUserMode();
+  UserMode.isGod = isGod;
+  print('This user uses as ${isGod ? 'God-mode' : 'Sheep-mode'}');
 }
 
 class MyApp extends StatelessWidget {
@@ -109,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           MessagePage(
             // TODO: 神様or子羊判定のフラグをここで代入する
-            isGod: false,
+            isGod: true,
           ),
           ProfileGodPage(),
         ],
