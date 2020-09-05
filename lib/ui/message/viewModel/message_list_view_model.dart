@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
-import 'package:tapiten_app/ui/message/viewModel/message_list_cell_view_model.dart';
+import 'package:tapiten_app/ui/message/model/answer.dart';
+import 'package:tapiten_app/ui/message/model/question.dart';
 
 class MessageList extends ChangeNotifier {
   List<Answer> answers;
@@ -21,11 +22,8 @@ class MessageList extends ChangeNotifier {
     if (isGod) {
       answers = await _firestoreManager.fetchAnswerMessagesCollectionAsync();
     } else {
-      questions =
-          await _firestoreManager.fetchQuestionMessagesCollectionAsync();
+      questions = await _firestoreManager.fetchQuestionMessagesCollectionAsync();
     }
-    print('fetchMessageList finished...');
     notifyListeners();
-    print('Notify messageList');
   }
 }

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/message/viewModel/message_list_cell_view_model.dart';
+import 'package:tapiten_app/ui/message/model/answer.dart';
+import 'package:tapiten_app/ui/message/model/question.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page.dart';
 
 class MessageListCell extends StatelessWidget {
-  bool isGod;
-  Answer answer;
-  Question question;
+  final bool isGod;
+  final Answer answer;
+  final Question question;
 
   // 神様用のコンストラクタ
-  MessageListCell.god({this.answer}) {
-    isGod = true;
-  }
+  MessageListCell.god({this.answer})
+      : isGod = true,
+        question = null;
 
   // 子羊用のコンストラクタ
-  MessageListCell.sheep({this.question}) {
-    isGod = false;
-  }
+  MessageListCell.sheep({this.question})
+      : isGod = false,
+        answer = null;
 
   @override
   Widget build(BuildContext context) {

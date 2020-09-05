@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tapiten_app/ui/message/viewModel/message_list_cell_view_model.dart';
+import 'package:tapiten_app/ui/message/model/answer.dart';
+import 'package:tapiten_app/ui/message/model/question.dart';
 
 class FirestoreManager {
   // Firebaseの初期化

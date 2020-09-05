@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tapiten_app/ui/message/viewModel/message_list_cell_view_model.dart';
+import 'package:tapiten_app/ui/message/model/answer.dart';
+import 'package:tapiten_app/ui/message/model/question.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_icon.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_question_text.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_review.dart';
@@ -8,19 +9,19 @@ import 'package:tapiten_app/ui/message_detail/message_detail_page_two_answer_but
 import 'package:tapiten_app/ui/message_detail/message_detail_remark.dart';
 
 class MessageDetailPage extends StatelessWidget {
-  bool isGod;
-  Answer answer;
-  Question question;
+  final bool isGod;
+  final Answer answer;
+  final Question question;
 
   // 神様用のコンストラクタ
-  MessageDetailPage.god({this.answer}) {
-    isGod = true;
-  }
+  MessageDetailPage.god({this.answer})
+      : isGod = true,
+        question = null;
 
   // 子羊用のコンストラクタ
-  MessageDetailPage.sheep({this.question}) {
-    isGod = false;
-  }
+  MessageDetailPage.sheep({this.question})
+      : isGod = false,
+        answer = null;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,7 @@ class MessageDetailPage extends StatelessWidget {
             backgroundColor: Colors.white,
             title: MessageDetailPageTitle(),
           ),
-          body:
-              _buildBaseBody(isGod ? _buildBodyForGod() : _buildBodyForSheep()),
+          body: _buildBaseBody(isGod ? _buildBodyForGod() : _buildBodyForSheep()),
         ),
       ),
     );
