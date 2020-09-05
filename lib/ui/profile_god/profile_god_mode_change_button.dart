@@ -20,7 +20,7 @@ class ProfileGodModeChangeButton extends StatelessWidget {
                   ),
                 ),
                 Icon(
-                  Icons.circle,
+                  Icons.account_circle,
                   color: Colors.black,
                 ),
               ],
