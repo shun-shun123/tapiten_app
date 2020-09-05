@@ -11,9 +11,7 @@ class MessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => isGod
-          ? MessageList.god(answers: []) // 神様用の初期化
-          : MessageList.sheep(questions: []), // 子羊用の初期化
+      create: (context) => isGod ? MessageList.god([]) : MessageList.sheep([]),
       child: MaterialApp(
         title: 'メッセージ一覧',
         home: Scaffold(
