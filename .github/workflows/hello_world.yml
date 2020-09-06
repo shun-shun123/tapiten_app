@@ -31,12 +31,13 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: flutter build apk
-#       - run: flutter build ios --release --no-codesign
       - name: Distribute Android app
         run: | 
           curl \
-          -F "token=${{secrets.DEPLOYGATE_API_KEY}}" \ 
+          -H "Authorization: token ${{secrets.DEPLOYGATE_API_KEY}}" \ 
           -F "file=build/app/outputs/apk/debug/*.apk" \ 
-          -F "message=https://github.com/${{secrets.GITHUB_USER}}/${{secrets.GITHUB_REPOSITORY}}/commit/`git rev-parse --short $GITHUB_SHA`" \
-          -F "distribution_name=$GITHUB_HARD_REF" \ 
-          "https://deploygate.com/api/${{secrets.DEPLOYGATE_USER}}/apps"
+          -F "message=android apk deploy" \
+          -F "distribution_name=$GIT_BRANCH" \ 
+          -F "distribution_key=${{secrets.DEPLOYGATE_DIST_PAGE_HASH}}" \ 
+          "https://deploygate.com/api/users/${{secrets.DEPLOYGATE_USER}}/apps"
+#       - run: flutter build ios --release --no-codesign
