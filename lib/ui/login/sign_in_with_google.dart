@@ -34,29 +34,22 @@ class _SiginWithGoogleState extends State<SiginWithGoogle> {
     );
   }
 
-  // ログイン処理
-  Future<FirebaseUser> _handleGoogleSignIn() async {
+  // ログイン成功時にログインユーザを返す
+  Future<User> _handleGoogleSignIn() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
-    final user = authResult.user;
-
-    print("------------------");
-    print(authResult);
-    print("------------------");
+    final User user = (await _auth.signInWithCredential(credential)).user;
 
     return user;
   }
 
   // Google SignIn に成功したら Login ページに飛ぶ
-  void transitionNextPage(FirebaseUser user) {
+  void transitionNextPage(User user) {
     if (user == null) return;
-
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
