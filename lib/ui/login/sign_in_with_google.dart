@@ -23,7 +23,6 @@ class SiginWithGoogle extends StatefulWidget {
 }
 
 class _SiginWithGoogleState extends State<SiginWithGoogle> {
-  FirebaseUser _user;
   final _googleSignIn = new GoogleSignIn();
   final _auth = FirebaseAuth.instance;
 
@@ -50,6 +49,7 @@ class _SiginWithGoogleState extends State<SiginWithGoogle> {
   // Google SignIn に成功したら Login ページに飛ぶ
   void transitionNextPage(User user) {
     if (user == null) return;
+    // NOTE: リダイレクト先の入力項目は要調整
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
