@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/message/viewModel/message_list_cell_view_model.dart';
+import 'package:tapiten_app/firestore/firestoreManager.dart';
+import 'package:tapiten_app/ui/message/model/answer.dart';
+import 'package:tapiten_app/ui/message/model/question.dart';
 
 class MessageList extends ChangeNotifier {
-  final List<Answer> answers;
-  MessageList({this.answers}) {
-    fetchMessageList();
+  // 不正に書き換えられることを防止したいので、外部に公開するのはgetterのみ
+  List<Answer> get answers => _answers;
+  List<Question> get questions => _questions;
+
+  // 内部的に値を管理するリストはprivate
+  List<Answer> _answers;
+  List<Question> _questions;
+  FirestoreManager _firestoreManager = FirestoreManager();
+
+  // 神様用のメッセージ一覧画面コンストラクタ
+  MessageList.god(this._answers) {
+    fetchMessageListForGod();
   }
 
-  void fetchMessageList() async {
-    // Firebaseと通信する予定なので、非同期で擬似遅延を実装してる
-    print('fetchMessageList start...');
-    await new Future.delayed(new Duration(seconds: 1));
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    answers.add(Answer.dummy());
-    print('fetchMessageList finished...');
+  // 子羊のメッセージ一覧画面用コンストラクタ
+  MessageList.sheep(this._questions) {
+    fetchMessageListForSheep();
+  }
+
+  // 神様モード用の「メッセージ一覧取得」
+  void fetchMessageListForGod() async {
+    _answers = await _firestoreManager.fetchAnswerMessagesCollectionAsync();
     notifyListeners();
-    print('Notify messageList');
+  }
+
+  // 子羊モード用の「メッセージ一覧取得」
+  void fetchMessageListForSheep() async {
+    _questions = await _firestoreManager.fetchQuestionMessagesCollectionAsync();
+    notifyListeners();
   }
 }

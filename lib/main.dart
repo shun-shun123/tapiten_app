@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/ui/main/main_god.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FirestoreManager.initialize();
   runApp(MyApp());
 }
 
@@ -104,7 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
           currentPageIndex = _currentPageIndex;
         },
         children: <Widget>[
-          MessagePage(),
+          MessagePage(
+            // TODO: 神様or子羊判定のフラグをここで代入する
+            isGod: false,
+          ),
           ProfileGodPage(),
         ],
         physics: NeverScrollableScrollPhysics(),
