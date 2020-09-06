@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:tapiten_app/ui/login/login_page.dart';
 
 class SignInWithGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Firebase.initializeApp();
     return Container(
       child: SafeArea(
         child: Column(
