@@ -28,6 +28,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.22.0-10.0.pre.35'
+          channel: 'master'
       - run: flutter pub get
       - run: flutter test
       - run: flutter build apk
