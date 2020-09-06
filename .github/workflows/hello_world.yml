@@ -42,6 +42,6 @@ jobs:
             -F "message=git:$GIT_HASH" \
             -F "distribution_name=$GIT_BRANCH" \
             -F "release_note=new build" \
-            -F "distribution_key=${{secret.DEPLOYGATE_DIST_PAGE_HASH}}" \
+            -F "distribution_key=${{secrets.DEPLOYGATE_DIST_PAGE_HASH}}" \
             "https://deploygate.com/api/users/${{secrets.DEPLOYGATE_USER}}/apps"
 #       - run: flutter build ios --release --no-codesign
