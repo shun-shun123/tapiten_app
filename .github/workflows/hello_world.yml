@@ -34,10 +34,9 @@ jobs:
       - name: Distribute Android app
         run: | 
           curl \
-          -H "Authorization: token ${{secrets.DEPLOYGATE_API_KEY}}" \ 
-          -F "file=build/app/outputs/apk/debug/*.apk" \ 
-          -F "message=android apk deploy" \
-          -F "distribution_name=$GIT_BRANCH" \ 
-          -F "distribution_key=${{secrets.DEPLOYGATE_DIST_PAGE_HASH}}" \ 
-          "https://deploygate.com/api/users/${{secrets.DEPLOYGATE_USER}}/apps"
+            -H "Authorization: token ${{secrets.DEPLOYGATE_API_KEY}}" \ 
+            -F "file=@build/app/outputs/flutter-apk/app-release.apk" \ 
+            -F "message=android apk deploy" \
+            -F "distribution_name=$GIT_BRANCH" \ 
+            "https://deploygate.com/api/users/${{secrets.DEPLOYGATE_USER}}/apps"
 #       - run: flutter build ios --release --no-codesign
