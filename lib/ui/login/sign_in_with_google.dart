@@ -4,25 +4,32 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tapiten_app/ui/login/login_page.dart';
 
-class SignInWithGooglePage extends StatelessWidget {
+class SignInWithGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Firebase.initializeApp();
     return Container(
-      child: Scaffold(
-        appBar: AppBar(title: new Text("Firebase Google ログイン")),
-        body: SiginWithGoogle(),
+      child: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+                width: 300,
+                height: 50,
+                child: SigninWithGoogle(),
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
-class SiginWithGoogle extends StatefulWidget {
+class SigninWithGoogle extends StatefulWidget {
   @override
-  _SiginWithGoogleState createState() => _SiginWithGoogleState();
+  _SigninWithGoogleState createState() => _SigninWithGoogleState();
 }
 
-class _SiginWithGoogleState extends State<SiginWithGoogle> {
+class _SigninWithGoogleState extends State<SigninWithGoogle> {
   final _googleSignIn = new GoogleSignIn();
   final _auth = FirebaseAuth.instance;
 
@@ -61,7 +68,7 @@ class _SiginWithGoogleState extends State<SiginWithGoogle> {
       children: <Widget>[
         Center(
           child: RaisedButton(
-            child: Text("Google Sign In"),
+            child: Text("Googleではじめる"),
             onPressed: () {
               _handleGoogleSignIn().then((user) {
                 setState(() {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/ui/top/top_page_icon.dart';
-import 'package:tapiten_app/ui/top/top_page_start_button.dart';
+import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 
 class TopPage extends StatelessWidget {
   @override
@@ -15,7 +15,7 @@ class TopPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TopPageIcon(),
-                  TopPageStartButton(),
+                  SignInWithGoogleButton(),
                 ],
               ),
             ),
