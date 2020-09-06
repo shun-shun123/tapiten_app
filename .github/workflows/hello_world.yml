@@ -7,8 +7,6 @@ name: CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,7 +24,7 @@ jobs:
           java-version: '12.x'
       - uses: actions/cache@v1
         with: 
-          path: /opt/hostedtoolcache/flutter
+          path: /Users/runner/hostedtoolcache/flutter
           key: ${{runner.OS}}-flutter-install-cache
       - uses: subosito/flutter-action@v1
         with:
