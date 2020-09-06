@@ -6,20 +6,29 @@ import 'package:tapiten_app/ui/profile_god_edit/profile_got_edit_icon.dart';
 class ProfileGodEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
+
     return MultiProvider(
       providers: [],
       child: MaterialApp(
         title: 'プロフィール',
         home: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: ProfileGodEditPageTitle(),
           ),
-          body: Container(
-            child: Column(children: [
-              ProfileGodEditIcon(),
-              ProfileGodEditInfo(),
-            ]),
+          body: SingleChildScrollView(
+            reverse: true,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: bottomSpace),
+              child: Container(
+                child: Column(children: [
+                  ProfileGodEditIcon(),
+                  ProfileGodEditInfo(),
+                ]),
+              ),
+            ),
           ),
         ),
       ),
