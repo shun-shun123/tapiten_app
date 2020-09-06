@@ -29,7 +29,7 @@ class MessageListCell extends StatelessWidget {
   Widget _buildCardForGod(BuildContext context) {
     return _buildBaseCard(
       Text(answer.questionContent),
-      Icon(Icons.circle_notifications),
+      Icon(Icons.settings),
       () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           // メッセージ詳細画面（神様モード）に遷移する
@@ -44,7 +44,7 @@ class MessageListCell extends StatelessWidget {
   Widget _buildCardForSheep(BuildContext context) {
     return _buildBaseCard(
       Text(question.questionContent),
-      Icon(Icons.circle_notifications),
+      Icon(Icons.settings),
       () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           // メッセージ詳細画面（子羊モード）に遷移する
