@@ -75,7 +75,7 @@ jobs:
           code-signing-identity: iOS Distribution
           team-id: ${{ secrets.TEAM_ID }}
           workspace-path: ios/Runner.xcworkspace
-          export-method: development
+          export-method: ad-hoc
           certificate-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
           output-path: app-release.ipa
 
