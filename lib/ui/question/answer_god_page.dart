@@ -13,35 +13,21 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
 
   void selectAnswer(int selectedAnswerIndex) {
     setState(() {
-      if (_selectedAnswerIndex != selectedAnswerIndex) {
-        _selectedAnswerIndex = selectedAnswerIndex;
-      } else if (_selectedAnswerIndex == selectedAnswerIndex) {
-        _selectedAnswerIndex = null;
-      }
+      _selectedAnswerIndex = _selectedAnswerIndex != selectedAnswerIndex
+          ? selectedAnswerIndex
+          : null;
+
       _isSelectAnswer = _selectedAnswerIndex != null ? true : false;
     });
   }
 
   void segueToGodFinishPage() {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     settings: const RouteSettings(name: '/finish_god'),
-    //     builder: (context) {
-    //       return FinishGodPage();
-    //     },
-    //     fullscreenDialog: true,
-    //   ),
-    // );
-
-    Navigator.pushNamed(context, '/finish_god');
+    Navigator.pushReplacementNamed(context, '/finish_god');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('回答画面'),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -59,7 +45,7 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
           ),
           AnswerSelectButton(
             backgroundColor:
-            _selectedAnswerIndex == 1 ? Color(0xffF8DB25) : Colors.white,
+                _selectedAnswerIndex == 1 ? Color(0xffF8DB25) : Colors.white,
             title: '選択肢2',
             onPressed: () => selectAnswer(1),
             borderColor: _selectedAnswerIndex == 1

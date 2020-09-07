@@ -35,6 +35,7 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
   void searchingSheep() async {
     List waitingSheep = [];
 
+    // TODO: opponent_id == ''もクエリに加える
     await fireStore
         .collection('matching')
         .where('is_login', isEqualTo: true)
@@ -51,11 +52,13 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
 
     print(waitingSheep);
 
+    // waitingSheepからランダムに選んでマッチング申し込み開始
     if (waitingSheep.length != 0) {
       final randomIndex = Random().nextInt(waitingSheep.length);
       final targetSheepId = waitingSheep[randomIndex];
       matchingSheep(targetSheepId);
     } else {
+      // waitingSheepが空の場合は終了
       setState(() {
         Future.delayed(Duration(seconds: 3), () {
           setState(() {
@@ -71,7 +74,10 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
         .collection('matching')
         .doc(targetSheepId)
         .update({'opponent_id': currentUser.uid})
-        .then((value) => {successMatching()})
+        .then((value) => {
+              // TODO: 変更監視して互いにマッチする処理未実装
+              successMatching()
+            })
         .catchError((error) => {
               // TODO: エラー処理
             });
@@ -79,6 +85,7 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
 
   Future<void> successMatching() async {
     print("success matching!");
+    // TODO: UIのために遅延実行してるが上手いか怪しい
     await Future.delayed(Duration(seconds: 3), () {
       setState(() {
         status = MatchingStatus.success;
@@ -87,12 +94,6 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
     await Future.delayed(Duration(seconds: 1), () {
       Navigator.pushReplacementNamed(context, '/answer_god');
     });
-  }
-
-  Future getWaitingSheep() async {
-    List waitingSheep;
-
-    return waitingSheep;
   }
 
   @override
@@ -111,9 +112,6 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('マッチング画面'),
-      ),
       body: Container(
         color: Colors.white,
         child: Column(

@@ -7,17 +7,12 @@ class FinishGodPage extends StatefulWidget {
 
 class _FinishGodPageState extends State<FinishGodPage> {
   void returnMainScreen() {
-    // Navigator.of(context).removeRoute(ModalRoute.withName('/matching_god'));
-    // Navigator.of(context).removeRoute(ModalRoute.withName('/answer_god'));
     Navigator.of(context).popUntil(ModalRoute.withName('/'));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('終了画面'),
-      ),
       body: Container(
         color: Colors.white,
         child: Column(
