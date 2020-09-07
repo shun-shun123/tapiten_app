@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tapiten_app/ui/matching/answer_god.dart';
 
 enum MatchingStatus {
   searching,
@@ -56,7 +57,13 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
       final targetSheepId = waitingSheep[randomIndex];
       matchingSheep(targetSheepId);
     } else {
-      status = MatchingStatus.failure;
+      setState(() {
+        Future.delayed(Duration(seconds: 3), () {
+          setState(() {
+            status = MatchingStatus.failure;
+          });
+        });
+      });
     }
   }
 
@@ -65,16 +72,24 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
         .collection('matching')
         .doc(targetSheepId)
         .update({'opponent_id': currentUser.uid})
-        .then((value) => {status = MatchingStatus.success})
+        .then((value) => {successMatching()})
         .catchError((error) => {
               // TODO: エラー処理
             });
   }
 
-  void successMatching() {
+  Future<void> successMatching() async {
     print("success matching!");
-    setState(() {
-      status = MatchingStatus.success;
+    await Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        status = MatchingStatus.success;
+      });
+    });
+    await Future.delayed(Duration(seconds: 1), () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AnswerGodPage()),
+      );
     });
   }
 
@@ -89,6 +104,12 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
     super.initState();
     getCurrentUser();
     searchingSheep();
+  }
+
+  @override
+  void dispose() {
+    status = MatchingStatus.searching;
+    super.dispose();
   }
 
   @override
