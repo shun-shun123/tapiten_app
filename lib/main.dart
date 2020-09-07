@@ -4,7 +4,7 @@ import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
-import 'package:tapiten_app/ui/main/main_god.dart';
+import 'package:tapiten_app/ui/matching/matching_god.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void checkLoggedInFirebase() async {
     try {
-      final user = await _auth.currentUser;
+      final user = _auth.currentUser;
       print(user);
       if (user == null) {
         Navigator.push(
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return MainGodPage();
+                return MatchingGodPage();
               },
               fullscreenDialog: true,
             ),
