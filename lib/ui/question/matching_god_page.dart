@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/matching/answer_god.dart';
 
 enum MatchingStatus {
   searching,
@@ -86,10 +85,7 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
       });
     });
     await Future.delayed(Duration(seconds: 1), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => AnswerGodPage()),
-      );
+      Navigator.pushReplacementNamed(context, '/answer_god');
     });
   }
 
