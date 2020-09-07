@@ -9,17 +9,18 @@ class MainGodPage extends StatelessWidget {
       child: MaterialApp(
         title: '神メイン',
         home: Scaffold(
-            body: Container(
-          color: Colors.lightBlue,
-          child: Center(
-            child: RaisedButton(
-              child: Text('back'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+          body: Container(
+            color: Colors.lightBlue,
+            child: Center(
+              child: RaisedButton(
+                child: Text('back'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
           ),
-        )),
+        ),
       ),
     );
   }
