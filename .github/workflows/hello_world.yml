@@ -21,6 +21,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      # XCode 11.7を使う
+      - name: Select Xcode version
+        run: sudo xcode-select -s '/Applications/Xcode_11.7.app/Contents/Developer'
+      
+      # XCodeのバージョン出力
+      - name: Show Xcode version
+        run: xcodebuild -version
+        
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
