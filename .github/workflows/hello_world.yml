@@ -54,7 +54,8 @@ jobs:
       - name: Import Provisioning Profile
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo '${{ secrets.PROVISIONING_PROFILE }}' | base64 -d -out ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
+          touch ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
+          echo -n '${{ secrets.PROVISIONING_PROFILE }}' | base64 -d -o ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
           
       # 署名をします
       - name: Import Code-Signing Certificates
