@@ -40,7 +40,7 @@
 <details>
 <summary>DB 設計</summary>
 
-```json
+```
 {
   // ホーム画面（ランキング）-> "god_ranking", "sheep_ranking"でソートして取る
   "ranking": {
@@ -75,7 +75,7 @@
     }],
     "questions": [
       id: {[
-        "answerer_id": "回答者のログインID"(String),
+        "answerer_id": "回答者のユーザーID"(String),
         "question_content": "質問文"(String),
         "answer1": "回答できる選択肢1"(String),
         "answer2": "回答できる選択肢2"(String),
@@ -87,8 +87,8 @@
 
   // プロフィール画面用コレクション -> 自己idで取ってくる
   "user_info": {
-    "id": "ユーザ固有ID"(String),
-    "login_id": "ログインID(英数字8文字以内)"(String),
+    "id": "ユーザID(UID)"(String),
+    "login_id": "ユーザーID(英数字8文字以内)"(String),
     "name": "ユーザ名"(String),
     "password": "パスワード"(String),
     "god_score": 100(Int),
