@@ -12,24 +12,21 @@ class ProfileGodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [],
-      child: MaterialApp(
-        title: 'プロフィール',
-        home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: ProfileGodPageTitle(),
-          ),
-          body: Container(
-            child: Center(
-              child: Column(children: [
-                ProfileGodIcon(),
-                ProfileGodName(),
-                ProfileGodId(),
-                ProfileGodIntro(),
-                ProfileGodReviewStars(),
-                ProfileGodModeChangeButton(),
-              ]),
-            ),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: ProfileGodPageTitle(),
+        ),
+        body: Container(
+          child: Center(
+            child: Column(children: [
+              ProfileGodIcon(),
+              ProfileGodName(),
+              ProfileGodId(),
+              ProfileGodIntro(),
+              ProfileGodReviewStars(),
+              ProfileGodModeChangeButton(),
+            ]),
           ),
         ),
       ),

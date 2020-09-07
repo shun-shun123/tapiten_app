@@ -111,6 +111,9 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('マッチング画面'),
+      ),
       body: Container(
         color: Colors.white,
         child: Column(
