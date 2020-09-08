@@ -38,14 +38,27 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Form(
+      key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           LoginInfoForm(),
-          LoginButton(),
+          Container(
+            width: 200,
+            margin: const EdgeInsets.all(0),
+            child: RaisedButton(
+              color: Colors.grey,
+              onPressed: () {
+                _formKey.currentState.validate();
+              },
+              child: Text('作成'),
+              textColor: Colors.white,
+            ),
+          ),
         ],
       ),
     );
@@ -108,6 +121,14 @@ class ValidateTextInputField extends StatelessWidget {
                 borderSide: BorderSide.none,
               ),
             ),
+
+            // MEMO: 今後この画面で入力フォームが増える場合は、それぞれのフォームで validate ロジックが必要
+            // 今は1つなので雛形に直接記述
+            validator: (value) {
+              if (value.length < 8) {
+                return "8文字以上で設定してください";
+              }
+            },
           ),
         ),
         SizedBox(
@@ -118,24 +139,24 @@ class ValidateTextInputField extends StatelessWidget {
   }
 }
 
-class LoginButton extends StatelessWidget {
-  void _onPressed() {
-    print('hello');
-  }
+// class LoginButton extends StatelessWidget {
+//   void _onPressed() {
+//     print('hello');
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      margin: const EdgeInsets.all(0),
-      child: RaisedButton(
-        color: Colors.grey,
-        onPressed: () {
-          _onPressed();
-        },
-        child: Text('作成'),
-        textColor: Colors.white,
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: 200,
+//       margin: const EdgeInsets.all(0),
+//       child: RaisedButton(
+//         color: Colors.grey,
+//         onPressed: () {
+//           _onPressed();
+//         },
+//         child: Text('作成'),
+//         textColor: Colors.white,
+//       ),
+//     );
+//   }
+// }
