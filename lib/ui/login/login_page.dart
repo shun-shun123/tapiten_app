@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/main.dart';
 import 'package:tapiten_app/ui/login/login_view_model.dart';
+import 'package:tapiten_app/storage/user_id.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tapiten_app/storage/user_login_id.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -39,6 +44,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -54,6 +60,9 @@ class _LoginFormState extends State<LoginForm> {
               color: Colors.grey,
               onPressed: () {
                 _formKey.currentState.validate();
+                print('ローカルのUID:${UserId.userId}');
+                print('ログインID: ${UserLoginId.loginId}');
+                // commitToFireStore(loginId);
               },
               child: Text('作成'),
               textColor: Colors.white,
@@ -64,6 +73,16 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
+
+// 初回なので set で保存する
+// void commitToFireStore(String loginId) {
+//   FirebaseFirestore.instance.collection('user_info').doc(UserId.userId).set(
+//     {
+//       'id': UserId.userId,
+//       'loginId': loginId,
+//     },
+//   );
+// }
 
 class LoginInfoForm extends StatefulWidget {
   @override
@@ -91,6 +110,15 @@ class _LoginInfoFormState extends State<LoginInfoForm> {
 class ValidateTextInputField extends StatelessWidget {
   final String topTitle;
   final bool obscure;
+
+  String input = '';
+
+  void _handleText(String e) {
+    input = e;
+    print('入力された値: ${input}');
+    UserLoginId().saveLoginId(loginid: input);
+  }
+
   ValidateTextInputField({this.topTitle, this.obscure});
   @override
   Widget build(BuildContext context) {
@@ -129,6 +157,7 @@ class ValidateTextInputField extends StatelessWidget {
                 return "8文字以上で設定してください";
               }
             },
+            onChanged: _handleText,
           ),
         ),
         SizedBox(
