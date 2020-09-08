@@ -5,9 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 enum MatchingStatus {
-  waiting,
-  success,
-  failure,
+  waiting, // マッチング待機中
+  success, // マッチング成功
+  complete, // 回答終了
+  failure, // 処理失敗
 }
 
 class MatchingSheepPage extends StatefulWidget {
@@ -66,7 +67,7 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
         .doc(currentUser.uid)
         .update({'is_waiting': true})
         .then((value) => print('update self status: $status'))
-        .catchError((error) => {print('in update status error: $error')});
+        .catchError((error) => {print('when update status error: $error')});
   }
 
   Future<void> matchingWithGod() async {
@@ -85,15 +86,28 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
       }
 
       String opponentId;
-      if (data['opponent_id'] != null) {
+      if (data['opponent_id'] != "") {
         opponentId = data['opponent_id'];
 
         fireStore
             .collection('matching')
             .doc(opponentId)
-            .update({'opponent_id': currentUser.uid});
+            .update({'opponent_id': currentUser.uid})
+            .then((value) => {
+                  print('success write my id to opponent user!'),
+                  successMatching()
+                })
+            .catchError((error) => {print(error)});
       }
       print('current opponent_id: $opponentId');
+    });
+  }
+
+  Future<void> successMatching() async {
+    await Future.delayed(Duration(seconds: 1), () {
+      setState(() {
+        status = MatchingStatus.success;
+      });
     });
   }
 
@@ -107,8 +121,8 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
   @override
   void dispose() {
     status = MatchingStatus.waiting;
-    super.dispose();
     snapshot.cancel();
+    super.dispose();
   }
 
   @override
@@ -158,7 +172,9 @@ class MatchingStatusMessage extends StatelessWidget {
     if (status == MatchingStatus.waiting) {
       statusMessage = "神さまを探しています";
     } else if (status == MatchingStatus.success) {
-      statusMessage = "神さまが見つかりました";
+      statusMessage = "神さまが対応中です";
+    } else if (status == MatchingStatus.complete) {
+      statusMessage = "返信が届きました";
     } else if (status == MatchingStatus.failure) {
       statusMessage = "神さまが見つかりませんでした";
     }
