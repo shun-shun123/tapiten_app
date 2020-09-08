@@ -40,7 +40,7 @@
 <details>
 <summary>DB 設計</summary>
 
-```json
+```
 {
   // ホーム画面（ランキング）-> "god_ranking", "sheep_ranking"でソートして取る
   "ranking": {
@@ -51,7 +51,7 @@
   // マッチング画面
   "matching_state": {[
     id: {
-      "is_sogin": true/false, // godもsheepもt/f取れる
+      "is_login": true/false, // godもsheepもt/f取れる
       "is_waiting": true/false, // sheepのみtrueが取れる
       "is_searching": true/false, // godのみtrueが取れる
       "opponent_id": "相手のID"(String)
