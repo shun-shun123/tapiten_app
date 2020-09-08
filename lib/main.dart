@@ -181,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // TODO: 神様or子羊判定のフラグをここで代入する
             isGod: true,
           ),
-          ProfileGodPage(),
+          ProfilePage(),
         ],
         physics: NeverScrollableScrollPhysics(),
       ),

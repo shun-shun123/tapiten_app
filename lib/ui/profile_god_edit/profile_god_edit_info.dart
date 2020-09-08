@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 
 class ProfileGodEditInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      InfoForm(title: '表示名'),
-      InfoForm(title: 'ログインID'),
-      InfoForm(title: '神さまの名言'),
-    ]);
+    var children = <Widget>[];
+    children.add(InfoForm(title: '表示名'));
+    children.add(InfoForm(title: 'ログインID'));
+    if (UserMode.isGod) {
+      children.add(InfoForm(title: '神様の名言'));
+    }
+    return Column(children: children);
   }
 }
 

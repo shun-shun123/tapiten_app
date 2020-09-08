@@ -15,6 +15,27 @@ class ProfileGodEditPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: ProfileGodEditPageTitle(),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () => {
+              Navigator.of(context).pop(),
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.check,
+                color: Colors.black,
+              ),
+              onPressed: () => {
+                // TODO: ここでプロフィールの保存処理を行いたい
+                Navigator.of(context).pop(),
+              },
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           reverse: true,
