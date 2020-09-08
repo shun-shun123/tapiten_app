@@ -124,19 +124,35 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
       questionDocumentIndex = (value.docs.length - 1).toString();
     });
 
-    _documentSnapshot = fireStore
+    _documentSnapshot = await fireStore
         .collection('messages')
         .doc('questions')
         .collection(currentUser.uid)
         .doc(questionDocumentIndex)
         .snapshots()
         .listen((event) {
+      bool isFillField = true;
       var data = event.data();
       print('------------');
       data.forEach((key, value) {
         print('$key,$value');
+        if (value == null) {
+          isFillField = false;
+        }
       });
+      print(isFillField);
       print('------------');
+
+      if (isFillField) {
+        completeResponse();
+      }
+    });
+  }
+
+  void completeResponse() {
+    print('completeResponse');
+    setState(() {
+      status = MatchingStatus.complete;
     });
   }
 
