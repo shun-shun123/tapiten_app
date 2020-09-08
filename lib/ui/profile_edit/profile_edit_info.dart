@@ -1,81 +1,168 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
+import 'package:tapiten_app/ui/profile_edit/profile_god_edit_view_model.dart';
 
 class ProfileEditInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var children = <Widget>[];
-    children.add(InfoForm(title: '表示名'));
-    children.add(InfoForm(title: 'ログインID'));
+    children.add(ProfileGodEditInfo(title: '表示名'));
+    children.add(ProfileGodEditInfo(title: 'ログインID'));
     if (UserMode.isGod) {
-      children.add(InfoForm(title: '神さまの名言'));
+      children.add(ProfileGodEditInfo(title: '神さまの名言'));
     }
     return Column(children: children);
   }
 }
 
-class InfoForm extends StatefulWidget {
+class ProfileGodEditInfo extends StatefulWidget {
   final String title;
 
-  InfoForm({this.title});
+  ProfileGodEditInfo({this.title});
 
   @override
-  _InfoFormState createState() => _InfoFormState(title: this.title);
+  _ProfileGodEditInfoState createState() =>
+      _ProfileGodEditInfoState(title: this.title);
 }
 
-class _InfoFormState extends State<InfoForm> {
+class _ProfileGodEditInfoState extends State<ProfileGodEditInfo> {
   final String title;
-  String _text = '';
 
-  _InfoFormState({this.title});
-
-  void _handleText(String e) {
-    setState(() {
-      _text = e;
-    });
-  }
+  _ProfileGodEditInfoState({this.title});
 
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 50.0,
-          vertical: 10.0,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              this.title,
-              style: TextStyle(
-                color: const Color(0xFF909090),
-                fontWeight: FontWeight.bold,
+    var viewModel = Provider.of<ProfileGodEditViewModel>(context);
+
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 50.0,
+            vertical: 10.0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '表示名',
+                style: TextStyle(
+                  color: const Color(0xFF909090),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 40.0,
-              width: 200,
-              child: TextField(
-                enabled: true,
-                // 入力数
-                //maxLength: 10,
-                //maxLengthEnforced: false,
-                obscureText: false,
-                maxLines: 1,
-                onChanged: _handleText,
-                decoration: const InputDecoration(
-                  hintText: '',
-                  filled: true,
-                  fillColor: const Color(0xFFE8E8E8),
-                  border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(10.0),
+              SizedBox(
+                height: 40.0,
+                width: 200,
+                child: TextFormField(
+                  initialValue: viewModel.userName,
+                  enabled: true,
+                  obscureText: false,
+                  maxLines: 1,
+                  onChanged: (value) {
+                    viewModel.setUserName(value);
+                  },
+                  decoration: const InputDecoration(
+                    hintText: '',
+                    filled: true,
+                    fillColor: const Color(0xFFE8E8E8),
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(10.0),
+                      ),
+                      borderSide: BorderSide.none,
                     ),
-                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
-            ),
-          ],
-        ));
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 50.0,
+            vertical: 10.0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'ログインID',
+                style: TextStyle(
+                  color: const Color(0xFF909090),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 40.0,
+                width: 200,
+                child: TextFormField(
+                  initialValue: viewModel.loginId,
+                  enabled: true,
+                  obscureText: false,
+                  maxLines: 1,
+                  onChanged: (value) {
+                    viewModel.setLoginId(value);
+                  },
+                  decoration: const InputDecoration(
+                    hintText: '',
+                    filled: true,
+                    fillColor: const Color(0xFFE8E8E8),
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(10.0),
+                      ),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 50.0,
+            vertical: 10.0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '神さまの名言',
+                style: TextStyle(
+                  color: const Color(0xFF909090),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 80.0,
+                width: 200,
+                child: TextFormField(
+                  initialValue: viewModel.message,
+                  enabled: true,
+                  obscureText: false,
+                  maxLines: 2,
+                  onChanged: (value) {
+                    viewModel.setMessage(value);
+                  },
+                  decoration: const InputDecoration(
+                    hintText: '',
+                    filled: true,
+                    fillColor: const Color(0xFFE8E8E8),
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(10.0),
+                      ),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
