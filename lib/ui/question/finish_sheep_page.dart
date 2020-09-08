@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/ui/question/styles/text_style.dart';
 
@@ -7,8 +9,71 @@ class FinishSheepPage extends StatefulWidget {
 }
 
 class _FinishSheepPageState extends State<FinishSheepPage> {
+  final auth = FirebaseAuth.instance;
+  final fireStore = FirebaseFirestore.instance;
+  User currentUser;
+
+  String questionContent = "";
+  String answer1 = "";
+  String answer2 = "";
+  int selectedAnswerIndex;
+  String godMessage = "";
+  Map<String, dynamic> data;
+
+  void getCurrentUser() {
+    try {
+      final user = auth.currentUser;
+      if (user != null) {
+        currentUser = user;
+        print('current user: ${currentUser.displayName}');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void returnMainScreen() {
-    Navigator.of(context).popUntil(ModalRoute.withName('/'));
+    // Navigator.of(context).popUntil(ModalRoute.withName('/'));
+    Navigator.of(context).pop();
+  }
+
+  Future<void> getResponseFromGod() async {
+    String questionDocumentIndex;
+
+    await fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(currentUser.uid)
+        .get()
+        .then((value) {
+      questionDocumentIndex = (value.docs.length - 1).toString();
+    });
+
+    await fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(currentUser.uid)
+        .doc(questionDocumentIndex)
+        .get()
+        .then((value) {
+      data = value.data();
+      print(data);
+    });
+
+    setState(() {
+      questionContent = data['question_content'];
+      answer1 = data['answer1'];
+      answer2 = data['answer2'];
+      selectedAnswerIndex = data['selected_answer_index'];
+      godMessage = data['god_message'];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+    getResponseFromGod();
   }
 
   @override
@@ -34,20 +99,20 @@ class _FinishSheepPageState extends State<FinishSheepPage> {
             ),
             SizedBox(height: 40),
             Text(
-              '今日は布団から出たくありません\n出るべきでしょうか。',
+              questionContent,
               style: kTitleTextStyle,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 28),
-            ChoiceText(isSelect: true, text: '選択肢1'),
+            ChoiceText(isSelect: selectedAnswerIndex == 0, text: answer1),
             SizedBox(height: 18),
-            ChoiceText(isSelect: false, text: '選択肢2'),
+            ChoiceText(isSelect: selectedAnswerIndex == 1, text: answer2),
             SizedBox(height: 60),
             Text(
               '今回の神さまからの名言',
               style: kTitleTextStyle,
             ),
-            GodMessage(messageText: 'ほにゃららららら'),
+            GodMessage(messageText: godMessage),
             SizedBox(height: 42),
             ReturnMainScreenButton(onPressed: () => returnMainScreen())
           ],
@@ -80,13 +145,13 @@ class ChoiceText extends StatelessWidget {
           child: Padding(
             padding: isSelect
                 ? EdgeInsets.symmetric(
-                    vertical: 10.0,
-                    horizontal: 20.0,
-                  )
+              vertical: 10.0,
+              horizontal: 20.0,
+            )
                 : EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 16,
-                  ),
+              vertical: 8,
+              horizontal: 16,
+            ),
             child: Text(
               text,
               style: TextStyle(
