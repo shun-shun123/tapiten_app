@@ -33,8 +33,7 @@ class _FinishSheepPageState extends State<FinishSheepPage> {
   }
 
   void returnMainScreen() {
-    // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-    Navigator.of(context).pop();
+    Navigator.of(context).popUntil(ModalRoute.withName('/'));
   }
 
   Future<void> getResponseFromGod() async {
@@ -145,13 +144,13 @@ class ChoiceText extends StatelessWidget {
           child: Padding(
             padding: isSelect
                 ? EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 20.0,
-            )
+                    vertical: 10.0,
+                    horizontal: 20.0,
+                  )
                 : EdgeInsets.symmetric(
-              vertical: 8,
-              horizontal: 16,
-            ),
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
             child: Text(
               text,
               style: TextStyle(

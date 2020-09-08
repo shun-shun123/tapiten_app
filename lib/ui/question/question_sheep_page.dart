@@ -43,6 +43,42 @@ class _QuestionSheepPageState extends State<QuestionSheepPage> {
     });
   }
 
+  void onPressDecideButton() async {
+    _form.currentState.save();
+    print(questionText);
+    print(firstChoiceText);
+    print(secondChoiceText);
+    Navigator.of(context).pushNamed('/matching_sheep');
+
+    String newDocumentIndex;
+
+    await fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(currentUser.uid)
+        .get()
+        .then((value) {
+      newDocumentIndex = value.docs.length.toString();
+      print('newDocumentIndex: $newDocumentIndex');
+    }).catchError((error) => {print(error)});
+
+    fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(currentUser.uid)
+        .doc(newDocumentIndex)
+        .set({
+          'answerer_id': null,
+          'question_content': questionText,
+          'answer1': firstChoiceText,
+          'answer2': secondChoiceText,
+          'god_message': null,
+          'selected_answer_index': null,
+        })
+        .then((value) => null)
+        .catchError((error) => {print(error)});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -137,41 +173,7 @@ class _QuestionSheepPageState extends State<QuestionSheepPage> {
                   SizedBox(height: 48),
                   QuestionDecideButton(
                     isFillForm: _isFillForm,
-                    onPressed: () async {
-                      _form.currentState.save();
-                      print(questionText);
-                      print(firstChoiceText);
-                      print(secondChoiceText);
-                      Navigator.of(context).pushNamed('/matching_sheep');
-
-                      String newDocumentIndex;
-                      await fireStore
-                          .collection('messages')
-                          .doc('questions')
-                          .collection(currentUser.uid)
-                          .get()
-                          .then((value) => {
-                                newDocumentIndex = value.docs.length.toString(),
-                                print('newDocumentIndex: $newDocumentIndex')
-                              })
-                          .catchError((error) => {print(error)});
-
-                      fireStore
-                          .collection('messages')
-                          .doc('questions')
-                          .collection(currentUser.uid)
-                          .doc(newDocumentIndex)
-                          .set({
-                            'answerer_id': null,
-                            'question_content': questionText,
-                            'answer1': firstChoiceText,
-                            'answer2': secondChoiceText,
-                            'god_message': null,
-                            'selected_answer_index': null,
-                          })
-                          .then((value) => null)
-                          .catchError((error) => {print(error)});
-                    },
+                    onPressed: onPressDecideButton,
                   ),
                 ],
               ),
