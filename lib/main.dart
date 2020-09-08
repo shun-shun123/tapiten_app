@@ -9,6 +9,7 @@ import 'package:tapiten_app/ui/answer/matching_god_page.dart';
 import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
+import 'package:tapiten_app/ui/question/matching_sheep_page.dart';
 import 'package:tapiten_app/ui/question/question_sheep_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         '/answer_god': (context) => AnswerGodPage(),
         '/finish_god': (context) => FinishGodPage(),
         '/question_sheep': (context) => QuestionSheepPage(),
+        '/matching_sheep': (context) => MatchingSheepPage()
       },
       // home: MyHomePage(),
     );
