@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,28 +20,90 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
   final fireStore = FirebaseFirestore.instance;
   User currentUser;
   MatchingStatus status = MatchingStatus.waiting;
+  StreamSubscription<DocumentSnapshot> snapshot;
 
   void getCurrentUser() {
     try {
       final user = auth.currentUser;
       if (user != null) {
         currentUser = user;
+        print('current user: ${currentUser.displayName}');
       }
     } catch (e) {
       print(e);
     }
   }
 
+  Future<void> makeCurrentUserDoc() async {
+    await fireStore
+        .collection('matching')
+        .doc(currentUser.uid)
+        .get()
+        .then((value) async => {
+              if (value.data() == null)
+                {
+                  await fireStore
+                      .collection('matching')
+                      .doc(currentUser.uid)
+                      .set({
+                    // TODO: Modelに閉じ込めるべき
+                    'is_login': true,
+                    'is_searching': false,
+                    'is_waiting': true,
+                    'opponent_id': "",
+                  }).then((value) => print('now generate current user doc!'))
+                },
+              print('in make current User Doc: ${value.data()}')
+            })
+        .catchError(
+          (error) => {print(error)},
+        );
+  }
+
+  Future<void> updateSelfStatus() async {
+    await fireStore
+        .collection('matching')
+        .doc(currentUser.uid)
+        .update({'is_waiting': true})
+        .then((value) => print('update self status: $status'))
+        .catchError((error) => {print('in update status error: $error')});
+  }
+
+  Future<void> matchingWithGod() async {
+    await makeCurrentUserDoc();
+    await updateSelfStatus();
+
+    snapshot = fireStore
+        .collection('matching')
+        .doc(currentUser.uid)
+        .snapshots()
+        .listen((event) {
+      final data = event.data();
+      if (data == null) {
+        print('data is empty!');
+        return;
+      }
+
+      String opponentId;
+      if (data['opponent_id'] != null) {
+        opponentId = data['opponent_id'];
+      }
+      print('current opponent_id: $opponentId');
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getCurrentUser();
+    matchingWithGod();
   }
 
   @override
   void dispose() {
     status = MatchingStatus.waiting;
     super.dispose();
+    snapshot.cancel();
   }
 
   @override
