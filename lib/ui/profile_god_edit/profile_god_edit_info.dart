@@ -8,7 +8,7 @@ class ProfileGodEditInfo extends StatelessWidget {
     children.add(InfoForm(title: '表示名'));
     children.add(InfoForm(title: 'ログインID'));
     if (UserMode.isGod) {
-      children.add(InfoForm(title: '神様の名言'));
+      children.add(InfoForm(title: '神さまの名言'));
     }
     return Column(children: children);
   }
