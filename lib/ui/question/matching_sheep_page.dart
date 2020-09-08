@@ -87,6 +87,11 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
       String opponentId;
       if (data['opponent_id'] != null) {
         opponentId = data['opponent_id'];
+
+        fireStore
+            .collection('matching')
+            .doc(opponentId)
+            .update({'opponent_id': currentUser.uid});
       }
       print('current opponent_id: $opponentId');
     });
