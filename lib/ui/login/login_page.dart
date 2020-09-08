@@ -60,8 +60,6 @@ class _LoginFormState extends State<LoginForm> {
               color: Colors.grey,
               onPressed: () {
                 _formKey.currentState.validate();
-                print('ローカルのUID:${UserId.userId}');
-                print('ログインID: ${UserLoginId.loginId}');
                 commitToFireStore(UserLoginId.loginId);
               },
               child: Text('作成'),
@@ -113,9 +111,7 @@ class ValidateTextInputField extends StatelessWidget {
 
   String input = '';
 
-  void _handleText(String e) {
-    input = e;
-    print('入力された値: ${input}');
+  void _handleText(String input) {
     UserLoginId().saveLoginId(loginid: input);
   }
 
