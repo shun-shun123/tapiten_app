@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
+import 'package:tapiten_app/ui/profile/viewModel/profile_user_mode_view_model.dart';
 
-class ProfileGodModeChangeButton extends StatelessWidget {
+class ProfileModeChangeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var profileMode = Provider.of<ProfileUserMode>(context);
     return Container(
       child: Center(
         child: SizedBox(
@@ -12,7 +16,7 @@ class ProfileGodModeChangeButton extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    '仔羊モード',
+                    profileMode.userMode ? '子羊モード' : '神様モード',
                     style: TextStyle(
                       color: Color(0xFF909090),
                     ),
@@ -29,7 +33,9 @@ class ProfileGodModeChangeButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            onPressed: () {},
+            onPressed: () {
+              profileMode.changeUserMode(!UserMode.isGod);
+            },
           ),
         ),
       ),
