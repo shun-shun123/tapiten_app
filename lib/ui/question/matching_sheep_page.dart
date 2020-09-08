@@ -21,7 +21,7 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
   final fireStore = FirebaseFirestore.instance;
   User currentUser;
   MatchingStatus status = MatchingStatus.waiting;
-  StreamSubscription<DocumentSnapshot> snapshot;
+  StreamSubscription<DocumentSnapshot> _documentSnapshot;
 
   void getCurrentUser() {
     try {
@@ -74,12 +74,12 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
     await makeCurrentUserDoc();
     await updateSelfStatus();
 
-    snapshot = fireStore
+    _documentSnapshot = fireStore
         .collection('matching')
         .doc(currentUser.uid)
         .snapshots()
         .listen((event) {
-      final data = event.data();
+      var data = event.data();
       if (data == null) {
         print('data is empty!');
         return;
@@ -108,6 +108,35 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
       setState(() {
         status = MatchingStatus.success;
       });
+      waitingResponseFromGod();
+    });
+  }
+
+  Future<void> waitingResponseFromGod() async {
+    String questionDocumentIndex;
+
+    await fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(currentUser.uid)
+        .get()
+        .then((value) {
+      questionDocumentIndex = (value.docs.length - 1).toString();
+    });
+
+    _documentSnapshot = fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(currentUser.uid)
+        .doc(questionDocumentIndex)
+        .snapshots()
+        .listen((event) {
+      var data = event.data();
+      print('------------');
+      data.forEach((key, value) {
+        print('$key,$value');
+      });
+      print('------------');
     });
   }
 
@@ -121,7 +150,7 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
   @override
   void dispose() {
     status = MatchingStatus.waiting;
-    snapshot.cancel();
+    _documentSnapshot.cancel();
     super.dispose();
   }
 
