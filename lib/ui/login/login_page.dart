@@ -62,7 +62,7 @@ class _LoginFormState extends State<LoginForm> {
                 _formKey.currentState.validate();
                 print('ローカルのUID:${UserId.userId}');
                 print('ログインID: ${UserLoginId.loginId}');
-                // commitToFireStore(loginId);
+                commitToFireStore(UserLoginId.loginId);
               },
               child: Text('作成'),
               textColor: Colors.white,
@@ -75,14 +75,14 @@ class _LoginFormState extends State<LoginForm> {
 }
 
 // 初回なので set で保存する
-// void commitToFireStore(String loginId) {
-//   FirebaseFirestore.instance.collection('user_info').doc(UserId.userId).set(
-//     {
-//       'id': UserId.userId,
-//       'loginId': loginId,
-//     },
-//   );
-// }
+void commitToFireStore(String loginId) {
+  FirebaseFirestore.instance.collection('user_info').doc(UserId.userId).set(
+    {
+      'id': UserId.userId,
+      'loginId': loginId,
+    },
+  );
+}
 
 class LoginInfoForm extends StatefulWidget {
   @override
