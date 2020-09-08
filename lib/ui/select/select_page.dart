@@ -64,8 +64,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: Provider
-                            .of<SelectViewModel>(context)
+                        onPressed: Provider.of<SelectViewModel>(context)
                             .selectSheepMode,
                         icon: Image.asset('images/sheep_circle.png'),
                         iconSize: 100.0,
