@@ -72,7 +72,7 @@ jobs:
           project-path: ios/Runner.xcodeproj
           p12-base64: ${{ secrets.CERTIFICATES_P12 }}
           mobileprovision-base64: ${{ secrets.PROVISIONING_PROFILE }}
-          code-signing-identity: iOS Distribution
+          code-signing-identity: Development
           team-id: ${{ secrets.TEAM_ID }}
           workspace-path: ios/Runner.xcworkspace
           export-method: ad-hoc
