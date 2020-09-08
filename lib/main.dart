@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
+import 'package:tapiten_app/ui/answer/answer_god_page.dart';
+import 'package:tapiten_app/ui/answer/finish_god_page.dart';
+import 'package:tapiten_app/ui/answer/matching_god_page.dart';
 import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
-import 'package:tapiten_app/ui/question/answer_god_page.dart';
-import 'package:tapiten_app/ui/question/finish_god_page.dart';
-import 'package:tapiten_app/ui/question/matching_god_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
 void main() async {
