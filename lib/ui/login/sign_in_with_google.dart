@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tapiten_app/main.dart';
+import 'package:tapiten_app/storage/user_id.dart';
 
 class SignInWithGoogleButton extends StatelessWidget {
   @override
@@ -47,7 +48,7 @@ class _SigninWithGoogleState extends State<SigninWithGoogle> {
       idToken: googleAuth.idToken,
     );
     final User user = (await _auth.signInWithCredential(credential)).user;
-
+    await UserId().saveUserId(id: user.uid);
     return user;
   }
 
