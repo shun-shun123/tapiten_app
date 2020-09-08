@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/question/component/answer_decide_button.dart';
-import 'package:tapiten_app/ui/question/component/answer_select_button.dart';
+import 'package:tapiten_app/ui/answer/component/answer_decide_button.dart';
+import 'package:tapiten_app/ui/answer/component/answer_select_button.dart';
 
 class AnswerGodPage extends StatefulWidget {
   @override

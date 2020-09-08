@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
+import 'package:tapiten_app/ui/answer/answer_god_page.dart';
+import 'package:tapiten_app/ui/answer/finish_god_page.dart';
+import 'package:tapiten_app/ui/answer/matching_god_page.dart';
 import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
-import 'package:tapiten_app/ui/question/answer_god_page.dart';
-import 'package:tapiten_app/ui/question/finish_god_page.dart';
-import 'package:tapiten_app/ui/question/matching_god_page.dart';
+import 'package:tapiten_app/ui/question/matching_sheep_page.dart';
+import 'package:tapiten_app/ui/question/question_sheep_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
 void main() async {
@@ -53,6 +55,8 @@ class MyApp extends StatelessWidget {
         '/matching_god': (context) => MatchingGodPage(),
         '/answer_god': (context) => AnswerGodPage(),
         '/finish_god': (context) => FinishGodPage(),
+        '/question_sheep': (context) => QuestionSheepPage(),
+        '/matching_sheep': (context) => MatchingSheepPage()
       },
       // home: MyHomePage(),
     );
@@ -108,11 +112,21 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xffF8D825),
         onPressed: () {
+          // TODO: isGodの値で呼び分ける
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //     settings: const RouteSettings(name: 'matching_god'),
+          //     builder: (context) {
+          //       return MatchingGodPage();
+          //     },
+          //     fullscreenDialog: true,
+          //   ),
+          // );
           Navigator.of(context).push(
             MaterialPageRoute(
-              settings: const RouteSettings(name: 'matching_god'),
+              settings: const RouteSettings(name: 'question_sheep'),
               builder: (context) {
-                return MatchingGodPage();
+                return QuestionSheepPage();
               },
               fullscreenDialog: true,
             ),
