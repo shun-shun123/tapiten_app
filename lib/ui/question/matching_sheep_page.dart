@@ -194,11 +194,14 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
             MatchingStatusMessage(
               status: status,
             ),
-            RaisedButton(
-              child: Text('back'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            Visibility(
+              visible: status == MatchingStatus.complete,
+              child: RaisedButton(
+                child: Text('確認する'),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/finish_sheep');
+                },
+              ),
             ),
           ],
         ),
