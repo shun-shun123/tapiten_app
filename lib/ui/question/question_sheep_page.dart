@@ -44,7 +44,7 @@ class _QuestionSheepPageState extends State<QuestionSheepPage> {
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Image.asset(
-                    'images/sheep.png',
+                    'images/sheep_circle.png',
                     width: 120,
                   ),
                   SizedBox(height: 30),

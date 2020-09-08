@@ -31,7 +31,7 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('images/sheep.png'),
+          Image.asset('images/sheep_circle.png'),
           Text('質問文'),
           AnswerSelectButton(
             backgroundColor:

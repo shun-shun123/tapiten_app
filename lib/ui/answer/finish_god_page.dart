@@ -18,7 +18,7 @@ class _FinishGodPageState extends State<FinishGodPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('images/god.png'),
+            Image.asset('images/god_circle.png'),
             Text(
               '神様お疲れ様でした',
               style: TextStyle(

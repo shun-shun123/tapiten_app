@@ -118,7 +118,7 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'images/sheep.png',
+              'images/sheep_circle.png',
             ),
             MatchingStatusMessage(
               status: status,

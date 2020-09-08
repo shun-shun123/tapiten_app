@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/select/select_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/ui/select/select_view_model.dart';
 
 class SelectPage extends StatelessWidget {
   @override
@@ -55,7 +55,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                       IconButton(
                         onPressed:
                             Provider.of<SelectViewModel>(context).selectGodMode,
-                        icon: Image.asset('images/god.png'),
+                        icon: Image.asset('images/god_circle.png'),
                         iconSize: 100.0,
                       ),
                       Text('神さま'),
@@ -64,9 +64,10 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                   Column(
                     children: [
                       IconButton(
-                        onPressed: Provider.of<SelectViewModel>(context)
+                        onPressed: Provider
+                            .of<SelectViewModel>(context)
                             .selectSheepMode,
-                        icon: Image.asset('images/sheep.png'),
+                        icon: Image.asset('images/sheep_circle.png'),
                         iconSize: 100.0,
                       ),
                       Text('仔羊'),
