@@ -51,9 +51,9 @@
   // マッチング画面
   "matching_state": {[
     id: {
-      "isLogin": true/false, // godもsheepもt/f取れる
-      "isWaiting": true/false, // sheepのみtrueが取れる
-      "isSearching": true/false, // godのみtrueが取れる
+      "is_login": true/false, // godもsheepもt/f取れる
+      "is_waiting": true/false, // sheepのみtrueが取れる
+      "is_searching": true/false, // godのみtrueが取れる
       "opponent_id": "相手のID"(String)
     }]
   },

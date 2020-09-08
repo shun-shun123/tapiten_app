@@ -10,24 +10,21 @@ class ProfileGodEditPage extends StatelessWidget {
 
     return MultiProvider(
       providers: [],
-      child: MaterialApp(
-        title: 'プロフィール',
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: ProfileGodEditPageTitle(),
-          ),
-          body: SingleChildScrollView(
-            reverse: true,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: bottomSpace),
-              child: Container(
-                child: Column(children: [
-                  ProfileGodEditIcon(),
-                  ProfileGodEditInfo(),
-                ]),
-              ),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: ProfileGodEditPageTitle(),
+        ),
+        body: SingleChildScrollView(
+          reverse: true,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: bottomSpace),
+            child: Container(
+              child: Column(children: [
+                ProfileGodEditIcon(),
+                ProfileGodEditInfo(),
+              ]),
             ),
           ),
         ),

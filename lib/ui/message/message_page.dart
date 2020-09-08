@@ -12,17 +12,14 @@ class MessagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => isGod ? MessageList.god([]) : MessageList.sheep([]),
-      child: MaterialApp(
-        title: 'メッセージ一覧',
-        home: Scaffold(
-          appBar: AppBar(
-            title: MessagePageTitle(),
-            backgroundColor: Colors.white,
-          ),
-          body: SafeArea(
-            child: MessageListView(
-              isGod: isGod,
-            ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: MessagePageTitle(),
+          backgroundColor: Colors.white,
+        ),
+        body: SafeArea(
+          child: MessageListView(
+            isGod: isGod,
           ),
         ),
       ),

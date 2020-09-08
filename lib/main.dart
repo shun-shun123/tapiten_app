@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
-import 'package:tapiten_app/ui/main/main_god.dart';
+import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
+import 'package:tapiten_app/ui/question/answer_god_page.dart';
+import 'package:tapiten_app/ui/question/finish_god_page.dart';
+import 'package:tapiten_app/ui/question/matching_god_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
 void main() async {
@@ -43,7 +47,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(),
+        '/matching_god': (context) => MatchingGodPage(),
+        '/answer_god': (context) => AnswerGodPage(),
+        '/finish_god': (context) => FinishGodPage(),
+      },
+      // home: MyHomePage(),
     );
   }
 }
@@ -59,6 +70,28 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   PageController _myPage = PageController(initialPage: 0);
   int currentPageIndex = 0;
+  final _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoggedInFirebase();
+  }
+
+  void checkLoggedInFirebase() async {
+    try {
+      final user = _auth.currentUser;
+      print(user);
+      if (user == null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SigninWithGoogle()),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void changePage(int pageIndex) {
     setState(
@@ -77,8 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
+              settings: const RouteSettings(name: 'matching_god'),
               builder: (context) {
-                return MainGodPage();
+                return MatchingGodPage();
               },
               fullscreenDialog: true,
             ),

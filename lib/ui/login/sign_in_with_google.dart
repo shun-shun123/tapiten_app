@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tapiten_app/ui/login/login_page.dart';
+import 'package:tapiten_app/main.dart';
 
 class SignInWithGoogleButton extends StatelessWidget {
   @override
@@ -11,9 +11,9 @@ class SignInWithGoogleButton extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-                width: 300,
-                height: 50,
-                child: SigninWithGoogle(),
+              width: 300,
+              height: 50,
+              child: SigninWithGoogle(),
             )
           ],
         ),
@@ -54,9 +54,9 @@ class _SigninWithGoogleState extends State<SigninWithGoogle> {
   // Google SignIn に成功したら Login ページに飛ぶ
   void transitionNextPage(User user) {
     if (user == null) return;
-    // NOTE: リダイレクト先の入力項目は要調整
+    // TODO: リダイレクト先の入力項目は要調整
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+        context, MaterialPageRoute(builder: (context) => MyHomePage()));
   }
 
   // ボタン

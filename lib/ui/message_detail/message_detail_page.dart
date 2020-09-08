@@ -27,20 +27,17 @@ class MessageDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [],
-      child: MaterialApp(
-        title: 'メッセージ',
-        home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: MessageDetailPageTitle(),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              color: Colors.black,
-              onPressed: () => Navigator.of(context).pop(),
-            ),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: MessageDetailPageTitle(),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Colors.black,
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          body: _buildBaseBody(isGod ? _buildBodyForGod() : _buildBodyForSheep()),
         ),
+        body: _buildBaseBody(isGod ? _buildBodyForGod() : _buildBodyForSheep()),
       ),
     );
   }
