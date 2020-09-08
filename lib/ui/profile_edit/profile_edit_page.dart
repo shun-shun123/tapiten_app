@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tapiten_app/ui/profile_edit/profile_god_edit_info.dart';
-import 'package:tapiten_app/ui/profile_edit/profile_got_edit_icon.dart';
+import 'package:tapiten_app/ui/profile_edit/profile_edit_icon.dart';
+import 'package:tapiten_app/ui/profile_edit/profile_edit_info.dart';
 
-class ProfileGodEditPage extends StatelessWidget {
+class ProfileEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
@@ -14,7 +14,7 @@ class ProfileGodEditPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: ProfileGodEditPageTitle(),
+          title: ProfileEditPageTitle(),
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
@@ -43,8 +43,8 @@ class ProfileGodEditPage extends StatelessWidget {
             padding: EdgeInsets.only(bottom: bottomSpace),
             child: Container(
               child: Column(children: [
-                ProfileGodEditIcon(),
-                ProfileGodEditInfo(),
+                ProfileEditIcon(),
+                ProfileEditInfo(),
               ]),
             ),
           ),
@@ -54,7 +54,7 @@ class ProfileGodEditPage extends StatelessWidget {
   }
 }
 
-class ProfileGodEditPageTitle extends StatelessWidget {
+class ProfileEditPageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(

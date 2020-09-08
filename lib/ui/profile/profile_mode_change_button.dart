@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
-import 'package:tapiten_app/ui/profile_god/viewModel/profile_user_mode_view_model.dart';
+import 'package:tapiten_app/ui/profile/viewModel/profile_user_mode_view_model.dart';
 
-class ProfileGodModeChangeButton extends StatelessWidget {
+class ProfileModeChangeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var profileMode = Provider.of<ProfileUserMode>(context);

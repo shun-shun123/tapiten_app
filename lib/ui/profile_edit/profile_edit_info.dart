@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 
-class ProfileGodEditInfo extends StatelessWidget {
+class ProfileEditInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var children = <Widget>[];
