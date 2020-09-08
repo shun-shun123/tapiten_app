@@ -65,16 +65,8 @@ class _LoginInfoFormState extends State<LoginInfoForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ValidateTextInputField(
-            topTitle: '表示名',
-            obscure: false,
-          ),
-          ValidateTextInputField(
             topTitle: 'ログインID',
             obscure: false,
-          ),
-          ValidateTextInputField(
-            topTitle: 'パスワード',
-            obscure: true,
           ),
           Text('新規登録後、プライバシーポリシー及び\n利用規約に同意したものとします。'),
         ],
