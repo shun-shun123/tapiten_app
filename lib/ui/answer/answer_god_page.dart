@@ -118,7 +118,7 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
           ),
           AnswerSelectButton(
             backgroundColor:
-            _selectedAnswerIndex == 1 ? Color(0xffF8DB25) : Colors.white,
+                _selectedAnswerIndex == 1 ? Color(0xffF8DB25) : Colors.white,
             title: answer2,
             onPressed: () => selectAnswer(1),
             borderColor: _selectedAnswerIndex == 1
