@@ -156,6 +156,7 @@ class ChoiceText extends StatelessWidget {
               style: TextStyle(
                 color: isSelect ? Colors.white : Color(0xff707070),
                 fontSize: isSelect ? 14 : 10,
+                fontFamily: 'RictyDiminished-Regular',
               ),
             ),
           ),
@@ -196,6 +197,7 @@ class GodMessage extends StatelessWidget {
                 style: TextStyle(
                   color: Color(0xff707070),
                   fontSize: 14,
+                  fontFamily: 'RictyDiminished-Regular',
                 ),
               ),
             ),
@@ -231,6 +233,8 @@ class ReturnMainScreenButton extends StatelessWidget {
               '戻る',
               style: TextStyle(
                 color: Colors.white,
+                fontFamily: 'RictyDiminished-Regular',
+                fontSize: 15,
               ),
             ),
           ),
