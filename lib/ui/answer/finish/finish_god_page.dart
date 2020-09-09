@@ -1,84 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tapiten_app/ui/answer/finish/component/return_main_screen_button.dart';
+import 'package:tapiten_app/ui/answer/finish/finsh_god_view_model.dart';
 
-class FinishGodPage extends StatefulWidget {
-  @override
-  _FinishGodPageState createState() => _FinishGodPageState();
-}
-
-class _FinishGodPageState extends State<FinishGodPage> {
-  void returnMainScreen() {
-    Navigator.of(context).popUntil(ModalRoute.withName('/'));
-  }
-
+class FinishGodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 90.0,
-              height: 90.0,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage("images/god.png"),
-                ),
-              ),
-            ),
-            SizedBox(height: 32),
-            Text(
-              '神様お疲れ様でした',
-              style: TextStyle(
-                fontSize: 18,
-                color: Color(0xff909090),
-                fontFamily: 'RictyDiminished-Regular',
-              ),
-            ),
-            SizedBox(height: 140),
-            ReturnMainScreenButton(onPressed: () => returnMainScreen())
-          ],
-        ),
+    return ChangeNotifierProvider(
+      create: (_) => FinishGodViewModel(),
+      child: Scaffold(
+        body: FinishGodPageBody(),
       ),
     );
   }
 }
 
-class ReturnMainScreenButton extends StatelessWidget {
-  ReturnMainScreenButton({@required this.onPressed});
+class FinishGodPageBody extends StatefulWidget {
+  @override
+  _FinishGodPageBodyState createState() => _FinishGodPageBodyState();
+}
 
-  final Function onPressed;
+class _FinishGodPageBodyState extends State<FinishGodPageBody> {
+  FinishGodViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen events by view model.
+    viewModel = Provider.of<FinishGodViewModel>(context, listen: false);
+    viewModel.matchingSuccessAction.stream.listen((_) {
+      Navigator.of(context).popUntil(ModalRoute.withName('/'));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: ButtonTheme(
-        minWidth: 174,
-        height: 38,
-        child: RaisedButton(
-          onPressed: onPressed,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            side: BorderSide(
-              color: Color(0xffF8D825),
+    return Container(
+      color: Colors.white,
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 90.0,
+            height: 90.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("images/god.png"),
+              ),
             ),
           ),
-          color: Color(0xffF8D825),
-          child: Text(
-            '戻る',
+          SizedBox(height: 32),
+          Text(
+            '神様お疲れ様でした',
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 18,
               color: Color(0xff909090),
               fontFamily: 'RictyDiminished-Regular',
             ),
           ),
-        ),
+          SizedBox(height: 140),
+          ReturnMainScreenButton(onPressed: viewModel.returnMainScreen),
+        ],
       ),
     );
   }
