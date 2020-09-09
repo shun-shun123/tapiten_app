@@ -35,6 +35,8 @@ class ProfileEditPage extends StatelessWidget {
               ),
               onPressed: () => {
                 // TODO: ここでプロフィールの保存処理を行いたい
+                // →　ProfileEditInfoのそれぞれの入力終わりにセーブする実装を入れました
+
                 Navigator.of(context).pop(),
               },
             ),

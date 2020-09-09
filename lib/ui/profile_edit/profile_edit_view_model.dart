@@ -34,6 +34,20 @@ class ProfileEditViewModel extends ChangeNotifier {
       loginId = value.get('login_id');
       message = value.get('god_message');
     });
+
+    print('get profile');
+  }
+
+  void saveProfile() async {
+    var userInfo = FirebaseFirestore.instance.collection('user_info');
+
+    userInfo.doc(UserId.userId).set({
+      'display_name': displayName,
+      'login_id': loginId,
+      'god_message': message
+    });
+
+    print('save profile');
   }
 
   //ダミーデータで

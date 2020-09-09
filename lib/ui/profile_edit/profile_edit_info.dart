@@ -42,12 +42,13 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
               height: 40.0,
               width: 200,
               child: TextFormField(
-                initialValue: viewModel.userName,
+                initialValue: viewModel.displayName,
                 enabled: true,
                 obscureText: false,
                 maxLines: 1,
-                onChanged: (value) {
+                onFieldSubmitted: (value) {
                   viewModel.setUserName(value);
+                  viewModel.saveProfile();
                 },
                 decoration: const InputDecoration(
                   hintText: '',
@@ -90,8 +91,9 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
                 enabled: true,
                 obscureText: false,
                 maxLines: 1,
-                onChanged: (value) {
+                onFieldSubmitted: (value) {
                   viewModel.setLoginId(value);
+                  viewModel.saveProfile();
                 },
                 decoration: const InputDecoration(
                   hintText: '',
@@ -136,8 +138,9 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
                   enabled: true,
                   obscureText: false,
                   maxLines: 2,
-                  onChanged: (value) {
+                  onFieldSubmitted: (value) {
                     viewModel.setMessage(value);
+                    viewModel.saveProfile();
                   },
                   decoration: const InputDecoration(
                     hintText: '',
