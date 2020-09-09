@@ -132,21 +132,31 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
     return Scaffold(
       body: Container(
         color: Colors.white,
+        width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'images/sheep_circle.png',
+            Container(
+              width: 90.0,
+              height: 90.0,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("images/sheep.png"),
+                ),
+              ),
             ),
+            SizedBox(height: 60),
             MatchingStatusMessage(
               status: status,
             ),
-            RaisedButton(
-              child: Text('back'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            // RaisedButton(
+            //   child: Text('back'),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
           ],
         ),
       ),
@@ -176,8 +186,9 @@ class MatchingStatusMessage extends StatelessWidget {
     return Text(
       getStatusMessage(status),
       style: TextStyle(
-        fontSize: 18,
-        color: Colors.black54,
+        fontSize: 20,
+        color: Color(0xff909090),
+        fontFamily: 'RictyDiminished-Regular',
       ),
     );
   }

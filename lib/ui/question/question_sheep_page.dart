@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/question/question_decide_button.dart';
+import 'package:tapiten_app/ui/question/component/question_decide_button.dart';
 import 'package:tapiten_app/ui/question/styles/text_form_field_decoration.dart';
 import 'package:tapiten_app/ui/question/styles/text_style.dart';
 
@@ -114,12 +114,13 @@ class _QuestionSheepPageState extends State<QuestionSheepPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '迷いの内容',
+                          '迷い',
                           style: kTitleTextStyle,
                         ),
                         TextFormField(
                           style: kTextFormFieldTextStyle,
-                          decoration: kQuestionTextFormFieldDecoration,
+                          decoration: kQuestionTextFormFieldDecoration.copyWith(
+                              hintText: '迷いを入力'),
                           maxLines: 8,
                           maxLength: 140,
                           onFieldSubmitted: (value) {

@@ -21,7 +21,7 @@ class QuestionDecideButton extends StatelessWidget {
           minWidth: 174,
           height: 38,
           child: RaisedButton(
-            onPressed: onPressed,
+            onPressed: isFillForm ? onPressed : null,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
               side: BorderSide(
@@ -33,6 +33,8 @@ class QuestionDecideButton extends StatelessWidget {
               '決定',
               style: TextStyle(
                 color: Color(0xffffffff),
+                fontFamily: 'RictyDiminished-Regular',
+                fontSize: 15,
               ),
             ),
           ),

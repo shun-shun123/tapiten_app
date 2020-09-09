@@ -191,13 +191,23 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
                 ),
               ),
             ),
+            SizedBox(height: 60),
             MatchingStatusMessage(
               status: status,
             ),
+            SizedBox(height: 36),
             Visibility(
               visible: status == MatchingStatus.complete,
               child: RaisedButton(
-                child: Text('確認する'),
+                color: Colors.white,
+                child: Text(
+                  '確認する',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Color(0xff909090),
+                    fontFamily: 'RictyDiminished-Regular',
+                  ),
+                ),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/finish_sheep');
                 },
@@ -234,8 +244,9 @@ class MatchingStatusMessage extends StatelessWidget {
     return Text(
       getStatusMessage(status),
       style: TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         color: Colors.white,
+        fontFamily: 'RictyDiminished-Regular',
       ),
     );
   }

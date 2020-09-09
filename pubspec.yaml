@@ -27,3 +27,8 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+
+  fonts:
+    - family: RictyDiminished-Regular
+      fonts:
+        - asset: fonts/RictyDiminished-Regular.ttf
