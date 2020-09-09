@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/ui/select/select_view_model.dart';
+import 'package:tapiten_app/ui/message/message_page.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 
 class SelectPage extends StatelessWidget {
   @override
@@ -55,7 +57,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                       IconButton(
                         onPressed:
                             Provider.of<SelectViewModel>(context).selectGodMode,
-                        icon: Image.asset('images/god_circle.png'),
+                        icon: Image.asset('images/god.png'),
                         iconSize: 100.0,
                       ),
                       Text('神さま'),
@@ -66,7 +68,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                       IconButton(
                         onPressed: Provider.of<SelectViewModel>(context)
                             .selectSheepMode,
-                        icon: Image.asset('images/sheep_circle.png'),
+                        icon: Image.asset('images/sheep.png'),
                         iconSize: 100.0,
                       ),
                       Text('仔羊'),
@@ -87,7 +89,14 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                 child: Text(
                   '世界へ行く',
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  print('Current isGod flag is :${UserMode.isGod}');
+                  // TODO: 遷移先の Message ページのエラーが治ったらコメントイン
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => MessagePage()),
+                  // );
+                },
               ),
             ]),
       ),
