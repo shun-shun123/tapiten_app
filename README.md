@@ -116,16 +116,16 @@
 ```
 1. 仔羊が投稿を作成
 
-2. 仔羊側からマッチング処理
-   2-0. isLogin = true && isSearching = true の神様がいる  
-   2-1. 仔羊は自身の isWaiting を true にする  
-   2-2. 神様は isLogin = true && isWaiting = true の仔羊を選ぶ
-   2-3. 書き込み処理  
-    2-3-1. 神様が仔羊の opponent_id に自身の id を書き込む  
-    2-3-2. 仔羊は opponent_id の変更を検知。書き込まれた opponent_id の神様を探し、神様の opponent_id に自身の id を書き込む  
-   2-4. 自身の opponent_id != "" && 相手の opponent_id != ""(or 自分の id)なら成功
+2. 仔羊が messages コレクションの questions->id に質問内容を書き込み
 
-3. 仔羊が messages コレクションの questions->id に質問内容を書き込み
+3. 仔羊側からマッチング処理
+   3-0. isLogin = true && isSearching = true の神様がいる  
+   3-1. 仔羊は自身の isWaiting を true にする  
+   3-2. 神様は isLogin = true && isWaiting = true の仔羊を選ぶ
+   3-3. 書き込み処理  
+    3-3-1. 神様が仔羊の opponent_id に自身の id を書き込む  
+    3-3-2. 仔羊は opponent_id の変更を検知。書き込まれた opponent_id の神様を探し、神様の opponent_id に自身の id を書き込む  
+   3-4. 自身の opponent_id != "" && 相手の opponent_id != ""(or 自分の id)なら成功
 
 4. 神様は matching コレクションの id->opponent_id から仔羊の id を取得して、messages コレクションから質問内容を取得する([questions->opponent_id].last)
 

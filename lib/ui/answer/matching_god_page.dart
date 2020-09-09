@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,6 +21,7 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
   final fireStore = FirebaseFirestore.instance;
   User currentUser;
   MatchingStatus status = MatchingStatus.searching;
+  StreamSubscription<DocumentSnapshot> _documentSnapshot;
 
   void getCurrentUser() {
     try {
@@ -42,21 +44,45 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
         .where('is_waiting', isEqualTo: true)
         .get()
         .then((QuerySnapshot querySnapshot) => {
-              querySnapshot.docs.forEach((element) {
-                waitingSheep.add(element.id);
-              })
-            })
+      querySnapshot.docs.forEach((element) {
+        waitingSheep.add(element.id);
+      })
+    })
         .catchError((error) => {
-              // TODO: エラー処理
-            });
-
+      // TODO: エラー処理
+    });
     print(waitingSheep);
 
     // waitingSheepからランダムに選んでマッチング申し込み開始
     if (waitingSheep.length != 0) {
       final randomIndex = Random().nextInt(waitingSheep.length);
       final targetSheepId = waitingSheep[randomIndex];
-      matchingSheep(targetSheepId);
+
+      // 選択した仔羊のドキュメントが持つopponent_idに自身のidを書き込む
+      fireStore
+          .collection('matching')
+          .doc(targetSheepId)
+          .update({'opponent_id': currentUser.uid}).then((value) {
+        // 自身のドキュメントのopponent_idを監視して仔羊のものが書き込まれるのを監視
+        _documentSnapshot = fireStore
+            .collection('matching')
+            .doc(currentUser.uid)
+            .snapshots()
+            .listen((event) {
+          var data = event.data();
+          if (data == null) {
+            print('data is empty!');
+            return;
+          }
+
+          String opponentId;
+          if (data['opponent_id'] != "") {
+            opponentId = data['opponent_id'];
+            print(opponentId);
+            successMatching(opponentId);
+          }
+        });
+      });
     } else {
       // waitingSheepが空の場合は終了
       setState(() {
@@ -69,21 +95,7 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
     }
   }
 
-  void matchingSheep(String targetSheepId) {
-    fireStore
-        .collection('matching')
-        .doc(targetSheepId)
-        .update({'opponent_id': currentUser.uid})
-        .then((value) => {
-              // TODO: 変更監視して互いにマッチする処理未実装
-              successMatching()
-            })
-        .catchError((error) => {
-              // TODO: エラー処理
-            });
-  }
-
-  Future<void> successMatching() async {
+  Future<void> successMatching(String opponentId) async {
     print("success matching!");
     // TODO: UIのために遅延実行してるが上手いか怪しい
     await Future.delayed(Duration(seconds: 3), () {
@@ -106,6 +118,7 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
   @override
   void dispose() {
     status = MatchingStatus.searching;
+    _documentSnapshot.cancel();
     super.dispose();
   }
 
