@@ -32,7 +32,8 @@ class AnswerDecideButton extends StatelessWidget {
             child: Text(
               '決定',
               style: TextStyle(
-                color: Color(0xff707070),
+                color: Color(0xff909090),
+                fontFamily: 'RictyDiminished-Regular',
               ),
             ),
           ),

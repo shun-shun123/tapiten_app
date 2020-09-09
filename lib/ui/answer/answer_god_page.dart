@@ -114,38 +114,61 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset('images/sheep_circle.png'),
-          Text(questionContent),
-          AnswerSelectButton(
-            backgroundColor:
-                _selectedAnswerIndex == 0 ? Color(0xffF8DB25) : Colors.white,
-            title: answer1,
-            onPressed: () => selectAnswer(0),
-            borderColor: _selectedAnswerIndex == 0
-                ? Color(0xffF8DB25)
-                : Color(0xff707070),
-            textColor: Color(0xff707070),
-          ),
-          AnswerSelectButton(
-            backgroundColor:
-                _selectedAnswerIndex == 1 ? Color(0xffF8DB25) : Colors.white,
-            title: answer2,
-            onPressed: () => selectAnswer(1),
-            borderColor: _selectedAnswerIndex == 1
-                ? Color(0xffF8DB25)
-                : Color(0xff707070),
-            textColor: Color(0xff707070),
-          ),
-          AnswerDecideButton(
-            isSelectAnswer: _isSelectAnswer,
-            // TODO: ボタンをdisableにするにはonPressedにnullを渡すが、そうするとモックのスタイルと異なってしまう。
-            onPressed:
-                _isSelectAnswer ? () => onPressAnswerDecideButton() : null,
-          )
-        ],
+      body: Container(
+        color: Colors.white,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 90.0,
+              height: 90.0,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("images/sheep.png"),
+                ),
+              ),
+            ),
+            SizedBox(height: 60),
+            Text(
+              questionContent,
+              style: TextStyle(
+                  color: Color(0xff909090),
+                  fontFamily: 'RictyDiminished-Regular',
+                  fontSize: 15),
+            ),
+            SizedBox(height: 42),
+            AnswerSelectButton(
+              backgroundColor:
+                  _selectedAnswerIndex == 0 ? Color(0xffF8DB25) : Colors.white,
+              title: answer1,
+              onPressed: () => selectAnswer(0),
+              borderColor: _selectedAnswerIndex == 0
+                  ? Color(0xffF8DB25)
+                  : Color(0xff909090),
+              textColor: Color(0xff909090),
+            ),
+            AnswerSelectButton(
+              backgroundColor:
+                  _selectedAnswerIndex == 1 ? Color(0xffF8DB25) : Colors.white,
+              title: answer2,
+              onPressed: () => selectAnswer(1),
+              borderColor: _selectedAnswerIndex == 1
+                  ? Color(0xffF8DB25)
+                  : Color(0xff909090),
+              textColor: Color(0xff909090),
+            ),
+            AnswerDecideButton(
+              isSelectAnswer: _isSelectAnswer,
+              // TODO: ボタンをdisableにするにはonPressedにnullを渡すが、そうするとモックのスタイルと異なってしまう。
+              onPressed:
+                  _isSelectAnswer ? () => onPressAnswerDecideButton() : null,
+            )
+          ],
+        ),
       ),
     );
   }

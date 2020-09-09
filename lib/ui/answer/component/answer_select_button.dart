@@ -38,6 +38,7 @@ class AnswerSelectButton extends StatelessWidget {
               title,
               style: TextStyle(
                 color: textColor,
+                fontFamily: 'RictyDiminished-Regular',
               ),
             ),
           ),
