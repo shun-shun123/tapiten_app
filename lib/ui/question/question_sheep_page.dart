@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/ui/question/question_decide_button.dart';
 import 'package:tapiten_app/ui/question/styles/text_form_field_decoration.dart';
@@ -10,10 +12,25 @@ class QuestionSheepPage extends StatefulWidget {
 
 class _QuestionSheepPageState extends State<QuestionSheepPage> {
   final _form = GlobalKey<FormState>();
+  final auth = FirebaseAuth.instance;
+  final fireStore = FirebaseFirestore.instance;
   String questionText;
   String firstChoiceText;
   String secondChoiceText;
   bool _isFillForm = false;
+  User currentUser;
+
+  void getCurrentUser() {
+    try {
+      final user = auth.currentUser;
+      if (user != null) {
+        currentUser = user;
+        print('current user: ${currentUser.displayName}');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void checkFillForm() {
     _form.currentState.save();
@@ -24,6 +41,48 @@ class _QuestionSheepPageState extends State<QuestionSheepPage> {
           ? true
           : false;
     });
+  }
+
+  void onPressDecideButton() async {
+    _form.currentState.save();
+    print(questionText);
+    print(firstChoiceText);
+    print(secondChoiceText);
+    Navigator.of(context).pushNamed('/matching_sheep');
+
+    String newDocumentIndex;
+
+    await fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(currentUser.uid)
+        .get()
+        .then((value) {
+      newDocumentIndex = value.docs.length.toString();
+      print('newDocumentIndex: $newDocumentIndex');
+    }).catchError((error) => {print(error)});
+
+    fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(currentUser.uid)
+        .doc(newDocumentIndex)
+        .set({
+          'answerer_id': null,
+          'question_content': questionText,
+          'answer1': firstChoiceText,
+          'answer2': secondChoiceText,
+          'god_message': null,
+          'selected_answer_index': null,
+        })
+        .then((value) => null)
+        .catchError((error) => {print(error)});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
   }
 
   @override
@@ -44,7 +103,7 @@ class _QuestionSheepPageState extends State<QuestionSheepPage> {
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Image.asset(
-                    'images/sheep.png',
+                    'images/sheep_circle.png',
                     width: 120,
                   ),
                   SizedBox(height: 30),
@@ -114,13 +173,7 @@ class _QuestionSheepPageState extends State<QuestionSheepPage> {
                   SizedBox(height: 48),
                   QuestionDecideButton(
                     isFillForm: _isFillForm,
-                    onPressed: () {
-                      _form.currentState.save();
-                      print(questionText);
-                      print(firstChoiceText);
-                      print(secondChoiceText);
-                      Navigator.of(context).pushNamed('/matching_sheep');
-                    },
+                    onPressed: onPressDecideButton,
                   ),
                 ],
               ),

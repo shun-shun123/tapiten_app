@@ -119,7 +119,7 @@
 2. 仔羊側からマッチング処理
    2-0. isLogin = true && isSearching = true の神様がいる  
    2-1. 仔羊は自身の isWaiting を true にする  
-   2-2. 神様は isLogin = true && isWaiting = true の仔羊を選ぶ **（ユーザーの View 操作有り）**  
+   2-2. 神様は isLogin = true && isWaiting = true の仔羊を選ぶ
    2-3. 書き込み処理  
     2-3-1. 神様が仔羊の opponent_id に自身の id を書き込む  
     2-3-2. 仔羊は opponent_id の変更を検知。書き込まれた opponent_id の神様を探し、神様の opponent_id に自身の id を書き込む  
