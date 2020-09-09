@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "459118560107",
+    "firebase_url": "https://tapiten-app.firebaseio.com",
+    "project_id": "tapiten-app",
+    "storage_bucket": "tapiten-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459118560107:android:ddeb531089dc2f8ebc422e",
+        "android_client_info": {
+          "package_name": "com.example.tapiten_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459118560107-5ie5k9qr8c7ng6l2osdtalbv6f108qnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByY2CF4tWR_BbvVi-ayKSVBqS1cylt8Ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459118560107-5ie5k9qr8c7ng6l2osdtalbv6f108qnc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "459118560107-t1b5fj9u6mua667rl4gdgegr6al1qgp7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tapiten.hacku.jp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
