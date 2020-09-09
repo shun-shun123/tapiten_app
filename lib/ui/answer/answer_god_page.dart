@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/ui/answer/component/answer_decide_button.dart';
 import 'package:tapiten_app/ui/answer/component/answer_select_button.dart';
@@ -8,8 +10,32 @@ class AnswerGodPage extends StatefulWidget {
 }
 
 class _AnswerGodPageState extends State<AnswerGodPage> {
+  final auth = FirebaseAuth.instance;
+  final fireStore = FirebaseFirestore.instance;
+  User currentUser;
+
+  String questionDocumentIndex;
+  String questionContent = "";
+  String answer1 = "";
+  String answer2 = "";
+  String godMessage = "";
+  Map<String, dynamic> data;
+
   int _selectedAnswerIndex;
   bool _isSelectAnswer = false;
+  String opponentId;
+
+  void getCurrentUser() {
+    try {
+      final user = auth.currentUser;
+      if (user != null) {
+        currentUser = user;
+        print('current user: ${currentUser.displayName}');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void selectAnswer(int selectedAnswerIndex) {
     setState(() {
@@ -21,8 +47,68 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
     });
   }
 
-  void segueToGodFinishPage() {
+  void onPressAnswerDecideButton() {
+    // 該当questionのドキュメントをupdate
+    fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(opponentId)
+        .doc(questionDocumentIndex)
+        .update({
+      // TODO: god_messageをUserコレクションから取得した内容にする
+      'god_message': '本当の答えは自分の中にあるのではないか',
+      'selected_answer_index': _selectedAnswerIndex,
+      'answerer_id': currentUser.uid,
+    }).then((value) {
+      print('success answer to question!');
+    }).catchError((error) {
+      print(error);
+    });
+
     Navigator.pushReplacementNamed(context, '/finish_god');
+  }
+
+  Future<void> getQuestionFromSheep() async {
+    opponentId = ModalRoute.of(context).settings.arguments;
+    print(opponentId);
+
+    await fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(opponentId)
+        .get()
+        .then((value) {
+      questionDocumentIndex = (value.docs.length - 1).toString();
+    });
+
+    await fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(opponentId)
+        .doc(questionDocumentIndex)
+        .get()
+        .then((value) {
+      data = value.data();
+      print(data);
+    });
+
+    setState(() {
+      questionContent = data['question_content'];
+      answer1 = data['answer1'];
+      answer2 = data['answer2'];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getQuestionFromSheep();
   }
 
   @override
@@ -32,11 +118,11 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('images/sheep_circle.png'),
-          Text('質問文'),
+          Text(questionContent),
           AnswerSelectButton(
             backgroundColor:
                 _selectedAnswerIndex == 0 ? Color(0xffF8DB25) : Colors.white,
-            title: '選択肢1',
+            title: answer1,
             onPressed: () => selectAnswer(0),
             borderColor: _selectedAnswerIndex == 0
                 ? Color(0xffF8DB25)
@@ -46,7 +132,7 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
           AnswerSelectButton(
             backgroundColor:
                 _selectedAnswerIndex == 1 ? Color(0xffF8DB25) : Colors.white,
-            title: '選択肢2',
+            title: answer2,
             onPressed: () => selectAnswer(1),
             borderColor: _selectedAnswerIndex == 1
                 ? Color(0xffF8DB25)
@@ -56,7 +142,8 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
           AnswerDecideButton(
             isSelectAnswer: _isSelectAnswer,
             // TODO: ボタンをdisableにするにはonPressedにnullを渡すが、そうするとモックのスタイルと異なってしまう。
-            onPressed: _isSelectAnswer ? () => segueToGodFinishPage() : null,
+            onPressed:
+                _isSelectAnswer ? () => onPressAnswerDecideButton() : null,
           )
         ],
       ),
