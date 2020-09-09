@@ -57,7 +57,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                       IconButton(
                         onPressed:
                             Provider.of<SelectViewModel>(context).selectGodMode,
-                        icon: Image.asset('images/god_circle.png'),
+                        icon: Image.asset('images/god.png'),
                         iconSize: 100.0,
                       ),
                       Text('神さま'),
@@ -68,7 +68,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                       IconButton(
                         onPressed: Provider.of<SelectViewModel>(context)
                             .selectSheepMode,
-                        icon: Image.asset('images/sheep_circle.png'),
+                        icon: Image.asset('images/sheep.png'),
                         iconSize: 100.0,
                       ),
                       Text('仔羊'),
