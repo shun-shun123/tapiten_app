@@ -55,6 +55,7 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
         .collection(opponentId)
         .doc(questionDocumentIndex)
         .update({
+      // TODO: god_messageをUserコレクションから取得した内容にする
       'god_message': '本当の答えは自分の中にあるのではないか',
       'selected_answer_index': _selectedAnswerIndex,
       'answerer_id': currentUser.uid,
@@ -142,7 +143,7 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
             isSelectAnswer: _isSelectAnswer,
             // TODO: ボタンをdisableにするにはonPressedにnullを渡すが、そうするとモックのスタイルと異なってしまう。
             onPressed:
-            _isSelectAnswer ? () => onPressAnswerDecideButton() : null,
+                _isSelectAnswer ? () => onPressAnswerDecideButton() : null,
           )
         ],
       ),
