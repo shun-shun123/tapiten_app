@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/message/message_list_cell.dart';
 import 'package:tapiten_app/ui/message/viewModel/message_list_view_model.dart';
 
@@ -21,7 +22,7 @@ class _MessageListViewState extends State<MessageListView> {
   Widget build(BuildContext context) {
     var cells = <Widget>[];
     var messageList = Provider.of<MessageList>(context);
-    if (isGod) {
+    if (UserMode.isGod) {
       var answers = messageList.answers;
       answers.forEach((answer) {
         cells.add(MessageListCell.god(

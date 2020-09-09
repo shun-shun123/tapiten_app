@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/ui/message/model/answer.dart';
 import 'package:tapiten_app/ui/message/model/question.dart';
 
@@ -20,25 +21,21 @@ class FirestoreManager {
     List<Answer> answers = List<Answer>();
     var completer = Completer<List<Answer>>();
 
-    var query = FirebaseFirestore.instance.collection('messages');
+    var query = FirebaseFirestore.instance.collection('messages').doc('answers').collection(UserId.userId);
 
     // collectionのfetchからAnswerリストの作成
     await query.get().then((querySnapshot) async {
       querySnapshot.docs.forEach((element) {
-        // answersの中身を全部イテレーションする
-        element.get('answers').forEach((userEntries) {
-          // userIdでイテレーションする
-          userEntries.forEach((String userId, dynamic answer) {
-            answers.add(Answer(
-              questionerId: answer['questioner_id'],
-              questionContent: answer['question_content'],
-              answer1: answer['answer1'],
-              answer2: answer['answer2'],
-              reviewScore: answer['review_score'],
-              selectedAnswerIndex: answer['selected_answer_index'],
-            ));
-          });
-        });
+        answers.add(
+          Answer(
+            questionerId: element.get('questioner_id'),
+            questionContent: element.get('question_content'),
+            answer1: element.get('answer1'),
+            answer2: element.get('answer2'),
+            reviewScore: element.get('review_score'),
+            selectedAnswerIndex: element.get('selected_answer_index'),
+          ),
+        );
       });
     });
 
@@ -49,25 +46,22 @@ class FirestoreManager {
   Future<List<Question>> fetchQuestionMessagesCollectionAsync() async {
     List<Question> questions = List<Question>();
     var completer = Completer<List<Question>>();
-    var query = FirebaseFirestore.instance.collection('messages');
+    var query = FirebaseFirestore.instance.collection('messages').doc('questions').collection(UserId.userId);
 
-    // collectionのfetchからQuestionリストの作成
-    await query.get().then((querySnapshot) async {
+    var res = query.get();
+    print(res);
+    await res.then((querySnapshot) {
+      print(querySnapshot);
       querySnapshot.docs.forEach((element) {
-        // questionsの中身を全部イテレーションする
-        element.get('questions').forEach((userEntries) {
-          // userIdでイテレーションする
-          userEntries.forEach((String userId, dynamic question) {
-            questions.add(Question(
-              answererId: question['answerer_id'],
-              questionContent: question['question_content'],
-              answer1: question['answer1'],
-              answer2: question['answer2'],
-              godMessage: question['god_message'],
-              selectedAnswerIndex: question['selected_answer_index'],
-            ));
-          });
-        });
+        print('element: $element');
+        questions.add(Question(
+          answer1: element.get('answer1'),
+          answer2: element.get('answer2'),
+          questionContent: element.get('question_content'),
+          godMessage: element.get('god_message'),
+          selectedAnswerIndex: element.get('selected_answer_index'),
+          answererId: element.get('answerer_id'),
+        ));
       });
     });
 
