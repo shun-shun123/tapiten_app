@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/message/model/answer.dart';
-import 'package:tapiten_app/ui/message/model/question.dart';
+import 'package:tapiten_app/model/answer.dart';
+import 'package:tapiten_app/model/question.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page.dart';
 
 class MessageListCell extends StatelessWidget {

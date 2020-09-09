@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
-import 'package:tapiten_app/ui/answer/answer_god_page.dart';
-import 'package:tapiten_app/ui/answer/finish_god_page.dart';
-import 'package:tapiten_app/ui/answer/matching_god_page.dart';
+import 'package:tapiten_app/ui/answer/answer/answer_god_page.dart';
+import 'package:tapiten_app/ui/answer/finish/finish_god_page.dart';
+import 'package:tapiten_app/ui/answer/matching/matching_god_page.dart';
 import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile/profile_page.dart';
@@ -16,7 +16,7 @@ import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FirestoreManager.initialize();
+  await FirebaseManager.initialize();
 
   await loadUserMode();
   await loadUserId();
@@ -87,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void checkLoggedInFirebase() async {
     try {
       final user = _auth.currentUser;
-      print(user);
+      print('success check');
+      print('current user: ${user.displayName}');
       if (user == null) {
         Navigator.push(
           context,

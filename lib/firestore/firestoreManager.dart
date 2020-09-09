@@ -1,12 +1,17 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tapiten_app/storage/user_id.dart';
-import 'package:tapiten_app/ui/message/model/answer.dart';
-import 'package:tapiten_app/ui/message/model/question.dart';
 
-class FirestoreManager {
+import 'package:tapiten_app/model/answer.dart';
+import 'package:tapiten_app/model/question.dart';
+
+import 'package:tapiten_app/storage/user_id.dart';
+
+
+
+class FirebaseManager {
   // Firebaseの初期化
   static Future<void> initialize() async {
     try {
@@ -15,6 +20,11 @@ class FirestoreManager {
     } on Exception catch (error) {
       print(error);
     }
+  }
+
+  // Current Userの取得
+  static User getCurrentUser() {
+    return FirebaseAuth.instance.currentUser;
   }
 
   Future<List<Answer>> fetchAnswerMessagesCollectionAsync() async {
