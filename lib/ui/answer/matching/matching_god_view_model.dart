@@ -12,20 +12,18 @@ class Event {}
 class MatchingGodViewModel extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
-  FirebaseManager _firebaseManager = FirebaseManager();
 
   User currentUser;
   MatchingStatus status = MatchingStatus.searching;
   StreamSubscription<DocumentSnapshot> _documentSnapshot;
   String opponentId;
 
-  var _loginSuccessAction = StreamController<Event>();
+  var _matchingSuccessAction = StreamController<Event>();
 
-  StreamController<Event> get loginSuccessAction => _loginSuccessAction;
+  StreamController<Event> get matchingSuccessAction => _matchingSuccessAction;
 
   void getCurrentUser() {
-    currentUser = _firebaseManager.getCurrentUser();
-    print(currentUser);
+    currentUser = FirebaseManager.getCurrentUser();
   }
 
   void searchingSheep() async {
@@ -89,8 +87,7 @@ class MatchingGodViewModel extends ChangeNotifier {
     print("success matching!");
     await Future.delayed(Duration(seconds: 3), () {
       status = MatchingStatus.success;
-      _loginSuccessAction.sink.add(Event());
-      print('argument: opponentId= $opponentId');
+      _matchingSuccessAction.sink.add(Event());
       notifyListeners();
     });
   }
@@ -98,7 +95,7 @@ class MatchingGodViewModel extends ChangeNotifier {
   @override
   void dispose() {
     _documentSnapshot.cancel();
-    _loginSuccessAction.close();
+    _matchingSuccessAction.close();
     super.dispose();
   }
 }

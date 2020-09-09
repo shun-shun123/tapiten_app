@@ -29,7 +29,7 @@ class _MatchingGodPageBodyState extends State<MatchingGodPageBody> {
 
     // Listen events by view model.
     viewModel = Provider.of<MatchingGodViewModel>(context, listen: false);
-    viewModel.loginSuccessAction.stream.listen((_) {
+    viewModel.matchingSuccessAction.stream.listen((_) {
       Navigator.pushReplacementNamed(
         context,
         '/answer_god',

@@ -87,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void checkLoggedInFirebase() async {
     try {
       final user = _auth.currentUser;
-      print(user);
+      print('success check');
+      print('current user: ${user.displayName}');
       if (user == null) {
         Navigator.push(
           context,
