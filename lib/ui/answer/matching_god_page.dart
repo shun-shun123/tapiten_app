@@ -44,13 +44,13 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
         .where('is_waiting', isEqualTo: true)
         .get()
         .then((QuerySnapshot querySnapshot) => {
-      querySnapshot.docs.forEach((element) {
-        waitingSheep.add(element.id);
-      })
-    })
+              querySnapshot.docs.forEach((element) {
+                waitingSheep.add(element.id);
+              })
+            })
         .catchError((error) => {
-      // TODO: エラー処理
-    });
+              // TODO: エラー処理
+            });
     print(waitingSheep);
 
     // waitingSheepからランダムに選んでマッチング申し込み開始
@@ -104,7 +104,12 @@ class _MatchingGodPageState extends State<MatchingGodPage> {
       });
     });
     await Future.delayed(Duration(seconds: 1), () {
-      Navigator.pushReplacementNamed(context, '/answer_god');
+      print('argument: opponentId= $opponentId');
+      Navigator.pushReplacementNamed(
+        context,
+        '/answer_god',
+        arguments: opponentId,
+      );
     });
   }
 
