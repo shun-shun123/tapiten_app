@@ -13,18 +13,6 @@ class MessageList extends ChangeNotifier {
   List<Question> _questions = [];
   FirestoreManager _firestoreManager = FirestoreManager();
 
-  MessageList() {}
-
-  // 神様用のメッセージ一覧画面コンストラクタ
-  MessageList.god(this._answers) {
-    fetchMessageListForGod();
-  }
-
-  // 子羊のメッセージ一覧画面用コンストラクタ
-  MessageList.sheep(this._questions) {
-    fetchMessageListForSheep();
-  }
-
   // 神様モード用の「メッセージ一覧取得」
   Future<void> fetchMessageListForGod() async {
     _answers = await _firestoreManager.fetchAnswerMessagesCollectionAsync();
