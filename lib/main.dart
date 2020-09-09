@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xffF8D825),
-        onPressed: false
+        onPressed: true
             ?
             // TODO: isGodの値で呼び分ける
             () {
