@@ -6,12 +6,13 @@ import 'package:tapiten_app/ui/message/model/question.dart';
 class MessageList extends ChangeNotifier {
   // 不正に書き換えられることを防止したいので、外部に公開するのはgetterのみ
   List<Answer> get answers => _answers;
+
   List<Question> get questions => _questions;
 
   // 内部的に値を管理するリストはprivate
   List<Answer> _answers;
   List<Question> _questions;
-  FirestoreManager _firestoreManager = FirestoreManager();
+  FirebaseManager _firestoreManager = FirebaseManager();
 
   // 神様用のメッセージ一覧画面コンストラクタ
   MessageList.god(this._answers) {

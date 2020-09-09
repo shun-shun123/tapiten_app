@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/answer/component/answer_decide_button.dart';
-import 'package:tapiten_app/ui/answer/component/answer_select_button.dart';
+import 'package:tapiten_app/ui/answer/answer/component/answer_decide_button.dart';
+import 'package:tapiten_app/ui/answer/answer/component/answer_select_button.dart';
 
 class AnswerGodPage extends StatefulWidget {
   @override
