@@ -9,28 +9,18 @@ class MessageList extends ChangeNotifier {
   List<Question> get questions => _questions;
 
   // 内部的に値を管理するリストはprivate
-  List<Answer> _answers;
-  List<Question> _questions;
+  List<Answer> _answers = [];
+  List<Question> _questions = [];
   FirestoreManager _firestoreManager = FirestoreManager();
 
-  // 神様用のメッセージ一覧画面コンストラクタ
-  MessageList.god(this._answers) {
-    fetchMessageListForGod();
-  }
-
-  // 子羊のメッセージ一覧画面用コンストラクタ
-  MessageList.sheep(this._questions) {
-    fetchMessageListForSheep();
-  }
-
   // 神様モード用の「メッセージ一覧取得」
-  void fetchMessageListForGod() async {
+  Future<void> fetchMessageListForGod() async {
     _answers = await _firestoreManager.fetchAnswerMessagesCollectionAsync();
     notifyListeners();
   }
 
   // 子羊モード用の「メッセージ一覧取得」
-  void fetchMessageListForSheep() async {
+  Future<void> fetchMessageListForSheep() async {
     _questions = await _firestoreManager.fetchQuestionMessagesCollectionAsync();
     notifyListeners();
   }
