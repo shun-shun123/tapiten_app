@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tapiten_app/ui/profile_god_edit/profile_god_edit_info.dart';
-import 'package:tapiten_app/ui/profile_god_edit/profile_god_edit_view_model.dart';
-import 'package:tapiten_app/ui/profile_god_edit/profile_got_edit_icon.dart';
+//import 'package:tapiten_app/ui/profile_god_edit/profile_god_edit_info.dart';
+import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
+//import 'package:tapiten_app/ui/profile_god_edit/profile_got_edit_icon.dart';
 
 class ProfileGodEditPage extends StatelessWidget {
   @override
@@ -11,7 +11,7 @@ class ProfileGodEditPage extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProfileGodEditViewModel()),
+        ChangeNotifierProvider(create: (_) => ProfileEditViewModel()),
       ],
       child: MaterialApp(
         title: 'プロフィール',
@@ -27,8 +27,8 @@ class ProfileGodEditPage extends StatelessWidget {
               padding: EdgeInsets.only(bottom: bottomSpace),
               child: Container(
                 child: Column(children: [
-                  ProfileGodEditIcon(),
-                  ProfileGodEditInfo(),
+                  //ProfileGodEditIcon(),
+                  //ProfileGodEditInfo(),
                 ]),
               ),
             ),
