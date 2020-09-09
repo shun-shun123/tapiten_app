@@ -18,7 +18,7 @@ class FirebaseManager {
   }
 
   // Current Userの取得
-  User getCurrentUser() {
+  static User getCurrentUser() {
     return FirebaseAuth.instance.currentUser;
   }
 

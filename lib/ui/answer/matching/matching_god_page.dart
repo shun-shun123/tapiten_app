@@ -21,12 +21,14 @@ class MatchingGodPageBody extends StatefulWidget {
 }
 
 class _MatchingGodPageBodyState extends State<MatchingGodPageBody> {
+  MatchingGodViewModel viewModel;
+
   @override
   void initState() {
     super.initState();
 
     // Listen events by view model.
-    var viewModel = Provider.of<MatchingGodViewModel>(context, listen: false);
+    viewModel = Provider.of<MatchingGodViewModel>(context, listen: false);
     viewModel.loginSuccessAction.stream.listen((_) {
       Navigator.pushReplacementNamed(
         context,
@@ -35,15 +37,8 @@ class _MatchingGodPageBodyState extends State<MatchingGodPageBody> {
       );
     });
 
-    Provider.of<MatchingGodViewModel>(context, listen: false).getCurrentUser();
-    Provider.of<MatchingGodViewModel>(context, listen: false).searchingSheep();
-  }
-
-  @override
-  void dispose() {
-    // _status = MatchingStatus.searching;
-    // _documentSnapshot.cancel();
-    super.dispose();
+    viewModel.getCurrentUser();
+    viewModel.searchingSheep();
   }
 
   @override
@@ -68,7 +63,7 @@ class _MatchingGodPageBodyState extends State<MatchingGodPageBody> {
           ),
           SizedBox(height: 60),
           MatchingStatusMessage(
-            status: Provider.of<MatchingGodViewModel>(context).status,
+            status: viewModel.status,
           ),
         ],
       ),
