@@ -14,10 +14,10 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
   final fireStore = FirebaseFirestore.instance;
   User currentUser;
 
+  String questionDocumentIndex;
   String questionContent = "";
   String answer1 = "";
   String answer2 = "";
-  int selectedAnswerIndex;
   String godMessage = "";
   Map<String, dynamic> data;
 
@@ -47,15 +47,29 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
     });
   }
 
-  void segueToGodFinishPage() {
+  void onPressAnswerDecideButton() {
+    // 該当questionのドキュメントをupdate
+    fireStore
+        .collection('messages')
+        .doc('questions')
+        .collection(opponentId)
+        .doc(questionDocumentIndex)
+        .update({
+      'god_message': '本当の答えは自分の中にあるのではないか',
+      'selected_answer_index': _selectedAnswerIndex,
+      'answerer_id': currentUser.uid,
+    }).then((value) {
+      print('success answer to question!');
+    }).catchError((error) {
+      print(error);
+    });
+
     Navigator.pushReplacementNamed(context, '/finish_god');
   }
 
   Future<void> getQuestionFromSheep() async {
     opponentId = ModalRoute.of(context).settings.arguments;
     print(opponentId);
-
-    String questionDocumentIndex;
 
     await fireStore
         .collection('messages')
@@ -81,19 +95,17 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
       questionContent = data['question_content'];
       answer1 = data['answer1'];
       answer2 = data['answer2'];
-      selectedAnswerIndex = data['selected_answer_index'];
-      godMessage = data['god_message'];
     });
   }
 
   @override
   void initState() {
     super.initState();
+    getCurrentUser();
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     getQuestionFromSheep();
   }
@@ -129,7 +141,8 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
           AnswerDecideButton(
             isSelectAnswer: _isSelectAnswer,
             // TODO: ボタンをdisableにするにはonPressedにnullを渡すが、そうするとモックのスタイルと異なってしまう。
-            onPressed: _isSelectAnswer ? () => segueToGodFinishPage() : null,
+            onPressed:
+            _isSelectAnswer ? () => onPressAnswerDecideButton() : null,
           )
         ],
       ),
