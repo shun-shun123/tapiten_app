@@ -1,118 +1,56 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tapiten_app/ui/answer/answer/answer_god_view_model.dart';
 import 'package:tapiten_app/ui/answer/answer/component/answer_decide_button.dart';
 import 'package:tapiten_app/ui/answer/answer/component/answer_select_button.dart';
 
-class AnswerGodPage extends StatefulWidget {
+class AnswerGodPage extends StatelessWidget {
   @override
-  _AnswerGodPageState createState() => _AnswerGodPageState();
+  Widget build(BuildContext context) {
+    final _opponentUserId = ModalRoute.of(context).settings.arguments;
+    return ChangeNotifierProvider(
+      create: (_) => AnswerGodViewModel(
+        _opponentUserId,
+        Question(
+            questionContent: '',
+            answer1: '',
+            answer2: '',
+            godMessage: '',
+            selectedAnswerIndex: null),
+      ),
+      child: Scaffold(
+        body: AnswerGodPageBody(),
+      ),
+    );
+  }
 }
 
-class _AnswerGodPageState extends State<AnswerGodPage> {
-  final auth = FirebaseAuth.instance;
-  final fireStore = FirebaseFirestore.instance;
-  User currentUser;
+class AnswerGodPageBody extends StatefulWidget {
+  @override
+  _AnswerGodPageBodyState createState() => _AnswerGodPageBodyState();
+}
 
-  String questionDocumentIndex;
-  String questionContent = "";
-  String answer1 = "";
-  String answer2 = "";
-  String godMessage = "";
-  Map<String, dynamic> data;
-
-  int _selectedAnswerIndex;
-  bool _isSelectAnswer = false;
-  String opponentId;
-
-  void getCurrentUser() {
-    try {
-      final user = auth.currentUser;
-      if (user != null) {
-        currentUser = user;
-        print('current user: ${currentUser.displayName}');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void selectAnswer(int selectedAnswerIndex) {
-    setState(() {
-      _selectedAnswerIndex = _selectedAnswerIndex != selectedAnswerIndex
-          ? selectedAnswerIndex
-          : null;
-
-      _isSelectAnswer = _selectedAnswerIndex != null ? true : false;
-    });
-  }
-
-  void onPressAnswerDecideButton() {
-    // 該当questionのドキュメントをupdate
-    fireStore
-        .collection('messages')
-        .doc('questions')
-        .collection(opponentId)
-        .doc(questionDocumentIndex)
-        .update({
-      // TODO: god_messageをUserコレクションから取得した内容にする
-      'god_message': '本当の答えは自分の中にあるのではないか',
-      'selected_answer_index': _selectedAnswerIndex,
-      'answerer_id': currentUser.uid,
-    }).then((value) {
-      print('success answer to question!');
-    }).catchError((error) {
-      print(error);
-    });
-
-    Navigator.pushReplacementNamed(context, '/finish_god');
-  }
-
-  Future<void> getQuestionFromSheep() async {
-    opponentId = ModalRoute.of(context).settings.arguments;
-    print(opponentId);
-
-    await fireStore
-        .collection('messages')
-        .doc('questions')
-        .collection(opponentId)
-        .get()
-        .then((value) {
-      questionDocumentIndex = (value.docs.length - 1).toString();
-    });
-
-    await fireStore
-        .collection('messages')
-        .doc('questions')
-        .collection(opponentId)
-        .doc(questionDocumentIndex)
-        .get()
-        .then((value) {
-      data = value.data();
-      print(data);
-    });
-
-    setState(() {
-      questionContent = data['question_content'];
-      answer1 = data['answer1'];
-      answer2 = data['answer2'];
-    });
-  }
+class _AnswerGodPageBodyState extends State<AnswerGodPageBody> {
+  AnswerGodViewModel nonRebuildViewModel;
+  AnswerGodViewModel rebuildViewModel;
 
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
-  }
+    nonRebuildViewModel =
+        Provider.of<AnswerGodViewModel>(context, listen: false);
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    getQuestionFromSheep();
+    nonRebuildViewModel.answerSuccessAction.stream.listen((_) {
+      Navigator.pushReplacementNamed(context, '/finish_god');
+    });
+
+    nonRebuildViewModel.getCurrentUser();
   }
 
   @override
   Widget build(BuildContext context) {
+    rebuildViewModel = Provider.of<AnswerGodViewModel>(context);
+
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -134,7 +72,7 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
             ),
             SizedBox(height: 60),
             Text(
-              questionContent,
+              rebuildViewModel.question.questionContent,
               style: TextStyle(
                   color: Color(0xff909090),
                   fontFamily: 'RictyDiminished-Regular',
@@ -142,30 +80,33 @@ class _AnswerGodPageState extends State<AnswerGodPage> {
             ),
             SizedBox(height: 42),
             AnswerSelectButton(
-              backgroundColor:
-                  _selectedAnswerIndex == 0 ? Color(0xffF8DB25) : Colors.white,
-              title: answer1,
-              onPressed: () => selectAnswer(0),
-              borderColor: _selectedAnswerIndex == 0
+              backgroundColor: rebuildViewModel.selectedAnswerIndex == 0
+                  ? Color(0xffF8DB25)
+                  : Colors.white,
+              title: rebuildViewModel.question.answer1,
+              onPressed: () => rebuildViewModel.selectAnswer(0),
+              borderColor: rebuildViewModel.selectedAnswerIndex == 0
                   ? Color(0xffF8DB25)
                   : Color(0xff909090),
               textColor: Color(0xff909090),
             ),
             AnswerSelectButton(
-              backgroundColor:
-                  _selectedAnswerIndex == 1 ? Color(0xffF8DB25) : Colors.white,
-              title: answer2,
-              onPressed: () => selectAnswer(1),
-              borderColor: _selectedAnswerIndex == 1
+              backgroundColor: rebuildViewModel.selectedAnswerIndex == 1
+                  ? Color(0xffF8DB25)
+                  : Colors.white,
+              title: rebuildViewModel.question.answer2,
+              onPressed: () => rebuildViewModel.selectAnswer(1),
+              borderColor: rebuildViewModel.selectedAnswerIndex == 1
                   ? Color(0xffF8DB25)
                   : Color(0xff909090),
               textColor: Color(0xff909090),
             ),
             AnswerDecideButton(
-              isSelectAnswer: _isSelectAnswer,
+              isSelectAnswer: rebuildViewModel.isSelectAnswer,
               // TODO: ボタンをdisableにするにはonPressedにnullを渡すが、そうするとモックのスタイルと異なってしまう。
-              onPressed:
-                  _isSelectAnswer ? () => onPressAnswerDecideButton() : null,
+              onPressed: rebuildViewModel.isSelectAnswer
+                  ? () => rebuildViewModel.onPressAnswerDecideButton()
+                  : null,
             )
           ],
         ),
