@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/storage/user_id.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 
 class ProfileEditViewModel extends ChangeNotifier {
-  String displayName;
-  String loginId;
+  String godName;
+  String sheepName;
+  String displayId;
   String message;
 
   ProfileEditViewModel() {
@@ -12,12 +14,16 @@ class ProfileEditViewModel extends ChangeNotifier {
   }
 
   void setUserName(String name) {
-    this.displayName = name;
+    if (UserMode.isGod) {
+      this.godName = name;
+    } else {
+      this.sheepName = name;
+    }
     notifyListeners();
   }
 
-  void setLoginId(String id) {
-    this.loginId = id;
+  void setDisplayId(String id) {
+    this.displayId = id;
     notifyListeners();
   }
 
@@ -29,11 +35,14 @@ class ProfileEditViewModel extends ChangeNotifier {
   void getProfile() async {
     var userInfo = FirebaseFirestore.instance.collection('user_info');
 
-    userInfo.doc(UserId.userId).get().then((value) {
-      displayName = value.get('display_name');
-      loginId = value.get('login_id');
+    await userInfo.doc(UserId.userId).get().then((value) {
+      godName = value.get('god_name');
+      sheepName = value.get('sheep_name');
+      displayId = value.get('display_id');
       message = value.get('god_message');
     });
+
+    notifyListeners();
 
     print('get profile');
   }
@@ -42,23 +51,12 @@ class ProfileEditViewModel extends ChangeNotifier {
     var userInfo = FirebaseFirestore.instance.collection('user_info');
 
     userInfo.doc(UserId.userId).set({
-      'display_name': displayName,
-      'login_id': loginId,
+      'god_name': godName,
+      'sheep_name': sheepName,
+      'display_id': displayId,
       'god_message': message
     });
 
     print('save profile');
   }
-
-  //ダミーデータで
-  void fetchProfile() {
-    displayName = ProfileEditViewModel.dummy().displayName;
-    loginId = ProfileEditViewModel.dummy().loginId;
-    message = ProfileEditViewModel.dummy().message;
-  }
-
-  ProfileEditViewModel.dummy()
-      : displayName = 'マイペースな神',
-        loginId = '@takoten',
-        message = '文字文字文字';
 }
