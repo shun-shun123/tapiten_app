@@ -6,6 +6,7 @@ import 'package:tapiten_app/ui/login/login_view_model.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tapiten_app/storage/user_login_id.dart';
+import 'package:tapiten_app/ui/select/select_page.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -61,6 +62,9 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () {
                 _formKey.currentState.validate();
                 commitToFireStore(UserLoginId.loginId);
+                Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => SelectPage())
+                );
               },
               child: Text('作成'),
               textColor: Colors.white,
