@@ -41,7 +41,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
   void selectMode(int selectedModeIndex) {
     setState(() {
       _selectedModeIndex =
-          _selectedModeIndex != selectedModeIndex ? selectedModeIndex : null;
+          _selectedModeIndex != selectedModeIndex ? selectedModeIndex : 0;
     });
   }
 
