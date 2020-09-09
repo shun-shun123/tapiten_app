@@ -25,9 +25,7 @@ class MessagePage extends StatelessWidget {
           backgroundColor: Colors.white,
         ),
         body: SafeArea(
-          child: MessageListView(
-            isGod: isGod,
-          ),
+          child: MessageListView(),
         ),
       ),
     );

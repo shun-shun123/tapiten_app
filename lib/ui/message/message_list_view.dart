@@ -3,21 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/message/message_list_cell.dart';
 import 'package:tapiten_app/ui/message/viewModel/message_list_view_model.dart';
+import 'package:tapiten_app/ui/question/styles/text_style.dart';
 
 class MessageListView extends StatefulWidget {
-  final bool isGod;
-
-  MessageListView({this.isGod});
-
   @override
-  _MessageListViewState createState() => _MessageListViewState(isGod: isGod);
+  _MessageListViewState createState() => _MessageListViewState();
 }
 
 class _MessageListViewState extends State<MessageListView> {
-  final bool isGod;
-
-  _MessageListViewState({this.isGod});
-
   @override
   Widget build(BuildContext context) {
     var cells = <Widget>[];
@@ -39,8 +32,27 @@ class _MessageListViewState extends State<MessageListView> {
     }
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-      child: ListView(
-        children: cells,
+      child: cells.length == 0
+          ? EmptyMessage()
+          : ListView(
+              children: cells,
+            ),
+    );
+  }
+}
+
+class EmptyMessage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 0),
+      child: Center(
+        child: Text(
+          '迷える仔羊の悩みを解決しましょう',
+          style: kTitleTextStyle.copyWith(
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }
