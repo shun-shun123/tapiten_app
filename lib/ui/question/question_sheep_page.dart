@@ -114,12 +114,13 @@ class _QuestionSheepPageState extends State<QuestionSheepPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '迷いの内容',
+                          '迷い',
                           style: kTitleTextStyle,
                         ),
                         TextFormField(
                           style: kTextFormFieldTextStyle,
-                          decoration: kQuestionTextFormFieldDecoration,
+                          decoration: kQuestionTextFormFieldDecoration.copyWith(
+                              hintText: '迷いを入力'),
                           maxLines: 8,
                           maxLength: 140,
                           onFieldSubmitted: (value) {
