@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/model/question.dart';
 import 'package:tapiten_app/ui/answer/answer/answer_god_view_model.dart';
 import 'package:tapiten_app/ui/answer/answer/component/answer_decide_button.dart';
 import 'package:tapiten_app/ui/answer/answer/component/answer_select_button.dart';
@@ -10,14 +11,15 @@ class AnswerGodPage extends StatelessWidget {
     final _opponentUserId = ModalRoute.of(context).settings.arguments;
     return ChangeNotifierProvider(
       create: (_) => AnswerGodViewModel(
-        _opponentUserId,
-        Question(
+          _opponentUserId,
+          Question(
+            answererId: null,
             questionContent: '',
             answer1: '',
             answer2: '',
             godMessage: '',
-            selectedAnswerIndex: null),
-      ),
+            selectedAnswerIndex: null,
+          )),
       child: Scaffold(
         body: AnswerGodPageBody(),
       ),

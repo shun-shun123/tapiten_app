@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
-import 'package:tapiten_app/ui/message/model/answer.dart';
-import 'package:tapiten_app/ui/message/model/question.dart';
+import 'package:tapiten_app/model/answer.dart';
+import 'package:tapiten_app/model/question.dart';
 
 class MessageList extends ChangeNotifier {
   // 不正に書き換えられることを防止したいので、外部に公開するのはgetterのみ

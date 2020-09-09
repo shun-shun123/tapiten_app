@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tapiten_app/ui/message/model/answer.dart';
-import 'package:tapiten_app/ui/message/model/question.dart';
+import 'package:tapiten_app/model/answer.dart';
+import 'package:tapiten_app/model/question.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_icon.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_question_text.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_review.dart';
