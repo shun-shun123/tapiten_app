@@ -8,8 +8,8 @@ import 'package:tapiten_app/ui/answer/finish_god_page.dart';
 import 'package:tapiten_app/ui/answer/matching_god_page.dart';
 import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
-import 'package:tapiten_app/ui/profile_god/profile_god_page.dart';
 import 'package:tapiten_app/ui/question/finish_sheep_page.dart';
+import 'package:tapiten_app/ui/profile/profile_page.dart';
 import 'package:tapiten_app/ui/question/matching_sheep_page.dart';
 import 'package:tapiten_app/ui/question/question_sheep_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
@@ -183,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // TODO: 神様or子羊判定のフラグをここで代入する
             isGod: true,
           ),
-          ProfileGodPage(),
+          ProfilePage(),
         ],
         physics: NeverScrollableScrollPhysics(),
       ),

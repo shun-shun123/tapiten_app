@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ProfileGodEditIcon extends StatelessWidget {
+class ProfileEditIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

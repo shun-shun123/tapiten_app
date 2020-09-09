@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ProfileGodId extends StatelessWidget {
+class ProfileId extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
