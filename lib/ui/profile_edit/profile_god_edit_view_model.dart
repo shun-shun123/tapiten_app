@@ -1,17 +1,3 @@
-/*
-・表示名
-・ログインID
-・神さまの名言
-をパラメータとしてもつ
-
-(コンストラクタ→データのロードを行う)
-
-データのロードを行うメソッド
-データのセーブを行うメソッド
-
-
-*/
-
 import 'package:flutter/material.dart';
 
 class ProfileGodEditViewModel extends ChangeNotifier {
