@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_icon.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_info.dart';
+import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 
 class ProfileEditPage extends StatelessWidget {
   @override
@@ -9,7 +10,9 @@ class ProfileEditPage extends StatelessWidget {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
 
     return MultiProvider(
-      providers: [],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProfileEditViewModel()),
+      ],
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -32,6 +35,8 @@ class ProfileEditPage extends StatelessWidget {
               ),
               onPressed: () => {
                 // TODO: ここでプロフィールの保存処理を行いたい
+                // →　ProfileEditInfoのそれぞれの入力終わりにセーブする実装を入れました
+
                 Navigator.of(context).pop(),
               },
             ),
