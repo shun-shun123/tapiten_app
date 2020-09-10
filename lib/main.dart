@@ -110,10 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Color primaryColor = UserMode.isGod ? Color(0xffF8D825) : Color(0xff9FD53E);
+    Color backgroundColor = UserMode.isGod ? Colors.white : Color(0xff909090);
+    Color edgeColor = UserMode.isGod ? Color(0xffC7C7CC) : Colors.white;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xffF8D825),
+        backgroundColor: primaryColor,
         onPressed: UserMode.isGod
             ? () {
                 Navigator.of(context).push(
@@ -125,22 +128,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     fullscreenDialog: true,
                   ),
                 );
-              }
+        }
             : () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    settings: const RouteSettings(name: 'question_sheep'),
-                    builder: (context) {
-                      return QuestionSheepPage();
-                    },
-                    fullscreenDialog: true,
-                  ),
-                );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              settings: const RouteSettings(name: 'question_sheep'),
+              builder: (context) {
+                return QuestionSheepPage();
               },
+              fullscreenDialog: true,
+            ),
+          );
+        },
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: backgroundColor,
         notchMargin: 6,
         shape: AutomaticNotchedShape(
           RoundedRectangleBorder(),
@@ -160,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: BottomTabBarItem(
                   Icons.email,
                   'メッセージ',
-                  currentPageIndex == 0 ? Color(0xffF5DB28) : Color(0xff909090),
+                  currentPageIndex == 0 ? primaryColor : edgeColor,
                 ),
               ),
               InkWell(
@@ -169,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: BottomTabBarItem(
                   Icons.person,
                   'プロフィール',
-                  currentPageIndex == 1 ? Color(0xffF5DB28) : Color(0xff909090),
+                  currentPageIndex == 1 ? primaryColor : edgeColor,
                 ),
               ),
             ],
