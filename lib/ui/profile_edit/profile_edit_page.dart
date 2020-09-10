@@ -20,10 +20,10 @@ class ProfileEditPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ProfileEditViewModel()),
-      ],
+    var profileEditViewModel = new ProfileEditViewModel();
+
+    return ChangeNotifierProvider.value(
+      value: profileEditViewModel,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -45,9 +45,7 @@ class ProfileEditPage extends StatelessWidget {
                 color: Colors.black,
               ),
               onPressed: () => {
-                // TODO: ここでプロフィールの保存処理を行いたい
-                // →　ProfileEditInfoのそれぞれの入力終わりにセーブする実装を入れました
-
+                profileEditViewModel.saveProfile(),
                 Navigator.of(context).pop(),
               },
             ),

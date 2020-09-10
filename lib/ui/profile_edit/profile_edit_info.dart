@@ -52,7 +52,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         initialValue: UserMode.isGod ? this.initGodName : this.initSheepName,
         onSubmit: (value) {
           viewModel.setUserName(value);
-          viewModel.saveProfile();
+          //viewModel.saveProfile();
         },
       ),
     );
@@ -63,7 +63,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         initialValue: this.initDisplayId,
         onSubmit: (value) {
           viewModel.setDisplayId(value);
-          viewModel.saveProfile();
+          //viewModel.saveProfile();
         },
       ),
     );
@@ -75,7 +75,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
           initialValue: this.initMessage,
           onSubmit: (value) {
             viewModel.setMessage(value);
-            viewModel.saveProfile();
+            //viewModel.saveProfile();
           },
         ),
       );
