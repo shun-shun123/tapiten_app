@@ -98,6 +98,15 @@ class MatchingGodViewModel extends ChangeNotifier {
 
   Future<void> successMatching(String opponentId) async {
     print("success matching!");
+
+    await fireStore.collection('matching').doc(currentUser.uid).update({
+      'is_searching': false,
+    }).then((value) {
+      print('success update');
+    }).catchError((error) {
+      print('when update status error: $error');
+    });
+
     await Future.delayed(Duration(seconds: 1), () {
       status = MatchingStatus.success;
       notifyListeners();
