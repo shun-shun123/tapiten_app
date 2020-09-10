@@ -35,6 +35,11 @@ class ProfileEditViewModel extends ChangeNotifier {
   void getProfile() async {
     var userInfo = FirebaseFirestore.instance.collection('user_info');
 
+    godName = '';
+    sheepName = '';
+    displayId = '';
+    message = '';
+
     await userInfo.doc(UserId.userId).get().then((value) {
       godName = value.get('god_name');
       sheepName = value.get('sheep_name');
@@ -50,7 +55,7 @@ class ProfileEditViewModel extends ChangeNotifier {
   void saveProfile() async {
     var userInfo = FirebaseFirestore.instance.collection('user_info');
 
-    userInfo.doc(UserId.userId).set({
+    await userInfo.doc(UserId.userId).set({
       'god_name': godName,
       'sheep_name': sheepName,
       'display_id': displayId,

@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/ui/profile/profile_page.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_icon.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_info.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 
+import '../../slide_page_route.dart';
+
 class ProfileEditPage extends StatelessWidget {
+  final String initGodName;
+  final String initSheepName;
+  final String initDisplayId;
+  final String initMessage;
+
+  ProfileEditPage(
+      {this.initGodName,
+      this.initSheepName,
+      this.initDisplayId,
+      this.initMessage});
+
   @override
   Widget build(BuildContext context) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ProfileEditViewModel()),
-      ],
+    var profileEditViewModel = new ProfileEditViewModel();
+
+    return ChangeNotifierProvider.value(
+      value: profileEditViewModel,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -34,10 +48,10 @@ class ProfileEditPage extends StatelessWidget {
                 color: Colors.black,
               ),
               onPressed: () => {
-                // TODO: ここでプロフィールの保存処理を行いたい
-                // →　ProfileEditInfoのそれぞれの入力終わりにセーブする実装を入れました
-
-                Navigator.of(context).pop(),
+                profileEditViewModel.saveProfile(),
+                Navigator.of(context).pushReplacement(SlidePageRoute(
+                  child: ProfilePage(),
+                ))
               },
             ),
           ],
@@ -49,7 +63,12 @@ class ProfileEditPage extends StatelessWidget {
             child: Container(
               child: Column(children: [
                 ProfileEditIcon(),
-                ProfileEditInfo(),
+                ProfileEditInfo(
+                  initGodName: this.initGodName,
+                  initSheepName: this.initSheepName,
+                  initDisplayId: this.initDisplayId,
+                  initMessage: this.initMessage,
+                ),
               ]),
             ),
           ),
