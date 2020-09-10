@@ -21,28 +21,32 @@ class MatchingGodPageBody extends StatefulWidget {
 }
 
 class _MatchingGodPageBodyState extends State<MatchingGodPageBody> {
-  MatchingGodViewModel viewModel;
+  MatchingGodViewModel nonRebuildViewModel;
+  MatchingGodViewModel rebuildViewModel;
 
   @override
   void initState() {
     super.initState();
 
     // Listen events by view model.
-    viewModel = Provider.of<MatchingGodViewModel>(context, listen: false);
-    viewModel.matchingSuccessAction.stream.listen((_) {
+    nonRebuildViewModel =
+        Provider.of<MatchingGodViewModel>(context, listen: false);
+    nonRebuildViewModel.matchingSuccessAction.stream.listen((_) {
       Navigator.pushReplacementNamed(
         context,
         '/answer_god',
-        arguments: viewModel.opponentId,
+        arguments: nonRebuildViewModel.opponentId,
       );
     });
 
-    viewModel.getCurrentUser();
-    viewModel.searchingSheep();
+    nonRebuildViewModel.getCurrentUser();
+    nonRebuildViewModel.searchingSheep();
   }
 
   @override
   Widget build(BuildContext context) {
+    rebuildViewModel = Provider.of<MatchingGodViewModel>(context);
+
     return Container(
       color: Colors.white,
       width: double.infinity,
@@ -63,7 +67,7 @@ class _MatchingGodPageBodyState extends State<MatchingGodPageBody> {
           ),
           SizedBox(height: 60),
           MatchingStatusMessage(
-            status: viewModel.status,
+            status: nonRebuildViewModel.status,
           ),
         ],
       ),

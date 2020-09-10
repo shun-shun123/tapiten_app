@@ -22,20 +22,24 @@ class MatchingSheepPageBody extends StatefulWidget {
 }
 
 class _MatchingSheepPageBodyState extends State<MatchingSheepPageBody> {
-  MatchingSheepViewModel viewModel;
+  MatchingSheepViewModel nonRebuildViewModel;
+  MatchingSheepViewModel rebuildViewModel;
 
   @override
   void initState() {
     super.initState();
 
-    viewModel = Provider.of<MatchingSheepViewModel>(context, listen: false);
+    nonRebuildViewModel =
+        Provider.of<MatchingSheepViewModel>(context, listen: false);
 
-    viewModel.getCurrentUser();
-    viewModel.matchingWithGod();
+    nonRebuildViewModel.getCurrentUser();
+    nonRebuildViewModel.matchingWithGod();
   }
 
   @override
   Widget build(BuildContext context) {
+    rebuildViewModel = Provider.of<MatchingSheepViewModel>(context);
+
     return Container(
       color: Color(0xff909090),
       width: double.infinity,
@@ -56,11 +60,11 @@ class _MatchingSheepPageBodyState extends State<MatchingSheepPageBody> {
           ),
           SizedBox(height: 60),
           MatchingStatusMessage(
-            status: viewModel.status,
+            status: rebuildViewModel.status,
           ),
           SizedBox(height: 36),
           Visibility(
-            visible: viewModel.status == SheepMatchingStatus.complete,
+            visible: rebuildViewModel.status == SheepMatchingStatus.complete,
             child: RaisedButton(
               color: Colors.white,
               child: Text(

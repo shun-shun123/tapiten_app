@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Question {
-  final String answererId;
-  final String questionContent;
-  final String answer1;
-  final String answer2;
-  final String godMessage;
-  final int selectedAnswerIndex;
+  String answererId;
+  String questionContent;
+  String answer1;
+  String answer2;
+  String godMessage;
+  int selectedAnswerIndex;
 
   Question({
     @required this.answererId,

@@ -6,10 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/model/question.dart';
 
+class Event {}
+
 class FinishSheepViewModel extends ChangeNotifier {
   FinishSheepViewModel(this._question) {
     getResponseFromGod();
   }
+
+  var _returnMainScreenAction = StreamController<Event>();
+
+  StreamController<Event> get returnMainScreenAction => _returnMainScreenAction;
 
   final auth = FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
@@ -82,5 +88,26 @@ class FinishSheepViewModel extends ChangeNotifier {
 
     completer.complete(question);
     return completer.future;
+  }
+
+  void returnMainScreen() {
+    // opponent_idを初期化して終了
+    fireStore
+        .collection('matching')
+        .doc(currentUser.uid)
+        .update({'opponent_id': ''}).then((value) {
+      print('success reset opponent id');
+    }).catchError((error) {
+      print(error);
+    });
+
+    _returnMainScreenAction.sink.add(Event());
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _returnMainScreenAction.close();
+    super.dispose();
   }
 }

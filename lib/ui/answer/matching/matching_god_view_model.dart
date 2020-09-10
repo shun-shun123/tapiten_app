@@ -26,23 +26,37 @@ class MatchingGodViewModel extends ChangeNotifier {
     currentUser = FirebaseManager.getCurrentUser();
   }
 
+  Future<void> updateSelfStatus() async {
+    await fireStore.collection('matching').doc(currentUser.uid).set({
+      'is_login': true,
+      'is_searching': true,
+      'is_waiting': false,
+      'opponent_id': '',
+    }).then((value) {
+      print('update self status: $status');
+    }).catchError((error) {
+      print('when update status error: $error');
+    });
+  }
+
   void searchingSheep() async {
+    await updateSelfStatus();
     List waitingSheep = [];
 
-    // TODO: opponent_id == ''もクエリに加える
     await fireStore
         .collection('matching')
         .where('is_login', isEqualTo: true)
         .where('is_waiting', isEqualTo: true)
+        .where('opponent_id', isEqualTo: '')
         .get()
         .then((QuerySnapshot querySnapshot) => {
               querySnapshot.docs.forEach((element) {
                 waitingSheep.add(element.id);
               })
             })
-        .catchError((error) => {
-              // TODO: エラー処理
-            });
+        .catchError((error) {
+      print(error);
+    });
     print(waitingSheep);
 
     // waitingSheepからランダムに選んでマッチング申し込み開始
@@ -62,15 +76,14 @@ class MatchingGodViewModel extends ChangeNotifier {
             .snapshots()
             .listen((event) {
           var data = event.data();
-          if (data == null) {
-            print('data is empty!');
-            return;
-          }
 
-          if (data['opponent_id'] != "") {
+          if (data['opponent_id'].toString().isNotEmpty &&
+              data['opponent_id'] != null) {
             opponentId = data['opponent_id'];
             print(opponentId);
             successMatching(opponentId);
+          } else {
+            print('dont exist opponent id');
           }
         });
       });
@@ -85,10 +98,21 @@ class MatchingGodViewModel extends ChangeNotifier {
 
   Future<void> successMatching(String opponentId) async {
     print("success matching!");
-    await Future.delayed(Duration(seconds: 3), () {
+
+    await fireStore.collection('matching').doc(currentUser.uid).update({
+      'is_searching': false,
+    }).then((value) {
+      print('success update');
+    }).catchError((error) {
+      print('when update status error: $error');
+    });
+
+    await Future.delayed(Duration(seconds: 1), () {
       status = MatchingStatus.success;
-      _matchingSuccessAction.sink.add(Event());
       notifyListeners();
+    });
+    await Future.delayed(Duration(seconds: 2), () {
+      _matchingSuccessAction.sink.add(Event());
     });
   }
 
