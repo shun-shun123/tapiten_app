@@ -28,7 +28,15 @@ class MessageListCell extends StatelessWidget {
 
   Widget _buildCardForGod(BuildContext context) {
     return BuildBaseCard(
-      title: Text(answer.questionContent),
+      title: Text(
+        answer.questionContent,
+        style: TextStyle(
+          color: Color(0xff909090),
+          fontFamily: 'RictyDiminished-Regular',
+          fontSize: 18,
+        ),
+      ),
+      iconImage: AssetImage("images/sheep.png"),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           // メッセージ詳細画面（神様モード）に遷移する
@@ -50,6 +58,7 @@ class MessageListCell extends StatelessWidget {
           fontSize: 18,
         ),
       ),
+      iconImage: AssetImage("images/god.png"),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           // メッセージ詳細画面（子羊モード）に遷移する
@@ -65,12 +74,14 @@ class MessageListCell extends StatelessWidget {
 class BuildBaseCard extends StatelessWidget {
   BuildBaseCard({
     @required this.title,
+    @required this.iconImage,
     // @required this.subTitle,
     // @required this.icon,
     @required this.onTap,
   });
 
   final Text title;
+  final AssetImage iconImage;
 
   // final Text subTitle;
   // final Icon icon;
@@ -99,7 +110,7 @@ class BuildBaseCard extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: AssetImage("images/sheep.png"),
+                image: iconImage,
               ),
             ),
           ),
