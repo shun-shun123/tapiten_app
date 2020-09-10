@@ -3,36 +3,21 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tapiten_app/firestore/firestoreManager.dart';
 
-enum MatchingStatus {
-  waiting, // マッチング待機中
-  success, // マッチング成功
-  complete, // 回答終了
-  failure, // 処理失敗
-}
+import 'component/matching_status_message.dart';
 
-class MatchingSheepPage extends StatefulWidget {
-  @override
-  _MatchingSheepPageState createState() => _MatchingSheepPageState();
-}
+class Event {}
 
-class _MatchingSheepPageState extends State<MatchingSheepPage> {
+class MatchingSheepViewModel extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
   User currentUser;
-  MatchingStatus status = MatchingStatus.waiting;
+  SheepMatchingStatus status = SheepMatchingStatus.waiting;
   StreamSubscription<DocumentSnapshot> _documentSnapshot;
 
   void getCurrentUser() {
-    try {
-      final user = auth.currentUser;
-      if (user != null) {
-        currentUser = user;
-        print('current user: ${currentUser.displayName}');
-      }
-    } catch (e) {
-      print(e);
-    }
+    currentUser = FirebaseManager.getCurrentUser();
   }
 
   Future<void> makeCurrentUserDoc() async {
@@ -105,9 +90,8 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
 
   Future<void> successMatching() async {
     await Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        status = MatchingStatus.success;
-      });
+      status = SheepMatchingStatus.success;
+      notifyListeners();
       waitingResponseFromGod();
     });
   }
@@ -151,103 +135,13 @@ class _MatchingSheepPageState extends State<MatchingSheepPage> {
 
   void completeResponse() {
     print('completeResponse');
-    setState(() {
-      status = MatchingStatus.complete;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getCurrentUser();
-    matchingWithGod();
+    status = SheepMatchingStatus.complete;
+    notifyListeners();
   }
 
   @override
   void dispose() {
-    status = MatchingStatus.waiting;
     _documentSnapshot.cancel();
     super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Color(0xff909090),
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 90.0,
-              height: 90.0,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage("images/god.png"),
-                ),
-              ),
-            ),
-            SizedBox(height: 60),
-            MatchingStatusMessage(
-              status: status,
-            ),
-            SizedBox(height: 36),
-            Visibility(
-              visible: status == MatchingStatus.complete,
-              child: RaisedButton(
-                color: Colors.white,
-                child: Text(
-                  '確認する',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Color(0xff909090),
-                    fontFamily: 'RictyDiminished-Regular',
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/finish_sheep');
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class MatchingStatusMessage extends StatelessWidget {
-  MatchingStatusMessage({this.status});
-
-  final MatchingStatus status;
-
-  String getStatusMessage(MatchingStatus status) {
-    var statusMessage = "";
-    if (status == MatchingStatus.waiting) {
-      statusMessage = "神さまを探しています";
-    } else if (status == MatchingStatus.success) {
-      statusMessage = "神さまが対応中です";
-    } else if (status == MatchingStatus.complete) {
-      statusMessage = "返信が届きました";
-    } else if (status == MatchingStatus.failure) {
-      statusMessage = "神さまが見つかりませんでした";
-    }
-    return statusMessage;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      getStatusMessage(status),
-      style: TextStyle(
-        fontSize: 20,
-        color: Colors.white,
-        fontFamily: 'RictyDiminished-Regular',
-      ),
-    );
   }
 }
