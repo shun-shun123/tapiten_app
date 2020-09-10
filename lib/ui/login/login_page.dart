@@ -80,8 +80,11 @@ class _LoginFormState extends State<LoginForm> {
 void commitToFireStore(String loginId) {
   FirebaseFirestore.instance.collection('user_info').doc(UserId.userId).set(
     {
-      'id': UserId.userId,
-      'loginId': loginId,
+      'display_id': loginId,
+      'god_score': 3,
+      'god_name':'マイペースにお腹が空いた神',
+      'sheep_name':'迷いすぎて困る仔羊',
+      'god_message': '本当の答えは自分の中にあるのではないか'
     },
   );
 }
