@@ -170,21 +170,3 @@ class _InfoFormState extends State<InfoForm> {
     );
   }
 }
-
-/*
-TextFormField(
-  style: kTextFormFieldTextStyle,
-  decoration: kQuestionTextFormFieldDecoration.copyWith(
-      hintText: '迷いを入力'),
-  maxLines: 8,
-  maxLines: 140,
-  onFieldSubmitted: (value) {
-    FocusScope.of(context).unfocus();
-    viewModel.checkFillForm();
-  },
-  onSaved: (value) {
-    viewModel.questionText = value;
-  },
-  onEditingComplete: viewModel.checkFillForm,
-),
-*/
