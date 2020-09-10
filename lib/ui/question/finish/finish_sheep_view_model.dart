@@ -6,22 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/model/question.dart';
 
-class Event {}
-
-class AnswerGodViewModel extends ChangeNotifier {
-  AnswerGodViewModel(this._opponentId, this._question) {
-    getQuestionFromSheep();
+class FinishSheepViewModel extends ChangeNotifier {
+  FinishSheepViewModel(this._question) {
+    getResponseFromGod();
   }
-
-  var _answerSuccessAction = StreamController<Event>();
-
-  StreamController<Event> get answerSuccessAction => _answerSuccessAction;
 
   final auth = FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
   User currentUser;
-
-  String questionDocumentIndex;
 
   Question _question = Question(
     answererId: '',
@@ -32,48 +24,13 @@ class AnswerGodViewModel extends ChangeNotifier {
     selectedAnswerIndex: null,
   );
 
-  int _selectedAnswerIndex;
-  bool _isSelectAnswer = false;
-  String _opponentId;
-
   Question get question => _question;
-
-  int get selectedAnswerIndex => _selectedAnswerIndex;
-
-  bool get isSelectAnswer => _isSelectAnswer;
 
   void getCurrentUser() {
     currentUser = FirebaseManager.getCurrentUser();
   }
 
-  void selectAnswer(int index) {
-    _selectedAnswerIndex = _selectedAnswerIndex != index ? index : null;
-    _isSelectAnswer = _selectedAnswerIndex != null ? true : false;
-    notifyListeners();
-  }
-
-  void onPressAnswerDecideButton() {
-    // 該当questionのドキュメントをupdate
-    fireStore
-        .collection('messages')
-        .doc('questions')
-        .collection(_opponentId)
-        .doc(questionDocumentIndex)
-        .update({
-      // TODO: god_messageをUserコレクションから取得した内容にする
-      'god_message': '本当の答えは自分の中にあるのではないか',
-      'selected_answer_index': selectedAnswerIndex,
-      'answerer_id': currentUser.uid,
-    }).then((value) {
-      print('success answer to question!');
-    }).catchError((error) {
-      print(error);
-    });
-
-    _answerSuccessAction.sink.add(Event());
-  }
-
-  void getQuestionFromSheep() async {
+  Future<void> getResponseFromGod() async {
     getCurrentUser();
     _question = await fetchQuestionDocumentAsync();
     notifyListeners();
@@ -91,10 +48,12 @@ class AnswerGodViewModel extends ChangeNotifier {
     var completer = Completer<Question>();
     Map<String, dynamic> data;
 
+    String questionDocumentIndex;
+
     await fireStore
         .collection('messages')
         .doc('questions')
-        .collection(_opponentId)
+        .collection(currentUser.uid)
         .get()
         .then((value) {
       questionDocumentIndex = (value.docs.length - 1).toString();
@@ -103,7 +62,7 @@ class AnswerGodViewModel extends ChangeNotifier {
     await fireStore
         .collection('messages')
         .doc('questions')
-        .collection(_opponentId)
+        .collection(currentUser.uid)
         .doc(questionDocumentIndex)
         .get()
         .then((value) {
@@ -113,22 +72,15 @@ class AnswerGodViewModel extends ChangeNotifier {
     });
 
     question = Question(
-      answererId: null,
+      answererId: data['answerer_id'],
       questionContent: data['question_content'],
       answer1: data['answer1'],
       answer2: data['answer2'],
-      godMessage: null,
-      selectedAnswerIndex: null,
+      godMessage: data['god_message'],
+      selectedAnswerIndex: data['selected_answer_index'],
     );
-    print('_question.questionContent: ${_question.questionContent}');
 
     completer.complete(question);
     return completer.future;
-  }
-
-  @override
-  void dispose() {
-    _answerSuccessAction.close();
-    super.dispose();
   }
 }

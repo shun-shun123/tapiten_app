@@ -9,9 +9,9 @@ import 'package:tapiten_app/ui/answer/matching/matching_god_page.dart';
 import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile/profile_page.dart';
-import 'package:tapiten_app/ui/question/finish_sheep_page.dart';
-import 'package:tapiten_app/ui/question/matching_sheep_page.dart';
-import 'package:tapiten_app/ui/question/question_sheep_page.dart';
+import 'package:tapiten_app/ui/question/finish/finish_sheep_page.dart';
+import 'package:tapiten_app/ui/question/matching/matching_sheep_page.dart';
+import 'package:tapiten_app/ui/question/question/question_sheep_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
 void main() async {
@@ -114,10 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xffF8D825),
-        onPressed: true
-            ?
-            // TODO: isGodの値で呼び分ける
-            () {
+        onPressed: UserMode.isGod
+            ? () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     settings: const RouteSettings(name: 'matching_god'),

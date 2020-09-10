@@ -11,15 +11,16 @@ class AnswerGodPage extends StatelessWidget {
     final _opponentUserId = ModalRoute.of(context).settings.arguments;
     return ChangeNotifierProvider(
       create: (_) => AnswerGodViewModel(
-          _opponentUserId,
-          Question(
-            answererId: null,
-            questionContent: '',
-            answer1: '',
-            answer2: '',
-            godMessage: '',
-            selectedAnswerIndex: null,
-          )),
+        _opponentUserId,
+        Question(
+          answererId: null,
+          questionContent: '',
+          answer1: '',
+          answer2: '',
+          godMessage: '',
+          selectedAnswerIndex: null,
+        ),
+      ),
       child: Scaffold(
         body: AnswerGodPageBody(),
       ),
