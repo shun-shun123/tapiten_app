@@ -20,32 +20,6 @@ class MatchingSheepViewModel extends ChangeNotifier {
     currentUser = FirebaseManager.getCurrentUser();
   }
 
-  Future<void> makeCurrentUserDoc() async {
-    await fireStore
-        .collection('matching')
-        .doc(currentUser.uid)
-        .get()
-        .then((value) async => {
-              if (value.data() == null)
-                {
-                  await fireStore
-                      .collection('matching')
-                      .doc(currentUser.uid)
-                      .set({
-                    // TODO: Modelに閉じ込めるべき
-                    'is_login': true,
-                    'is_searching': false,
-                    'is_waiting': true,
-                    'opponent_id': "",
-                  }).then((value) => print('now generate current user doc!'))
-                },
-              print('in make current User Doc: ${value.data()}')
-            })
-        .catchError(
-          (error) => {print(error)},
-        );
-  }
-
   Future<void> updateSelfStatus() async {
     await fireStore
         .collection('matching')
@@ -56,7 +30,6 @@ class MatchingSheepViewModel extends ChangeNotifier {
   }
 
   Future<void> matchingWithGod() async {
-    await makeCurrentUserDoc();
     await updateSelfStatus();
 
     _documentSnapshot = fireStore
