@@ -31,7 +31,7 @@ class MatchingGodViewModel extends ChangeNotifier {
       'is_login': true,
       'is_searching': true,
       'is_waiting': false,
-      'opponent_id': null,
+      'opponent_id': '',
     }).then((value) {
       print('update self status: $status');
     }).catchError((error) {
@@ -48,6 +48,7 @@ class MatchingGodViewModel extends ChangeNotifier {
         .collection('matching')
         .where('is_login', isEqualTo: true)
         .where('is_waiting', isEqualTo: true)
+        .where('opponent_id', isEqualTo: '')
         .get()
         .then((QuerySnapshot querySnapshot) => {
               querySnapshot.docs.forEach((element) {

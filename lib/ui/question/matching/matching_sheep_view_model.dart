@@ -25,7 +25,7 @@ class MatchingSheepViewModel extends ChangeNotifier {
       'is_login': true,
       'is_searching': false,
       'is_waiting': true,
-      'opponent_id': null,
+      'opponent_id': '',
     }).then((value) {
       print('update self status: $status');
     }).catchError((error) {
