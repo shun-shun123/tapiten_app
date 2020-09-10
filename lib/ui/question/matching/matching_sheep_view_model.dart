@@ -21,17 +21,16 @@ class MatchingSheepViewModel extends ChangeNotifier {
   }
 
   Future<void> updateSelfStatus() async {
-    await fireStore
-        .collection('matching')
-        .doc(currentUser.uid)
-        .set({
-          'is_login': true,
-          'is_searching': false,
-          'is_waiting': true,
-          'opponent_id': null,
-        })
-        .then((value) => print('update self status: $status'))
-        .catchError((error) => {print('when update status error: $error')});
+    await fireStore.collection('matching').doc(currentUser.uid).set({
+      'is_login': true,
+      'is_searching': false,
+      'is_waiting': true,
+      'opponent_id': null,
+    }).then((value) {
+      print('update self status: $status');
+    }).catchError((error) {
+      print('when update status error: $error');
+    });
   }
 
   Future<void> matchingWithGod() async {

@@ -26,7 +26,21 @@ class MatchingGodViewModel extends ChangeNotifier {
     currentUser = FirebaseManager.getCurrentUser();
   }
 
+  Future<void> updateSelfStatus() async {
+    await fireStore.collection('matching').doc(currentUser.uid).set({
+      'is_login': true,
+      'is_searching': true,
+      'is_waiting': false,
+      'opponent_id': null,
+    }).then((value) {
+      print('update self status: $status');
+    }).catchError((error) {
+      print('when update status error: $error');
+    });
+  }
+
   void searchingSheep() async {
+    await updateSelfStatus();
     List waitingSheep = [];
 
     // TODO: opponent_id == ''もクエリに加える
@@ -38,11 +52,11 @@ class MatchingGodViewModel extends ChangeNotifier {
         .then((QuerySnapshot querySnapshot) => {
               querySnapshot.docs.forEach((element) {
                 waitingSheep.add(element.id);
-              })
-            })
+      })
+    })
         .catchError((error) => {
-              // TODO: エラー処理
-            });
+      // TODO: エラー処理
+    });
     print(waitingSheep);
 
     // waitingSheepからランダムに選んでマッチング申し込み開始
@@ -62,15 +76,16 @@ class MatchingGodViewModel extends ChangeNotifier {
             .snapshots()
             .listen((event) {
           var data = event.data();
-          if (data == null) {
-            print('data is empty!');
-            return;
-          }
 
-          if (data['opponent_id'] != "") {
+          if (data['opponent_id']
+              .toString()
+              .isNotEmpty &&
+              data['opponent_id'] != null) {
             opponentId = data['opponent_id'];
             print(opponentId);
             successMatching(opponentId);
+          } else {
+            print('dont exist opponent id');
           }
         });
       });
