@@ -11,7 +11,7 @@ import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile/profile_page.dart';
 import 'package:tapiten_app/ui/question/finish_sheep_page.dart';
 import 'package:tapiten_app/ui/question/matching_sheep_page.dart';
-import 'package:tapiten_app/ui/question/question_sheep_page.dart';
+import 'package:tapiten_app/ui/question/question/question_sheep_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
 void main() async {
