@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
+import 'package:tapiten_app/model/answer.dart';
 import 'package:tapiten_app/model/question.dart';
 
 class Event {}
@@ -52,7 +53,12 @@ class AnswerGodViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onPressAnswerDecideButton() {
+  Future<void> onPressAnswerDecideButton() async {
+    // インスタンスの内容更新
+    _question.selectedAnswerIndex = _selectedAnswerIndex;
+    _question.godMessage = '本当の答えは自分の中にあるのではないか';
+    _question.answererId = currentUser.uid;
+
     // 該当questionのドキュメントをupdate
     fireStore
         .collection('messages')
@@ -61,11 +67,51 @@ class AnswerGodViewModel extends ChangeNotifier {
         .doc(questionDocumentIndex)
         .update({
       // TODO: god_messageをUserコレクションから取得した内容にする
-      'god_message': '本当の答えは自分の中にあるのではないか',
-      'selected_answer_index': selectedAnswerIndex,
-      'answerer_id': currentUser.uid,
+      'god_message': _question.godMessage,
+      'selected_answer_index': _question.selectedAnswerIndex,
+      'answerer_id': _question.answererId,
     }).then((value) {
       print('success answer to question!');
+    }).catchError((error) {
+      print(error);
+    });
+
+    // 自身のanswersに回答結果をadd
+    String newDocumentIndex;
+    await fireStore
+        .collection('messages')
+        .doc('answers')
+        .collection(currentUser.uid)
+        .get()
+        .then((value) {
+      newDocumentIndex = value.docs.length.toString();
+      print('newDocumentIndex: $newDocumentIndex');
+    }).catchError((error) => {print(error)});
+
+    final answer = Answer(
+      questionerId: _opponentId,
+      questionContent: _question.questionContent,
+      answer1: _question.answer1,
+      answer2: _question.answer2,
+      reviewScore: 3,
+      //TODO: レビュー機能が入ったら見直し
+      selectedAnswerIndex: _question.selectedAnswerIndex,
+    );
+
+    fireStore
+        .collection('messages')
+        .doc('answers')
+        .collection(currentUser.uid)
+        .doc(newDocumentIndex)
+        .set({
+      'questioner_id': answer.questionerId,
+      'question_content': answer.questionContent,
+      'answer1': answer.answer1,
+      'answer2': answer.answer2,
+      'review_score': answer.reviewScore,
+      'selected_answer_index': answer.selectedAnswerIndex,
+    }).then((value) {
+      print('success update my answers');
     }).catchError((error) {
       print(error);
     });

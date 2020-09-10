@@ -62,15 +62,17 @@ class QuestionSheepViewModel extends ChangeNotifier {
         .collection(currentUser.uid)
         .doc(newDocumentIndex)
         .set({
-          'answerer_id': null,
-          'question_content': questionText,
-          'answer1': firstChoiceText,
-          'answer2': secondChoiceText,
-          'god_message': null,
-          'selected_answer_index': null,
-        })
-        .then((value) => null)
-        .catchError((error) => {print(error)});
+      'answerer_id': null,
+      'question_content': questionText,
+      'answer1': firstChoiceText,
+      'answer2': secondChoiceText,
+      'god_message': null,
+      'selected_answer_index': null,
+    }).then((value) {
+      print('success update my questions');
+    }).catchError((error) {
+      print(error);
+    });
   }
 
   @override
