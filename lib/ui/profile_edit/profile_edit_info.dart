@@ -51,21 +51,16 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         ),
       );
     }
-<<<<<<< HEAD
-
-    return Column(children: forms);
-=======
     if (UserMode.isGod) {
-      children.add(SignOutGoogle(
+      forms.add(SignOutGoogle(
         color: Color(0xFF909090),
       ));
     }else{
-      children.add(SignOutGoogle(
+      forms.add(SignOutGoogle(
         color: Colors.white,
       ));
     }
-    return Column(children: children);
->>>>>>> e9d2f36... ボタンの色をモードで分岐させ、プロフ編集画面に配置
+    return Column(children: forms);
   }
 }
 
