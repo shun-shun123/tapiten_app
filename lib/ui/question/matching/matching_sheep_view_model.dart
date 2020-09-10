@@ -24,9 +24,11 @@ class MatchingSheepViewModel extends ChangeNotifier {
     await fireStore
         .collection('matching')
         .doc(currentUser.uid)
-        .update({
+        .set({
+          'is_login': true,
           'is_searching': false,
           'is_waiting': true,
+          'opponent_id': null,
         })
         .then((value) => print('update self status: $status'))
         .catchError((error) => {print('when update status error: $error')});
