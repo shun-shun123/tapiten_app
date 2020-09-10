@@ -3,18 +3,22 @@ import 'package:provider/provider.dart';
 import 'package:tapiten_app/slide_page_route.dart';
 import 'package:tapiten_app/ui/profile/profile_icon.dart';
 import 'package:tapiten_app/ui/profile/profile_id.dart';
-import 'package:tapiten_app/ui/profile/profile_intro.dart';
+import 'package:tapiten_app/ui/profile/profile_message.dart';
 import 'package:tapiten_app/ui/profile/profile_mode_change_button.dart';
 import 'package:tapiten_app/ui/profile/profile_name.dart';
 import 'package:tapiten_app/ui/profile/profile_review_score.dart';
 import 'package:tapiten_app/ui/profile/viewModel/profile_user_mode_view_model.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_page.dart';
+import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProfileUserMode(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProfileUserMode()),
+        ChangeNotifierProvider(create: (_) => ProfileEditViewModel()),
+      ],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -72,7 +76,7 @@ class ProfileGodBody extends StatelessWidget {
       ProfileIcon(),
       ProfileName(),
       ProfileId(),
-      ProfileIntro(),
+      ProfileMessage(),
       ProfileReviewStars(),
       ProfileModeChangeButton(),
     ]);

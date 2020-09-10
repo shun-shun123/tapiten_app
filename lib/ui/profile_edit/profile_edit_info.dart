@@ -4,11 +4,39 @@ import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 
 class ProfileEditInfo extends StatefulWidget {
+  final String initGodName;
+  final String initSheepName;
+  final String initLoginId;
+  final String initMessage;
+
+  ProfileEditInfo({
+    this.initGodName,
+    this.initSheepName,
+    this.initLoginId,
+    this.initMessage,
+  });
+
   @override
-  _ProfileEditInfoState createState() => _ProfileEditInfoState();
+  _ProfileEditInfoState createState() => _ProfileEditInfoState(
+      initGodName: this.initGodName,
+      initSheepName: this.initSheepName,
+      initLoginId: this.initLoginId,
+      initMessage: this.initMessage);
 }
 
 class _ProfileEditInfoState extends State<ProfileEditInfo> {
+  final String initGodName;
+  final String initSheepName;
+  final String initLoginId;
+  final String initMessage;
+
+  _ProfileEditInfoState({
+    this.initGodName,
+    this.initSheepName,
+    this.initLoginId,
+    this.initMessage,
+  });
+
   Widget build(BuildContext context) {
     var viewModel = Provider.of<ProfileEditViewModel>(context);
     var forms = <Widget>[];
