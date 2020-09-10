@@ -129,7 +129,7 @@ class _InfoFormState extends State<InfoForm> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 100.0,
+        horizontal: 45.0,
         vertical: 10.0,
       ),
       child: Column(
