@@ -31,6 +31,7 @@ class _MessageListViewState extends State<MessageListView> {
       });
     }
     return Container(
+      color: UserMode.isGod ? Colors.white : Color(0xff909090),
       margin: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
       child: cells.length == 0
           ? EmptyMessage()
@@ -47,10 +48,19 @@ class EmptyMessage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 0),
       child: Center(
-        child: Text(
+        child: UserMode.isGod
+            ? Text(
           '迷える仔羊の悩みを解決しましょう',
           style: kTitleTextStyle.copyWith(
-            color: Colors.black,
+            color: Color(0xff90909090),
+            fontSize: 18,
+          ),
+        )
+            : Text(
+          '迷いを神さまに質問しましょう',
+          style: kTitleTextStyle.copyWith(
+            color: Colors.white,
+            fontSize: 18,
           ),
         ),
       ),
