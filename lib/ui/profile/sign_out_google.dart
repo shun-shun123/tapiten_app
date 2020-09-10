@@ -12,13 +12,10 @@ class SignOutGoogle extends StatelessWidget {
     final _googleSignIn = new GoogleSignIn();
     final _auth = FirebaseAuth.instance;
 
-    print('this value should NOT be null:${_auth.currentUser.uid}');
-
     await _auth.signOut();
 
     try {
       await _googleSignIn.signOut();
-      UserId.userId = '';
     } catch (e) {
       print(e);
     }
