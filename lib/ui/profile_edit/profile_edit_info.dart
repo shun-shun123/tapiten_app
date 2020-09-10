@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
+import 'package:tapiten_app/ui/profile/sign_out_google.dart';
 
 class ProfileEditInfo extends StatefulWidget {
   @override
@@ -50,8 +51,21 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         ),
       );
     }
+<<<<<<< HEAD
 
     return Column(children: forms);
+=======
+    if (UserMode.isGod) {
+      children.add(SignOutGoogle(
+        color: Color(0xFF909090),
+      ));
+    }else{
+      children.add(SignOutGoogle(
+        color: Colors.white,
+      ));
+    }
+    return Column(children: children);
+>>>>>>> e9d2f36... ボタンの色をモードで分岐させ、プロフ編集画面に配置
   }
 }
 

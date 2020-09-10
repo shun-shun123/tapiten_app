@@ -5,10 +5,16 @@ import 'package:tapiten_app/ui/top/top_page.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 
 class SignOutGoogle extends StatelessWidget {
-  final _googleSignIn = new GoogleSignIn();
-  final _auth = FirebaseAuth.instance;
+
+  final Color color;
+  SignOutGoogle(
+    {@required this.color}
+  );
 
   Future _handleSignOut() async {
+    final _googleSignIn = new GoogleSignIn();
+    final _auth = FirebaseAuth.instance;
+
     await _auth.signOut();
     try {
       await _googleSignIn.signOut();
@@ -23,12 +29,24 @@ class SignOutGoogle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(30),
+      child: Container(
+      margin: EdgeInsets.all(30),
       child: FlatButton(
-        child: Text('ログアウト', style: new TextStyle(fontSize: 18.0, color: Colors.red)),
+        child: Text(
+          'ログアウト',
+          style: new TextStyle(
+            fontSize: 18.0,
+            color: color,
+            decoration: TextDecoration.underline,
+            decorationColor: color,
+          ),
+        ),
         onPressed: () {
           _handleSignOut().catchError((e) => print(e));
         },
       ),
+    ),
     );
   }
 }
