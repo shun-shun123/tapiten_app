@@ -38,6 +38,17 @@ class _FinishSheepPageBodyState extends State<FinishSheepPageBody> {
   FinishSheepViewModel viewModel;
 
   @override
+  void initState() {
+    super.initState();
+    Provider.of<FinishSheepViewModel>(context, listen: false)
+        .returnMainScreenAction
+        .stream
+        .listen((_) {
+      Navigator.of(context).popUntil(ModalRoute.withName('/'));
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     viewModel = Provider.of<FinishSheepViewModel>(context);
 
@@ -80,9 +91,7 @@ class _FinishSheepPageBodyState extends State<FinishSheepPageBody> {
           ),
           GodMessage(messageText: viewModel.question.godMessage),
           SizedBox(height: 42),
-          ReturnMainScreenButton(onPressed: () {
-            Navigator.of(context).popUntil(ModalRoute.withName('/'));
-          })
+          ReturnMainScreenButton(onPressed: viewModel.returnMainScreen),
         ],
       ),
     );

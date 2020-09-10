@@ -29,9 +29,10 @@ class _FinishGodPageBodyState extends State<FinishGodPageBody> {
 
     // Listen events by view model.
     viewModel = Provider.of<FinishGodViewModel>(context, listen: false);
-    viewModel.matchingSuccessAction.stream.listen((_) {
+    viewModel.returnMainScreenAction.stream.listen((_) {
       Navigator.of(context).popUntil(ModalRoute.withName('/'));
     });
+    viewModel.getCurrentUser();
   }
 
   @override
