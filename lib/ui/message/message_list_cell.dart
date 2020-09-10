@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tapiten_app/model/answer.dart';
 import 'package:tapiten_app/model/question.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page.dart';
 
 class MessageListCell extends StatelessWidget {
@@ -95,7 +96,7 @@ class BuildBaseCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      color: Color(0xFFE9E9E9),
+      color: UserMode.isGod ? Color(0xffe8e8e8) : Colors.white,
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: 8,

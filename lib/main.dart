@@ -114,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Color backgroundColor = UserMode.isGod ? Colors.white : Color(0xff909090);
     Color edgeColor = UserMode.isGod ? Color(0xffC7C7CC) : Colors.white;
     return Scaffold(
+      backgroundColor: UserMode.isGod ? Colors.white : Color(0xff909090),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: primaryColor,
@@ -128,18 +129,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     fullscreenDialog: true,
                   ),
                 );
-        }
+              }
             : () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              settings: const RouteSettings(name: 'question_sheep'),
-              builder: (context) {
-                return QuestionSheepPage();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    settings: const RouteSettings(name: 'question_sheep'),
+                    builder: (context) {
+                      return QuestionSheepPage();
+                    },
+                    fullscreenDialog: true,
+                  ),
+                );
               },
-              fullscreenDialog: true,
-            ),
-          );
-        },
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(

@@ -20,9 +20,10 @@ class MessagePage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => messageList,
       child: Scaffold(
+        backgroundColor: UserMode.isGod ? Colors.white : Color(0xff909090),
         appBar: AppBar(
           title: MessagePageTitle(),
-          backgroundColor: Colors.white,
+          backgroundColor: UserMode.isGod ? Colors.white : Color(0xff909090),
         ),
         body: SafeArea(
           child: MessageListView(),
@@ -38,7 +39,7 @@ class MessagePageTitle extends StatelessWidget {
     return Text(
       'メッセージ一覧',
       style: TextStyle(
-        color: Colors.grey,
+        color: UserMode.isGod ? Color(0xff909090) : Colors.white,
         fontWeight: FontWeight.bold,
       ),
     );
