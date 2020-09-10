@@ -81,8 +81,7 @@ class _FinishSheepPageBodyState extends State<FinishSheepPageBody> {
           GodMessage(messageText: viewModel.question.godMessage),
           SizedBox(height: 42),
           ReturnMainScreenButton(onPressed: () {
-            // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-            Navigator.of(context).pop();
+            Navigator.of(context).popUntil(ModalRoute.withName('/'));
           })
         ],
       ),
