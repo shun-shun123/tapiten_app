@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tapiten_app/storage/user_login_id.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/top/top_page.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 
@@ -16,6 +18,9 @@ class SignOutGoogle extends StatelessWidget {
 
     try {
       await _googleSignIn.signOut();
+      UserId.userId = '';
+      UserMode.isGod = true;
+      UserLoginId.loginId = '';
     } catch (e) {
       print(e);
     }
