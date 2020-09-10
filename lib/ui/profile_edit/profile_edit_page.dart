@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/ui/profile/profile_page.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_icon.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_info.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
+
+import '../../slide_page_route.dart';
 
 class ProfileEditPage extends StatelessWidget {
   final String initGodName;
@@ -46,7 +49,9 @@ class ProfileEditPage extends StatelessWidget {
               ),
               onPressed: () => {
                 profileEditViewModel.saveProfile(),
-                Navigator.of(context).pop(),
+                Navigator.of(context).pushReplacement(SlidePageRoute(
+                  child: ProfilePage(),
+                ))
               },
             ),
           ],
