@@ -77,9 +77,7 @@ class MatchingGodViewModel extends ChangeNotifier {
             .listen((event) {
           var data = event.data();
 
-          if (data['opponent_id']
-              .toString()
-              .isNotEmpty &&
+          if (data['opponent_id'].toString().isNotEmpty &&
               data['opponent_id'] != null) {
             opponentId = data['opponent_id'];
             print(opponentId);
@@ -100,10 +98,12 @@ class MatchingGodViewModel extends ChangeNotifier {
 
   Future<void> successMatching(String opponentId) async {
     print("success matching!");
-    await Future.delayed(Duration(seconds: 3), () {
+    await Future.delayed(Duration(seconds: 1), () {
       status = MatchingStatus.success;
-      _matchingSuccessAction.sink.add(Event());
       notifyListeners();
+    });
+    await Future.delayed(Duration(seconds: 2), () {
+      _matchingSuccessAction.sink.add(Event());
     });
   }
 
