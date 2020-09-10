@@ -150,7 +150,6 @@ class _ProfileSheepBodyState extends State<ProfileSheepBody> {
             ProfileId(),
           ],
         ),
-        ProfileReviewStars(),
         SizedBox(height: 50.0),
         ProfileModeChangeButton(),
         SizedBox(height: 10.0),
