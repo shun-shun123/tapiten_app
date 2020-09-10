@@ -11,7 +11,17 @@ import 'package:tapiten_app/ui/profile/viewModel/profile_user_mode_view_model.da
 import 'package:tapiten_app/ui/profile_edit/profile_edit_page.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 
-class ProfilePage extends StatelessWidget {
+String godName;
+String sheepName;
+String displayId;
+String message;
+
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -31,7 +41,12 @@ class ProfilePage extends StatelessWidget {
               ),
               onPressed: () => {
                 Navigator.of(context).push(SlidePageRoute(
-                  child: ProfileEditPage(),
+                  child: ProfileEditPage(
+                    initGodName: godName,
+                    initSheepName: sheepName,
+                    initDisplayId: displayId,
+                    initMessage: message,
+                  ),
                 ))
               },
             ),
@@ -60,15 +75,31 @@ class ProfilePageTitle extends StatelessWidget {
   }
 }
 
-class ProfileBody extends StatelessWidget {
+class ProfileBody extends StatefulWidget {
+  @override
+  _ProfileBodyState createState() => _ProfileBodyState();
+}
+
+class _ProfileBodyState extends State<ProfileBody> {
   @override
   Widget build(BuildContext context) {
+    var viewModel = Provider.of<ProfileEditViewModel>(context);
+    godName = (viewModel.godName != null) ? viewModel.godName : '';
+    sheepName = (viewModel.sheepName != null) ? viewModel.sheepName : '';
+    displayId = (viewModel.displayId != null) ? viewModel.displayId : '';
+    message = (viewModel.message != null) ? viewModel.message : '';
+
     var profileMode = Provider.of<ProfileUserMode>(context);
     return profileMode.userMode ? ProfileGodBody() : ProfileSheepBody();
   }
 }
 
-class ProfileGodBody extends StatelessWidget {
+class ProfileGodBody extends StatefulWidget {
+  @override
+  _ProfileGodBodyState createState() => _ProfileGodBodyState();
+}
+
+class _ProfileGodBodyState extends State<ProfileGodBody> {
   @override
   Widget build(BuildContext context) {
     print('rebuild ProfileGodBody');
@@ -83,7 +114,12 @@ class ProfileGodBody extends StatelessWidget {
   }
 }
 
-class ProfileSheepBody extends StatelessWidget {
+class ProfileSheepBody extends StatefulWidget {
+  @override
+  _ProfileSheepBodyState createState() => _ProfileSheepBodyState();
+}
+
+class _ProfileSheepBodyState extends State<ProfileSheepBody> {
   @override
   Widget build(BuildContext context) {
     print('rebuild ProfileGodBody');

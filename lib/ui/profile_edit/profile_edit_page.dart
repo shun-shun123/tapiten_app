@@ -5,6 +5,17 @@ import 'package:tapiten_app/ui/profile_edit/profile_edit_info.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 
 class ProfileEditPage extends StatelessWidget {
+  final String initGodName;
+  final String initSheepName;
+  final String initDisplayId;
+  final String initMessage;
+
+  ProfileEditPage(
+      {this.initGodName,
+      this.initSheepName,
+      this.initDisplayId,
+      this.initMessage});
+
   @override
   Widget build(BuildContext context) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
@@ -49,7 +60,12 @@ class ProfileEditPage extends StatelessWidget {
             child: Container(
               child: Column(children: [
                 ProfileEditIcon(),
-                ProfileEditInfo(),
+                ProfileEditInfo(
+                  initGodName: this.initGodName,
+                  initSheepName: this.initSheepName,
+                  initDisplayId: this.initDisplayId,
+                  initMessage: this.initMessage,
+                ),
               ]),
             ),
           ),

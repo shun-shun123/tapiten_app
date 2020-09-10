@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
@@ -6,13 +7,13 @@ import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 class ProfileEditInfo extends StatefulWidget {
   final String initGodName;
   final String initSheepName;
-  final String initLoginId;
+  final String initDisplayId;
   final String initMessage;
 
   ProfileEditInfo({
     this.initGodName,
     this.initSheepName,
-    this.initLoginId,
+    this.initDisplayId,
     this.initMessage,
   });
 
@@ -20,20 +21,20 @@ class ProfileEditInfo extends StatefulWidget {
   _ProfileEditInfoState createState() => _ProfileEditInfoState(
       initGodName: this.initGodName,
       initSheepName: this.initSheepName,
-      initLoginId: this.initLoginId,
+      initDisplayId: this.initDisplayId,
       initMessage: this.initMessage);
 }
 
 class _ProfileEditInfoState extends State<ProfileEditInfo> {
   final String initGodName;
   final String initSheepName;
-  final String initLoginId;
+  final String initDisplayId;
   final String initMessage;
 
   _ProfileEditInfoState({
     this.initGodName,
     this.initSheepName,
-    this.initLoginId,
+    this.initDisplayId,
     this.initMessage,
   });
 
@@ -41,13 +42,14 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
     var viewModel = Provider.of<ProfileEditViewModel>(context);
     var forms = <Widget>[];
 
-    print(viewModel.godName);
+    print('initGodName = $initGodName');
+    print('godName = ${viewModel.godName}');
 
     forms.add(
       InfoForm(
         title: '表示名',
         height: 40,
-        initialValue: UserMode.isGod ? viewModel.godName : viewModel.sheepName,
+        initialValue: UserMode.isGod ? this.initGodName : this.initSheepName,
         onSubmit: (value) {
           viewModel.setUserName(value);
           viewModel.saveProfile();
@@ -58,7 +60,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
       InfoForm(
         title: 'ログインID',
         height: 40,
-        initialValue: viewModel.displayId,
+        initialValue: this.initDisplayId,
         onSubmit: (value) {
           viewModel.setDisplayId(value);
           viewModel.saveProfile();
@@ -70,7 +72,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         InfoForm(
           title: '神さまの名言',
           height: 80.0,
-          initialValue: viewModel.message,
+          initialValue: this.initMessage,
           onSubmit: (value) {
             viewModel.setMessage(value);
             viewModel.saveProfile();
@@ -88,8 +90,14 @@ class InfoForm extends StatefulWidget {
   final double height;
   final String initialValue;
   final Function(String) onSubmit;
+  final TextEditingController controller;
 
-  InfoForm({this.title, this.height, this.initialValue, this.onSubmit});
+  InfoForm(
+      {this.title,
+      this.height,
+      this.initialValue,
+      this.onSubmit,
+      this.controller});
 
   @override
   _InfoFormState createState() => _InfoFormState(
@@ -97,6 +105,7 @@ class InfoForm extends StatefulWidget {
         height: this.height,
         initialValue: this.initialValue,
         onSubmit: (value) => this.onSubmit(value),
+        controller: this.controller,
       );
 }
 
@@ -105,8 +114,14 @@ class _InfoFormState extends State<InfoForm> {
   final double height;
   final String initialValue;
   final Function(String) onSubmit;
+  final TextEditingController controller;
 
-  _InfoFormState({this.title, this.height, this.initialValue, this.onSubmit});
+  _InfoFormState(
+      {this.title,
+      this.height,
+      this.initialValue,
+      this.onSubmit,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
