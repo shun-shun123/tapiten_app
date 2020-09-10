@@ -43,7 +43,6 @@ class MatchingGodViewModel extends ChangeNotifier {
     await updateSelfStatus();
     List waitingSheep = [];
 
-    // TODO: opponent_id == ''もクエリに加える
     await fireStore
         .collection('matching')
         .where('is_login', isEqualTo: true)
@@ -55,9 +54,9 @@ class MatchingGodViewModel extends ChangeNotifier {
                 waitingSheep.add(element.id);
               })
             })
-        .catchError((error) => {
-              // TODO: エラー処理
-            });
+        .catchError((error) {
+      print(error);
+    });
     print(waitingSheep);
 
     // waitingSheepからランダムに選んでマッチング申し込み開始
