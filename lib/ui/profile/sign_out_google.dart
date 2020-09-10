@@ -5,25 +5,25 @@ import 'package:tapiten_app/ui/top/top_page.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 
 class SignOutGoogle extends StatelessWidget {
-
   final Color color;
-  SignOutGoogle(
-    {@required this.color}
-  );
+  SignOutGoogle({@required this.color});
 
-  Future _handleSignOut() async {
+  Future<TopPage> _handleSignOut() async {
     final _googleSignIn = new GoogleSignIn();
     final _auth = FirebaseAuth.instance;
 
+    print('this value should NOT be null:${_auth.currentUser.uid}');
+
     await _auth.signOut();
+
     try {
       await _googleSignIn.signOut();
       UserId.userId = '';
     } catch (e) {
       print(e);
     }
-    // ログアウトしたらトップへ戻る
-    return TopPage();
+
+    print('this value should turn to be null:${_auth.currentUser}');
   }
 
   @override
@@ -31,22 +31,27 @@ class SignOutGoogle extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(30),
       child: Container(
-      margin: EdgeInsets.all(30),
-      child: FlatButton(
-        child: Text(
-          'ログアウト',
-          style: new TextStyle(
-            fontSize: 18.0,
-            color: color,
-            decoration: TextDecoration.underline,
-            decorationColor: color,
+        margin: EdgeInsets.all(30),
+        child: FlatButton(
+          child: Text(
+            'ログアウト',
+            style: new TextStyle(
+              fontSize: 18.0,
+              color: color,
+              decoration: TextDecoration.underline,
+              decorationColor: color,
+            ),
           ),
+          onPressed: () {
+            _handleSignOut();
+            // ログアウトしたらトップへ戻る
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TopPage()),
+            );
+          },
         ),
-        onPressed: () {
-          _handleSignOut().catchError((e) => print(e));
-        },
       ),
-    ),
     );
   }
 }
