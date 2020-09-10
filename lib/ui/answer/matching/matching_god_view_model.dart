@@ -52,11 +52,11 @@ class MatchingGodViewModel extends ChangeNotifier {
         .then((QuerySnapshot querySnapshot) => {
               querySnapshot.docs.forEach((element) {
                 waitingSheep.add(element.id);
-      })
-    })
+              })
+            })
         .catchError((error) => {
-      // TODO: エラー処理
-    });
+              // TODO: エラー処理
+            });
     print(waitingSheep);
 
     // waitingSheepからランダムに選んでマッチング申し込み開始
