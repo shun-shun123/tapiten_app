@@ -114,10 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xffF8D825),
-        onPressed: true
-            ?
-            // TODO: isGodの値で呼び分ける
-            () {
+        onPressed: UserMode.isGod
+            ? () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     settings: const RouteSettings(name: 'matching_god'),

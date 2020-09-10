@@ -24,6 +24,7 @@ class AnswerGodViewModel extends ChangeNotifier {
   String questionDocumentIndex;
 
   Question _question = Question(
+    answererId: '',
     questionContent: '',
     answer1: '',
     answer2: '',
@@ -79,7 +80,14 @@ class AnswerGodViewModel extends ChangeNotifier {
   }
 
   Future<Question> fetchQuestionDocumentAsync() async {
-    Question question = Question();
+    Question question = Question(
+      answererId: '',
+      questionContent: '',
+      answer1: '',
+      answer2: '',
+      godMessage: '',
+      selectedAnswerIndex: null,
+    );
     var completer = Completer<Question>();
     Map<String, dynamic> data;
 
@@ -105,6 +113,7 @@ class AnswerGodViewModel extends ChangeNotifier {
     });
 
     question = Question(
+      answererId: null,
       questionContent: data['question_content'],
       answer1: data['answer1'],
       answer2: data['answer2'],
