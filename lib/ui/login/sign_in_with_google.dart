@@ -9,6 +9,7 @@ class SignInWithGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 100),
       child: SafeArea(
         child: Column(
           children: [
@@ -67,17 +68,24 @@ class _SigninWithGoogleState extends State<SigninWithGoogle> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Center(
-          child: RaisedButton(
-            child: Text("Googleではじめる"),
-            onPressed: () {
-              _handleGoogleSignIn().then((user) {
-                setState(() {
-                  transitionNextPage(user);
-                });
-              }).catchError((error) {
-                print(error);
-              });
-            },
+          child: ButtonTheme(
+              buttonColor: Colors.grey,
+              minWidth: 300.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: RaisedButton(
+                child: Text("Googleではじめる", style: TextStyle(color: Colors.white, fontFamily: 'RictyDiminished-Regular',fontSize: 18),),
+                onPressed: () {
+                  _handleGoogleSignIn().then((user) {
+                    setState(() {
+                      transitionNextPage(user);
+                    });
+                  }).catchError((error) {
+                    print(error);
+                  });
+                },
+              ),
           ),
         ),
       ],
