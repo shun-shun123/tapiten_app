@@ -53,11 +53,7 @@ class ProfileEditPage extends StatelessWidget {
               ),
               onPressed: () {
                 profileEditViewModel.saveProfile();
-                // Navigator.of(context).pushReplacement(SlidePageRoute(
-                //   child: MyHomePage(),
-                // ))
                 Navigator.pop(context, true);
-                //return Future.value(false);
               },
             ),
           ],
