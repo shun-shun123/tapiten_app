@@ -67,16 +67,16 @@ jobs:
       
       # 頑張ってipaを出力します
       - name: XCode Build Archive
-        uses: yukiarrr/ios-build-action@v0.5.0
+      - uses: yukiarrr/ios-build-action@v1.1.1
         with:
           project-path: ios/Runner.xcodeproj
           p12-base64: ${{ secrets.CERTIFICATES_P12 }}
           mobileprovision-base64: ${{ secrets.PROVISIONING_PROFILE }}
           code-signing-identity: iOS Distribution
           team-id: ${{ secrets.TEAM_ID }}
-          workspace-path: ios/Runner.xcworkspace
-          export-method: ad-hoc
+          workspace-path: ios/Runner.xcworkspace 
           output-path: app-release.ipa
+          export-method: ad-hoc
 
       # ipaをdeploygate経由で配布します
       - name: Distribute iOS app
