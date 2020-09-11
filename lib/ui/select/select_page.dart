@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tapiten_app/ui/my_home/my_home_page.dart';
 import 'package:tapiten_app/ui/select/select_view_model.dart';
-import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/select/components/mode_select_button.dart';
-import 'package:tapiten_app/main.dart';
 
 class SelectPage extends StatelessWidget {
   @override
@@ -41,8 +40,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
 
   void selectMode(int selectedModeIndex) {
     setState(() {
-      _selectedModeIndex =
-          _selectedModeIndex != selectedModeIndex ? selectedModeIndex : 0;
+      _selectedModeIndex = _selectedModeIndex != selectedModeIndex ? selectedModeIndex : 0;
     });
   }
 
@@ -73,9 +71,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                           selectMode(0);
                         },
                         icon: Image.asset('images/god.png'),
-                        borderColor: _selectedModeIndex == 0
-                            ? Colors.black
-                            : Colors.white,
+                        borderColor: _selectedModeIndex == 0 ? Colors.black : Colors.white,
                       ),
                       Text('神さま'),
                     ],
@@ -89,9 +85,7 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                           selectMode(1);
                         },
                         icon: Image.asset('images/sheep.png'),
-                        borderColor: _selectedModeIndex == 1
-                            ? Colors.black
-                            : Colors.white,
+                        borderColor: _selectedModeIndex == 1 ? Colors.black : Colors.white,
                       ),
                       Text('仔羊'),
                     ],
