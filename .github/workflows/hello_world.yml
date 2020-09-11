@@ -67,7 +67,7 @@ jobs:
       
       # 頑張ってipaを出力します
       - name: XCode Build Archive
-      - uses: yukiarrr/ios-build-action@v1.1.1
+        uses: yukiarrr/ios-build-action@v1.1.1
         with:
           project-path: ios/Runner.xcodeproj
           p12-base64: ${{ secrets.CERTIFICATES_P12 }}
