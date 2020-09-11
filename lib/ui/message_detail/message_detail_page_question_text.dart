@@ -9,7 +9,7 @@ class MessageDetailPageQuestionText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var userMode = Provider.of<UserMode>(context);
-    var fontColor = userMode.isGodFlag ? Colors.white : Color(0xff909090);
+    var fontColor = userMode.isGodFlag ? Color(0xff909090) : Color(0xff707070);
     return Container(
       margin: EdgeInsets.only(top: 10.0),
       width: double.infinity,

@@ -9,7 +9,13 @@ class MessageDetailRemark extends StatelessWidget {
       padding: EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          Text('今回の神様からの名言'),
+          Text(
+            '今回の神様からの名言',
+            style: TextStyle(
+              fontFamily: 'RictyDiminished-Regular',
+              color: Color(0xff707070),
+            ),
+          ),
           SizedBox(
             width: 250,
             height: 100,

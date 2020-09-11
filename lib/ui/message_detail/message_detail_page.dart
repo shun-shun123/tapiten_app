@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tapiten_app/model/answer.dart';
 import 'package:tapiten_app/model/question.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_icon.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_question_text.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page_review.dart';
@@ -12,36 +12,40 @@ class MessageDetailPage extends StatelessWidget {
   final bool isGod;
   final Answer answer;
   final Question question;
-  final Color bgColor;
+  final Color screenBackgroundColor;
+  final Color cardBackgroundColor;
 
   // 神様用のコンストラクタ
   MessageDetailPage.god({this.answer})
       : isGod = true,
         question = null,
-        bgColor = Color(0xE8E8E8);
+        screenBackgroundColor = Colors.white,
+        cardBackgroundColor = Color(0xffe8e8e8);
 
   // 子羊用のコンストラクタ
   MessageDetailPage.sheep({this.question})
       : isGod = false,
         answer = null,
-        bgColor = Color(0xF8F8F8);
+        screenBackgroundColor = Color(0xff909090),
+        cardBackgroundColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: screenBackgroundColor,
       appBar: AppBar(
-        backgroundColor: bgColor,
+        backgroundColor: screenBackgroundColor,
         title: MessageDetailPageTitle(),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          color: Colors.black,
+          color: UserMode.isGod ? Color(0xff909090) : Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: Card(
         margin:
             EdgeInsets.only(top: 15.0, bottom: 100.0, left: 15.0, right: 15.0),
-        color: bgColor,
+        color: cardBackgroundColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
         child: _buildBaseBody(isGod
@@ -103,7 +107,7 @@ class MessageDetailPageTitle extends StatelessWidget {
     return Text(
       'メッセージ',
       style: TextStyle(
-        color: Colors.grey,
+        color: UserMode.isGod ? Color(0xff909090) : Colors.white,
         fontWeight: FontWeight.bold,
       ),
     );

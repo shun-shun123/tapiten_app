@@ -50,7 +50,7 @@ class AnswerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: hasSelected ? 200 : 100,
+      width: hasSelected ? 160 : 124,
       height: 40,
       child: RaisedButton(
         child: Text(text),

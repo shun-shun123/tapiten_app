@@ -16,7 +16,13 @@ class MessageDetailReview extends StatelessWidget {
       padding: EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          Text('今回もらった評価'),
+          Text(
+            '今回もらった評価',
+            style: TextStyle(
+              fontFamily: 'RictyDiminished-Regular',
+              color: Color(0xff909090),
+            ),
+          ),
           Container(
             margin: EdgeInsets.only(top: 20.0),
             width: 150,
