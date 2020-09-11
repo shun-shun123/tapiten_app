@@ -17,14 +17,8 @@ class ProfileModeChangeButton extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-<<<<<<< HEAD
                     userMode.isGodFlag ? '子羊モード' : '神様モード',
                     style: TextStyle(
-=======
-                    profileMode.userMode ? '子羊モード' : '神様モード',
-                    style: kTitleTextStyle.copyWith(
-                      fontSize: 15,
->>>>>>> reodev
                       color: Color(0xFF909090),
                     ),
                     textAlign: TextAlign.center,
