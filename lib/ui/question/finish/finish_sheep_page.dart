@@ -15,6 +15,7 @@ class FinishSheepPage extends StatelessWidget {
       create: (_) => FinishSheepViewModel(
         Question(
           answererId: null,
+          answererName: '',
           questionContent: '',
           answer1: '',
           answer2: '',

@@ -3,13 +3,9 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:tapiten_app/model/answer.dart';
 import 'package:tapiten_app/model/question.dart';
-
 import 'package:tapiten_app/storage/user_id.dart';
-
-
 
 class FirebaseManager {
   // Firebaseの初期化
@@ -31,7 +27,10 @@ class FirebaseManager {
     List<Answer> answers = List<Answer>();
     var completer = Completer<List<Answer>>();
 
-    var query = FirebaseFirestore.instance.collection('messages').doc('answers').collection(UserId.userId);
+    var query = FirebaseFirestore.instance
+        .collection('messages')
+        .doc('answers')
+        .collection(UserId.userId);
 
     // collectionのfetchからAnswerリストの作成
     await query.get().then((querySnapshot) async {
@@ -39,6 +38,7 @@ class FirebaseManager {
         answers.add(
           Answer(
             questionerId: element.get('questioner_id'),
+            questionerName: element.get('questioner_name'),
             questionContent: element.get('question_content'),
             answer1: element.get('answer1'),
             answer2: element.get('answer2'),
@@ -56,7 +56,10 @@ class FirebaseManager {
   Future<List<Question>> fetchQuestionMessagesCollectionAsync() async {
     List<Question> questions = List<Question>();
     var completer = Completer<List<Question>>();
-    var query = FirebaseFirestore.instance.collection('messages').doc('questions').collection(UserId.userId);
+    var query = FirebaseFirestore.instance
+        .collection('messages')
+        .doc('questions')
+        .collection(UserId.userId);
 
     var res = query.get();
     print(res);
@@ -71,6 +74,7 @@ class FirebaseManager {
           godMessage: element.get('god_message'),
           selectedAnswerIndex: element.get('selected_answer_index'),
           answererId: element.get('answerer_id'),
+          answererName: element.get('answerer_name'),
         ));
       });
     });

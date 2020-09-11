@@ -26,6 +26,7 @@ class AnswerGodViewModel extends ChangeNotifier {
 
   Question _question = Question(
     answererId: '',
+    answererName: '',
     questionContent: '',
     answer1: '',
     answer2: '',
@@ -153,6 +154,7 @@ class AnswerGodViewModel extends ChangeNotifier {
   Future<Question> fetchQuestionDocumentAsync() async {
     Question question = Question(
       answererId: '',
+      answererName: '',
       questionContent: '',
       answer1: '',
       answer2: '',
@@ -185,6 +187,7 @@ class AnswerGodViewModel extends ChangeNotifier {
 
     question = Question(
       answererId: null,
+      answererName: '',
       questionContent: data['question_content'],
       answer1: data['answer1'],
       answer2: data['answer2'],
