@@ -9,7 +9,7 @@ class MessageDetailReview extends StatelessWidget {
       for (int i = 0; i < 5; i++)
         Icon(
           Icons.star,
-          color: i < reviewScore ? Colors.black : Colors.grey[350],
+          color: i < reviewScore ? Color(0xFF909090) : Color(0XFFFFFFFF),
         )
     ];
     return Container(
