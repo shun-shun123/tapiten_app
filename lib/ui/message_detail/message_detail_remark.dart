@@ -11,15 +11,19 @@ class MessageDetailRemark extends StatelessWidget {
         children: [
           Text('今回の神様からの名言'),
           SizedBox(
-            width: 200,
+            width: 250,
             height: 100,
-            child: Container(
+            child: Card(
               color: Color(0xFF909090),
-              child: Text(
-                remark,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              child: Center(
+                child: Text(
+                  remark,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

@@ -7,6 +7,7 @@ class MessageDetailPageIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     var userMode = Provider.of<UserMode>(context);
     return Container(
+      margin: EdgeInsets.only(top: 40.0),
       width: 90.0,
       height: 90.0,
       decoration: BoxDecoration(

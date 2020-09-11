@@ -18,13 +18,13 @@ class MessageDetailPage extends StatelessWidget {
   MessageDetailPage.god({this.answer})
       : isGod = true,
         question = null,
-        bgColor = Color(0xFFF8D825);
+        bgColor = Color(0xE8E8E8);
 
   // 子羊用のコンストラクタ
   MessageDetailPage.sheep({this.question})
       : isGod = false,
         answer = null,
-        bgColor = Color(0xff9FD53E);
+        bgColor = Color(0xF8F8F8);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,16 @@ class MessageDetailPage extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: _buildBaseBody(isGod ? _buildBodyForGod() : _buildBodyForSheep()),
+      body: Card(
+        margin:
+            EdgeInsets.only(top: 15.0, bottom: 100.0, left: 15.0, right: 15.0),
+        color: bgColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        child: _buildBaseBody(isGod
+            ? _buildBodyForGod(answer.selectedAnswerIndex)
+            : _buildBodyForSheep(question.selectedAnswerIndex)),
+      ),
     );
   }
 
@@ -56,13 +65,14 @@ class MessageDetailPage extends StatelessWidget {
   }
 
   // 神様モードの時のメッセージ詳細画面作成
-  List<Widget> _buildBodyForGod() {
+  List<Widget> _buildBodyForGod(int selectedIndex) {
     return [
       MessageDetailPageIcon(),
       MessageDetailPageQuestionText(content: answer.questionContent),
       TwoAnswerButtons(
         answer1: answer.answer1,
         answer2: answer.answer2,
+        selectIndex: selectedIndex,
       ),
       MessageDetailReview(
         reviewScore: answer.reviewScore,
@@ -71,13 +81,14 @@ class MessageDetailPage extends StatelessWidget {
   }
 
   // 子羊モードの時のメッセージ詳細画面作成
-  List<Widget> _buildBodyForSheep() {
+  List<Widget> _buildBodyForSheep(int selectedIndex) {
     return [
       MessageDetailPageIcon(),
       MessageDetailPageQuestionText(content: question.questionContent),
       TwoAnswerButtons(
         answer1: question.answer1,
         answer2: question.answer2,
+        selectIndex: selectedIndex,
       ),
       MessageDetailRemark(
         remark: question.godMessage,
