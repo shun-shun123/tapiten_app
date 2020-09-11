@@ -29,6 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
     print('rebuild ProfilePage');
 
     var profileEditviewModel = new ProfileEditViewModel();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProfileUserMode()),
