@@ -4,6 +4,7 @@ import 'package:tapiten_app/ui/select/select_view_model.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/select/components/mode_select_button.dart';
+import 'package:tapiten_app/main.dart';
 
 class SelectPage extends StatelessWidget {
   @override
@@ -113,10 +114,10 @@ class _SelectPageBodyState extends State<SelectPageBody> {
                 onPressed: () {
                   print('Current isGod flag is :${UserMode.isGod}');
                   // TODO: 遷移先の Message ページのエラーが治ったらコメントイン
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => MessagePage()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyHomePage()),
+                  );
                 },
               ),
             ]),

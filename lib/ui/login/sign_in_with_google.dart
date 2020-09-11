@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tapiten_app/main.dart';
 import 'package:tapiten_app/storage/user_id.dart';
+import 'package:tapiten_app/ui/login/login_page.dart';
 
 class SignInWithGoogleButton extends StatelessWidget {
   @override
@@ -57,7 +58,7 @@ class _SigninWithGoogleState extends State<SigninWithGoogle> {
     if (user == null) return;
     // TODO: リダイレクト先の入力項目は要調整
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MyHomePage()));
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   // ボタン
