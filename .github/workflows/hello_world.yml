@@ -84,11 +84,11 @@ jobs:
         run: |
           curl \
             -H "Authorization: token ${{secrets.DEPLOYGATE_API_KEY}}" \
-            -F "file=@app-release.ipa" \
+            -F "file=@/Users/runner/work/tapiten_app/tapiten_app/app-release.ipa" \
             -F "message=git:$GIT_HASH" \
             -F "distribution_name=$GIT_BRANCH" \
             -F "release_note=new ios build" \
-            -F "distribution_key=${{secrets.DEPLOYGATE_DIST_PAGE_HASH}}" \
+            -F "distribution_key=${{secrets.IOS_DISTRIBUTION_HASH}}" \
             "https://deploygate.com/api/users/${{secrets.DEPLOYGATE_USER}}/apps"
 #       - name: Distribute Android app
 #         run: | 
