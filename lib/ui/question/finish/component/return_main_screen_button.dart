@@ -22,7 +22,7 @@ class ReturnMainScreenButton extends StatelessWidget {
             ),
             color: Color(0xff9FD53E),
             child: Text(
-              '戻る',
+              '終了',
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'RictyDiminished-Regular',

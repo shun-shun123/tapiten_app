@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tapiten_app/model/question.dart';
 import 'package:tapiten_app/ui/question/finish/finish_sheep_view_model.dart';
 import 'package:tapiten_app/ui/question/styles/text_style.dart';
@@ -53,6 +54,8 @@ class _FinishSheepPageBodyState extends State<FinishSheepPageBody> {
   Widget build(BuildContext context) {
     viewModel = Provider.of<FinishSheepViewModel>(context);
 
+    var rating = 3.0;
+
     return Container(
       color: Color(0xff909090),
       width: double.infinity,
@@ -92,6 +95,26 @@ class _FinishSheepPageBodyState extends State<FinishSheepPageBody> {
           ),
           GodMessage(messageText: viewModel.question.godMessage),
           SizedBox(height: 42),
+          Text(
+            'レビューをつけよう',
+            style: kTitleTextStyle,
+          ),
+          SmoothStarRating(
+              allowHalfRating: true,
+              onRated: (v) {
+                print('star rate: $v');
+              },
+              starCount: 5,
+              rating: rating,
+              size: 40.0,
+              isReadOnly: false,
+              filledIconData: Icons.star,
+              halfFilledIconData: Icons.star_half,
+              defaultIconData: Icons.star_border,
+              color: Color(0xff9FD53E),
+              borderColor: Color(0xfff7f7f7),
+              spacing: 0.0),
+          SizedBox(height: 24),
           ReturnMainScreenButton(onPressed: viewModel.returnMainScreen),
         ],
       ),
