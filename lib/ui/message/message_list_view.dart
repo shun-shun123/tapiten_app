@@ -34,11 +34,13 @@ class _MessageListViewState extends State<MessageListView> {
     return Container(
       color: userMode.isGodFlag ? Colors.white : Color(0xff909090),
       margin: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-      child: cells.length == 0
-          ? EmptyMessage()
-          : ListView(
-              children: cells,
-            ),
+      child: messageList.isBusy
+          ? Container() // そもそも通信中なら何も表示しない
+          : cells.length == 0 // 通信結果が0ならEmptyMessage
+              ? EmptyMessage()
+              : ListView(
+                  children: cells,
+                ),
     );
   }
 }
