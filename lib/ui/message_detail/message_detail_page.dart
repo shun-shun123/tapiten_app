@@ -12,33 +12,33 @@ class MessageDetailPage extends StatelessWidget {
   final bool isGod;
   final Answer answer;
   final Question question;
+  final Color bgColor;
 
   // 神様用のコンストラクタ
   MessageDetailPage.god({this.answer})
       : isGod = true,
-        question = null;
+        question = null,
+        bgColor = Color(0xFFF8D825);
 
   // 子羊用のコンストラクタ
   MessageDetailPage.sheep({this.question})
       : isGod = false,
-        answer = null;
+        answer = null,
+        bgColor = Color(0xff9FD53E);
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [],
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: MessageDetailPageTitle(),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            color: Colors.black,
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: bgColor,
+        title: MessageDetailPageTitle(),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.black,
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        body: _buildBaseBody(isGod ? _buildBodyForGod() : _buildBodyForSheep()),
       ),
+      body: _buildBaseBody(isGod ? _buildBodyForGod() : _buildBodyForSheep()),
     );
   }
 
