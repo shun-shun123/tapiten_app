@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
-import 'package:tapiten_app/ui/profile/viewModel/profile_user_mode_view_model.dart';
 import 'package:tapiten_app/ui/question/styles/text_style.dart';
 
 class ProfileModeChangeButton extends StatelessWidget {
@@ -18,7 +17,8 @@ class ProfileModeChangeButton extends StatelessWidget {
                 Expanded(
                   child: Text(
                     userMode.isGodFlag ? '子羊モード' : '神様モード',
-                    style: TextStyle(
+                    style: kTitleTextStyle.copyWith(
+                      fontSize: 15,
                       color: Color(0xFF909090),
                     ),
                     textAlign: TextAlign.center,
