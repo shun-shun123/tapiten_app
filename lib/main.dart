@@ -45,6 +45,12 @@ Future loadUserId() async {
   }
 }
 
+Future signOut() async {
+  await FirebaseAuth.instance.signOut().then((value) => print('signOut'));
+  var userId = UserId();
+  userId.saveUserId(id: '');
+}
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
