@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +8,6 @@ import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/answer/answer/answer_god_page.dart';
 import 'package:tapiten_app/ui/answer/finish/finish_god_page.dart';
 import 'package:tapiten_app/ui/answer/matching/matching_god_page.dart';
-import 'package:tapiten_app/ui/login/sign_in_with_google.dart';
 import 'package:tapiten_app/ui/message/message_page.dart';
 import 'package:tapiten_app/ui/profile/profile_page.dart';
 import 'package:tapiten_app/ui/question/finish/finish_sheep_page.dart';
