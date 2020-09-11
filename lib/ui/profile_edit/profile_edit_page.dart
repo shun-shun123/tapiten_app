@@ -7,6 +7,7 @@ import 'package:tapiten_app/ui/profile_edit/profile_edit_info.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 import 'package:tapiten_app/ui/question/styles/text_style.dart';
 
+import '../../main.dart';
 import '../../slide_page_route.dart';
 
 class ProfileEditPage extends StatelessWidget {
@@ -41,7 +42,7 @@ class ProfileEditPage extends StatelessWidget {
               color: (UserMode.isGod) ? Color(0xFF909090) : Colors.white,
             ),
             onPressed: () => {
-              Navigator.of(context).pop(),
+              Navigator.of(context).pop(false),
             },
           ),
           actions: [
@@ -50,11 +51,9 @@ class ProfileEditPage extends StatelessWidget {
                 Icons.check,
                 color: (UserMode.isGod) ? Color(0xFF909090) : Colors.white,
               ),
-              onPressed: () => {
-                profileEditViewModel.saveProfile(),
-                Navigator.of(context).pushReplacement(SlidePageRoute(
-                  child: ProfilePage(),
-                ))
+              onPressed: () {
+                profileEditViewModel.saveProfile();
+                Navigator.pop(context, true);
               },
             ),
           ],
