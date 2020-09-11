@@ -27,10 +27,14 @@ class FirebaseManager {
     List<Answer> answers = List<Answer>();
     var completer = Completer<List<Answer>>();
 
-    var query = FirebaseFirestore.instance
-        .collection('messages')
-        .doc('answers')
-        .collection(UserId.userId);
+    var isLogIn = FirebaseAuth.instance.currentUser != null;
+    // ログインしていないものには何もあげません
+    if (isLogIn == false) {
+      completer.complete(answers);
+      return completer.future;
+    }
+
+    var query = FirebaseFirestore.instance.collection('messages').doc('answers').collection(UserId.userId);
 
     // collectionのfetchからAnswerリストの作成
     await query.get().then((querySnapshot) async {
@@ -56,10 +60,15 @@ class FirebaseManager {
   Future<List<Question>> fetchQuestionMessagesCollectionAsync() async {
     List<Question> questions = List<Question>();
     var completer = Completer<List<Question>>();
-    var query = FirebaseFirestore.instance
-        .collection('messages')
-        .doc('questions')
-        .collection(UserId.userId);
+
+    var isLogIn = FirebaseAuth.instance.currentUser != null;
+    // ログインしていないものには何もあげません
+    if (isLogIn == false) {
+      completer.complete(questions);
+      return completer.future;
+    }
+
+    var query = FirebaseFirestore.instance.collection('messages').doc('questions').collection(UserId.userId);
 
     var res = query.get();
     print(res);
