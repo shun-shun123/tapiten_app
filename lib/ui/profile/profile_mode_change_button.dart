@@ -6,7 +6,7 @@ import 'package:tapiten_app/ui/profile/viewModel/profile_user_mode_view_model.da
 class ProfileModeChangeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var profileMode = Provider.of<ProfileUserMode>(context);
+    var userMode = Provider.of<UserMode>(context);
     return Container(
       child: Center(
         child: SizedBox(
@@ -16,7 +16,7 @@ class ProfileModeChangeButton extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    profileMode.userMode ? '子羊モード' : '神様モード',
+                    userMode.isGodFlag ? '子羊モード' : '神様モード',
                     style: TextStyle(
                       color: Color(0xFF909090),
                     ),
@@ -34,7 +34,7 @@ class ProfileModeChangeButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             onPressed: () {
-              profileMode.changeUserMode(!UserMode.isGod);
+              userMode.saveUserMode(isGod: !userMode.isGodFlag);
             },
           ),
         ),

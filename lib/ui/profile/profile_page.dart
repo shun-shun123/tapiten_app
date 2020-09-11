@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/slide_page_route.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/profile/profile_icon.dart';
 import 'package:tapiten_app/ui/profile/profile_id.dart';
 import 'package:tapiten_app/ui/profile/profile_message.dart';
@@ -89,8 +90,8 @@ class _ProfileBodyState extends State<ProfileBody> {
     displayId = (viewModel.displayId != null) ? viewModel.displayId : '';
     message = (viewModel.message != null) ? viewModel.message : '';
 
-    var profileMode = Provider.of<ProfileUserMode>(context);
-    return profileMode.userMode ? ProfileGodBody() : ProfileSheepBody();
+    var userMode = Provider.of<UserMode>(context);
+    return userMode.isGodFlag ? ProfileGodBody() : ProfileSheepBody();
   }
 }
 

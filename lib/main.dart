@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
@@ -44,23 +45,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ChangeNotifierProvider<UserMode>(
+      create: (_) => UserMode(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => MyHomePage(),
+          '/matching_god': (context) => MatchingGodPage(),
+          '/answer_god': (context) => AnswerGodPage(),
+          '/finish_god': (context) => FinishGodPage(),
+          '/question_sheep': (context) => QuestionSheepPage(),
+          '/matching_sheep': (context) => MatchingSheepPage(),
+          '/finish_sheep': (context) => FinishSheepPage(),
+        },
+        // home: MyHomePage(),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => MyHomePage(),
-        '/matching_god': (context) => MatchingGodPage(),
-        '/answer_god': (context) => AnswerGodPage(),
-        '/finish_god': (context) => FinishGodPage(),
-        '/question_sheep': (context) => QuestionSheepPage(),
-        '/matching_sheep': (context) => MatchingSheepPage(),
-        '/finish_sheep': (context) => FinishSheepPage(),
-      },
-      // home: MyHomePage(),
     );
   }
 }
@@ -114,8 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
     Color primaryColor = UserMode.isGod ? Color(0xffF8D825) : Color(0xff9FD53E);
     Color backgroundColor = UserMode.isGod ? Colors.white : Color(0xff909090);
     Color edgeColor = UserMode.isGod ? Color(0xffC7C7CC) : Colors.white;
+    print('-----main.dart rebuild-----');
     return Scaffold(
-      backgroundColor: UserMode.isGod ? Colors.white : Color(0xff909090),
+      backgroundColor: Provider.of<UserMode>(context).isGodFlag
+          ? Colors.white
+          : Color(0xff909090),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: primaryColor,
