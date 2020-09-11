@@ -31,7 +31,7 @@ class MessageListCell extends StatelessWidget {
   Widget _buildCardForGod(BuildContext context) {
     return BuildBaseCard(
       title: Text(
-        '迷いすぎた子羊',
+        answer.questionerName,
         style: TextStyle(
           color: Color(0xff909090),
           fontFamily: 'RictyDiminished-Regular',
@@ -61,7 +61,7 @@ class MessageListCell extends StatelessWidget {
   Widget _buildCardForSheep(BuildContext context) {
     return BuildBaseCard(
       title: Text(
-        '迷いすぎた子羊',
+        question.answererName,
         style: TextStyle(
           color: Color(0xff909090),
           fontFamily: 'RictyDiminished-Regular',

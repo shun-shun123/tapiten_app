@@ -14,6 +14,7 @@ class AnswerGodPage extends StatelessWidget {
         _opponentUserId,
         Question(
           answererId: null,
+          answererName: '',
           questionContent: '',
           answer1: '',
           answer2: '',

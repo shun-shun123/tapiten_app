@@ -26,6 +26,7 @@ class AnswerGodViewModel extends ChangeNotifier {
 
   Question _question = Question(
     answererId: '',
+    answererName: '',
     questionContent: '',
     answer1: '',
     answer2: '',
@@ -61,6 +62,7 @@ class AnswerGodViewModel extends ChangeNotifier {
         .then((value) {
       final data = value.data();
       _question.godMessage = data['god_message'];
+      _question.answererName = data['god_name'];
     }).catchError((error) {
       print(error);
     });
@@ -79,6 +81,7 @@ class AnswerGodViewModel extends ChangeNotifier {
       'god_message': _question.godMessage,
       'selected_answer_index': _question.selectedAnswerIndex,
       'answerer_id': _question.answererId,
+      'answerer_name': _question.answererName,
     }).then((value) {
       print('success answer to question!');
     }).catchError((error) {
@@ -86,6 +89,7 @@ class AnswerGodViewModel extends ChangeNotifier {
     });
 
     // 自身のanswersに回答結果をadd
+    // 新規ドキュメント用のインデックス取得
     String newDocumentIndex;
     await fireStore
         .collection('messages')
@@ -97,8 +101,20 @@ class AnswerGodViewModel extends ChangeNotifier {
       print('newDocumentIndex: $newDocumentIndex');
     }).catchError((error) => {print(error)});
 
+    // 質問者の表示名取得
+    String _questionerName;
+    await fireStore
+        .collection('user_info')
+        .doc(_opponentId)
+        .get()
+        .then((value) {
+      final data = value.data();
+      _questionerName = data['sheep_name'];
+    });
+
     final answer = Answer(
       questionerId: _opponentId,
+      questionerName: _questionerName,
       questionContent: _question.questionContent,
       answer1: _question.answer1,
       answer2: _question.answer2,
@@ -114,6 +130,7 @@ class AnswerGodViewModel extends ChangeNotifier {
         .doc(newDocumentIndex)
         .set({
       'questioner_id': answer.questionerId,
+      'questioner_name': answer.questionerName,
       'question_content': answer.questionContent,
       'answer1': answer.answer1,
       'answer2': answer.answer2,
@@ -137,6 +154,7 @@ class AnswerGodViewModel extends ChangeNotifier {
   Future<Question> fetchQuestionDocumentAsync() async {
     Question question = Question(
       answererId: '',
+      answererName: '',
       questionContent: '',
       answer1: '',
       answer2: '',
@@ -169,6 +187,7 @@ class AnswerGodViewModel extends ChangeNotifier {
 
     question = Question(
       answererId: null,
+      answererName: '',
       questionContent: data['question_content'],
       answer1: data['answer1'],
       answer2: data['answer2'],
