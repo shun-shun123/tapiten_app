@@ -73,7 +73,6 @@ class MyApp extends StatelessWidget {
           '/matching_sheep': (context) => MatchingSheepPage(),
           '/finish_sheep': (context) => FinishSheepPage(),
         },
-        // home: MyHomePage(),
       ),
     );
   }
