@@ -5,10 +5,6 @@ import 'package:tapiten_app/ui/message/message_list_view.dart';
 import 'package:tapiten_app/ui/message/viewModel/message_list_view_model.dart';
 
 class MessagePage extends StatelessWidget {
-  final bool isGod;
-
-  MessagePage({this.isGod});
-
   @override
   Widget build(BuildContext context) {
     var messageList = MessageList();
@@ -24,8 +20,7 @@ class MessagePage extends StatelessWidget {
         backgroundColor: userMode.isGodFlag ? Colors.white : Color(0xff909090),
         appBar: AppBar(
           title: MessagePageTitle(),
-          backgroundColor:
-              userMode.isGodFlag ? Colors.white : Color(0xff909090),
+          backgroundColor: userMode.isGodFlag ? Colors.white : Color(0xff909090),
         ),
         body: SafeArea(
           child: MessageListView(),
