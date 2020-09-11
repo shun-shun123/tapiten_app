@@ -34,7 +34,10 @@ class FirebaseManager {
       return completer.future;
     }
 
-    var query = FirebaseFirestore.instance.collection('messages').doc('answers').collection(UserId.userId);
+    var query = FirebaseFirestore.instance
+        .collection('messages')
+        .doc('answers')
+        .collection(UserId.userId);
 
     // collectionのfetchからAnswerリストの作成
     await query.get().then((querySnapshot) async {
@@ -46,7 +49,7 @@ class FirebaseManager {
             questionContent: element.get('question_content'),
             answer1: element.get('answer1'),
             answer2: element.get('answer2'),
-            reviewScore: element.get('review_score'),
+            reviewScore: element.get('review_score').toInt(),
             selectedAnswerIndex: element.get('selected_answer_index'),
           ),
         );
@@ -68,7 +71,10 @@ class FirebaseManager {
       return completer.future;
     }
 
-    var query = FirebaseFirestore.instance.collection('messages').doc('questions').collection(UserId.userId);
+    var query = FirebaseFirestore.instance
+        .collection('messages')
+        .doc('questions')
+        .collection(UserId.userId);
 
     var res = query.get();
     print(res);

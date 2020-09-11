@@ -33,6 +33,8 @@ class FinishSheepViewModel extends ChangeNotifier {
 
   Question get question => _question;
 
+  var reviewScore;
+
   void getCurrentUser() {
     currentUser = FirebaseManager.getCurrentUser();
   }
@@ -93,7 +95,34 @@ class FinishSheepViewModel extends ChangeNotifier {
     return completer.future;
   }
 
-  void returnMainScreen() {
+  Future<void> returnMainScreen() async {
+    // レーティングの値をanswersにアップデートする
+    // answersのインデックスの取得
+    String answerDocumentIndex;
+    await fireStore
+        .collection('messages')
+        .doc('answers')
+        .collection(_question.answererId)
+        .get()
+        .then((value) {
+      answerDocumentIndex = (value.docs.length - 1).toString();
+      print('answerDocumentIndex:$answerDocumentIndex');
+    }).catchError((error) {
+      print(error);
+    });
+
+    // answersのアップデート
+    fireStore
+        .collection('messages')
+        .doc('answers')
+        .collection(_question.answererId)
+        .doc(answerDocumentIndex)
+        .update({'review_score': reviewScore}).then((value) {
+      print('success review score update!');
+    }).catchError((error) {
+      print(error);
+    });
+
     // opponent_idを初期化して終了
     fireStore
         .collection('matching')
