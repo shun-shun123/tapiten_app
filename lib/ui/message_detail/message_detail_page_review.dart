@@ -9,14 +9,20 @@ class MessageDetailReview extends StatelessWidget {
       for (int i = 0; i < 5; i++)
         Icon(
           Icons.star,
-          color: i < reviewScore ? Colors.black : Colors.grey[350],
+          color: i < reviewScore ? Color(0xFF909090) : Color(0XFFFFFFFF),
         )
     ];
     return Container(
       padding: EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          Text('今回もらった評価'),
+          Text(
+            '今回もらった評価',
+            style: TextStyle(
+              fontFamily: 'RictyDiminished-Regular',
+              color: Color(0xff909090),
+            ),
+          ),
           Container(
             margin: EdgeInsets.only(top: 20.0),
             width: 150,
