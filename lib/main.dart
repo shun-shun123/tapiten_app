@@ -92,12 +92,13 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       final user = _auth.currentUser;
       print('success check');
-      print('current user: ${user.displayName}');
       if (user == null) {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SigninWithGoogle()),
         );
+      } else {
+        print('current user: ${user.displayName}');
       }
     } catch (e) {
       print(e);
