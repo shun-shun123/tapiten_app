@@ -100,9 +100,10 @@ class _FinishSheepPageBodyState extends State<FinishSheepPageBody> {
             style: kTitleTextStyle,
           ),
           SmoothStarRating(
-              allowHalfRating: true,
-              onRated: (v) {
-                print('star rate: $v');
+              allowHalfRating: false,
+              onRated: (value) {
+                viewModel.reviewScore = value;
+                print('star rate: $value');
               },
               starCount: 5,
               rating: rating,

@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 class MessageDetailReview extends StatelessWidget {
   final int reviewScore;
+
   MessageDetailReview({this.reviewScore});
+
   @override
   Widget build(BuildContext context) {
     var reviewIcons = <Widget>[
       for (int i = 0; i < 5; i++)
         Icon(
           Icons.star,
-          color: i < reviewScore ? Color(0xFF909090) : Color(0XFFFFFFFF),
+          color:
+              i < reviewScore.toInt() ? Color(0xFF909090) : Color(0XFFFFFFFF),
         )
     ];
     return Container(
