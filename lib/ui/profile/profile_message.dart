@@ -33,6 +33,7 @@ class _ProfileMessageState extends State<ProfileMessage> {
             ),
             Text(
               messageText,
+              textAlign: TextAlign.center,
               style: kTitleTextStyle.copyWith(
                 fontSize: 20,
                 color: Color(0xFF909090),
