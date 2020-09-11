@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
+import 'package:tapiten_app/ui/question/styles/text_style.dart';
 
 class ProfileMessage extends StatefulWidget {
   @override
@@ -18,12 +19,26 @@ class _ProfileMessageState extends State<ProfileMessage> {
     return Container(
       padding: EdgeInsets.only(bottom: 25),
       child: Center(
-        child: Text(
-          messageText,
-          style: TextStyle(
-            color: Color(0xFF909090),
-            fontWeight: FontWeight.bold,
-          ),
+        child: Column(
+          children: [
+            Text(
+              'あなたの名言',
+              style: kTitleTextStyle.copyWith(
+                fontSize: 15,
+                color: Color(0xFF909090),
+              ),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Text(
+              messageText,
+              style: kTitleTextStyle.copyWith(
+                fontSize: 20,
+                color: Color(0xFF909090),
+              ),
+            ),
+          ],
         ),
       ),
     );

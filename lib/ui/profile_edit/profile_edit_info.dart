@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 import 'package:tapiten_app/ui/profile/sign_out_google.dart';
+import 'package:tapiten_app/ui/question/styles/text_style.dart';
 
 class ProfileEditInfo extends StatefulWidget {
   final String initGodName;
@@ -49,9 +49,10 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
     forms.add(
       InfoForm(
         title: '表示名',
-        height: 40,
+        maxLines: 1,
+        maxLength: 20,
         initialValue: UserMode.isGod ? this.initGodName : this.initSheepName,
-        onSubmit: (value) {
+        onChanged: (value) {
           viewModel.setUserName(value);
         },
       ),
@@ -59,9 +60,10 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
     forms.add(
       InfoForm(
         title: 'ログインID',
-        height: 40,
+        maxLines: 1,
+        maxLength: 20,
         initialValue: this.initDisplayId,
-        onSubmit: (value) {
+        onChanged: (value) {
           viewModel.setDisplayId(value);
         },
       ),
@@ -70,9 +72,10 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
       forms.add(
         InfoForm(
           title: '神さまの名言',
-          height: 80.0,
+          maxLines: 3,
+          maxLength: 40,
           initialValue: this.initMessage,
-          onSubmit: (value) {
+          onChanged: (value) {
             viewModel.setMessage(value);
           },
         ),
@@ -82,7 +85,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
       forms.add(SignOutGoogle(
         color: Color(0xFF909090),
       ));
-    }else{
+    } else {
       forms.add(SignOutGoogle(
         color: Colors.white,
       ));
@@ -93,78 +96,81 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
 
 class InfoForm extends StatefulWidget {
   final String title;
-  final double height;
+  final int maxLines;
+  final int maxLength;
   final String initialValue;
-  final Function(String) onSubmit;
-  final TextEditingController controller;
+  final Function(String) onChanged;
 
-  InfoForm(
-      {this.title,
-      this.height,
-      this.initialValue,
-      this.onSubmit,
-      this.controller});
+  InfoForm({
+    this.title,
+    this.maxLines,
+    this.maxLength,
+    this.initialValue,
+    this.onChanged,
+  });
 
   @override
   _InfoFormState createState() => _InfoFormState(
         title: this.title,
-        height: this.height,
+        maxLines: this.maxLines,
+        maxLength: this.maxLength,
         initialValue: this.initialValue,
-        onSubmit: (value) => this.onSubmit(value),
-        controller: this.controller,
+        onChanged: (value) => this.onChanged(value),
       );
 }
 
 class _InfoFormState extends State<InfoForm> {
   final String title;
-  final double height;
+  final int maxLines;
+  final int maxLength;
   final String initialValue;
-  final Function(String) onSubmit;
-  final TextEditingController controller;
+  final Function(String) onChanged;
 
-  _InfoFormState(
-      {this.title,
-      this.height,
-      this.initialValue,
-      this.onSubmit,
-      this.controller});
+  _InfoFormState({
+    this.title,
+    this.maxLines,
+    this.maxLength,
+    this.initialValue,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 50.0,
+        horizontal: 45.0,
         vertical: 10.0,
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             this.title,
-            style: TextStyle(
-              color: const Color(0xFF909090),
-              fontWeight: FontWeight.bold,
+            style: kTitleTextStyle.copyWith(
+              color: (UserMode.isGod) ? Color(0xFF909090) : Colors.white,
             ),
           ),
           SizedBox(
-            height: this.height,
-            width: 200,
-            child: TextFormField(
-              initialValue: this.initialValue,
-              enabled: true,
-              obscureText: false,
-              maxLines: 1,
-              onFieldSubmitted: (value) => this.onSubmit(value),
-              decoration: const InputDecoration(
-                hintText: '',
-                filled: true,
-                fillColor: const Color(0xFFE8E8E8),
-                border: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(10.0),
-                  ),
-                  borderSide: BorderSide.none,
+            height: 5.0,
+          ),
+          TextFormField(
+            style: kTextFormFieldTextStyle,
+            initialValue: this.initialValue,
+            enabled: true,
+            obscureText: false,
+            maxLines: this.maxLines,
+            maxLength: this.maxLength,
+            onChanged: (value) => this.onChanged(value),
+            decoration: const InputDecoration(
+              hintText: '',
+              filled: true,
+              fillColor: const Color(0xFFE8E8E8),
+              border: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
                 ),
+                borderSide: BorderSide.none,
               ),
             ),
           ),
