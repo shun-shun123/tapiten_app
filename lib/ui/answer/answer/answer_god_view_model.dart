@@ -54,9 +54,19 @@ class AnswerGodViewModel extends ChangeNotifier {
   }
 
   Future<void> onPressAnswerDecideButton() async {
+    await fireStore
+        .collection('user_info')
+        .doc(currentUser.uid)
+        .get()
+        .then((value) {
+      final data = value.data();
+      _question.godMessage = data['god_message'];
+    }).catchError((error) {
+      print(error);
+    });
+
     // インスタンスの内容更新
     _question.selectedAnswerIndex = _selectedAnswerIndex;
-    _question.godMessage = '本当の答えは自分の中にあるのではないか';
     _question.answererId = currentUser.uid;
 
     // 該当questionのドキュメントをupdate
@@ -66,7 +76,6 @@ class AnswerGodViewModel extends ChangeNotifier {
         .collection(_opponentId)
         .doc(questionDocumentIndex)
         .update({
-      // TODO: god_messageをUserコレクションから取得した内容にする
       'god_message': _question.godMessage,
       'selected_answer_index': _question.selectedAnswerIndex,
       'answerer_id': _question.answererId,
