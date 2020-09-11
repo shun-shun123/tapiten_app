@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-               BuildableName = "TapitenApp.app"
+               BuildableName = "&#x795e;&#x3055;&#x307e;&#x3068;&#x4ed4;&#x7f8a;.app"
                BlueprintName = "Runner"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "TapitenApp.app"
+            BuildableName = "&#x795e;&#x3055;&#x307e;&#x3068;&#x4ed4;&#x7f8a;.app"
             BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
@@ -54,7 +54,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "TapitenApp.app"
+            BuildableName = "&#x795e;&#x3055;&#x307e;&#x3068;&#x4ed4;&#x7f8a;.app"
             BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "TapitenApp.app"
+            BuildableName = "&#x795e;&#x3055;&#x307e;&#x3068;&#x4ed4;&#x7f8a;.app"
             BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tapiten_app/ui/message/model/answer.dart';
-import 'package:tapiten_app/ui/message/model/question.dart';
+import 'package:provider/provider.dart';
+import 'package:tapiten_app/model/answer.dart';
+import 'package:tapiten_app/model/question.dart';
+import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page.dart';
 
 class MessageListCell extends StatelessWidget {
@@ -27,10 +29,25 @@ class MessageListCell extends StatelessWidget {
   }
 
   Widget _buildCardForGod(BuildContext context) {
-    return _buildBaseCard(
-      Text(answer.questionContent),
-      Icon(Icons.settings),
-      () {
+    return BuildBaseCard(
+      title: Text(
+        answer.questionerName,
+        style: TextStyle(
+          color: Color(0xff909090),
+          fontFamily: 'RictyDiminished-Regular',
+          fontSize: 18,
+        ),
+      ),
+      subTitle: Text(
+        answer.questionContent,
+        style: TextStyle(
+          color: Color(0xFF909090),
+          fontFamily: "RictyDiminished-Regular",
+          fontSize: 14,
+        ),
+      ),
+      iconImage: AssetImage("images/sheep.png"),
+      onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           // メッセージ詳細画面（神様モード）に遷移する
           return MessageDetailPage.god(
@@ -42,10 +59,25 @@ class MessageListCell extends StatelessWidget {
   }
 
   Widget _buildCardForSheep(BuildContext context) {
-    return _buildBaseCard(
-      Text(question.questionContent),
-      Icon(Icons.settings),
-      () {
+    return BuildBaseCard(
+      title: Text(
+        question.answererName,
+        style: TextStyle(
+          color: Color(0xff909090),
+          fontFamily: 'RictyDiminished-Regular',
+          fontSize: 18,
+        ),
+      ),
+      subTitle: Text(
+        question.questionContent,
+        style: TextStyle(
+          color: Color(0xFF909090),
+          fontFamily: "RictyDiminished-Regular",
+          fontSize: 14,
+        ),
+      ),
+      iconImage: AssetImage("images/god.png"),
+      onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           // メッセージ詳細画面（子羊モード）に遷移する
           return MessageDetailPage.sheep(
@@ -55,19 +87,53 @@ class MessageListCell extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget _buildBaseCard(
-    Text title,
-    Icon icon,
-    GestureTapCallback onTap,
-  ) {
+class BuildBaseCard extends StatelessWidget {
+  BuildBaseCard({
+    @required this.title,
+    @required this.iconImage,
+    @required this.subTitle,
+    // @required this.icon,
+    @required this.onTap,
+  });
+
+  final Text title;
+  final Text subTitle;
+  final AssetImage iconImage;
+
+  // final Icon icon;
+  final GestureTapCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    var userMode = Provider.of<UserMode>(context);
     return Card(
-      color: Color(0xFFE9E9E9),
+      margin: EdgeInsets.symmetric(vertical: 8),
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      color: userMode.isGodFlag ? Color(0xffe8e8e8) : Colors.white,
       child: Container(
-        padding: EdgeInsets.only(top: 10, bottom: 10),
+        padding: EdgeInsets.symmetric(
+          vertical: 8,
+        ),
         child: ListTile(
           title: title,
-          leading: icon,
+          subtitle: subTitle,
+          leading: Container(
+            width: 40.0,
+            height: 40.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: iconImage,
+              ),
+            ),
+          ),
           onTap: onTap,
         ),
       ),

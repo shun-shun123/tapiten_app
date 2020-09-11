@@ -40,7 +40,7 @@
 <details>
 <summary>DB 設計</summary>
 
-```json
+```
 {
   // ホーム画面（ランキング）-> "god_ranking", "sheep_ranking"でソートして取る
   "ranking": {
@@ -51,9 +51,9 @@
   // マッチング画面
   "matching_state": {[
     id: {
-      "isLogin": true/false, // godもsheepもt/f取れる
-      "isWaiting": true/false, // sheepのみtrueが取れる
-      "isSearching": true/false, // godのみtrueが取れる
+      "is_login": true/false, // godもsheepもt/f取れる
+      "is_waiting": true/false, // sheepのみtrueが取れる
+      "is_searching": true/false, // godのみtrueが取れる
       "opponent_id": "相手のID"(String)
     }]
   },
@@ -75,7 +75,7 @@
     }],
     "questions": [
       id: {[
-        "answerer_id": "回答者のログインID"(String),
+        "answerer_id": "回答者のユーザーID"(String),
         "question_content": "質問文"(String),
         "answer1": "回答できる選択肢1"(String),
         "answer2": "回答できる選択肢2"(String),
@@ -87,8 +87,8 @@
 
   // プロフィール画面用コレクション -> 自己idで取ってくる
   "user_info": {
-    "id": "ユーザ固有ID"(String),
-    "login_id": "ログインID(英数字8文字以内)"(String),
+    "id": "ユーザID(UID)"(String),
+    "login_id": "ユーザーID(英数字8文字以内)"(String),
     "name": "ユーザ名"(String),
     "password": "パスワード"(String),
     "god_score": 100(Int),
@@ -116,16 +116,16 @@
 ```
 1. 仔羊が投稿を作成
 
-2. 仔羊側からマッチング処理
-   2-0. isLogin = true && isSearching = true の神様がいる  
-   2-1. 仔羊は自身の isWaiting を true にする  
-   2-2. 神様は isLogin = true && isWaiting = true の仔羊を選ぶ **（ユーザーの View 操作有り）**  
-   2-3. 書き込み処理  
-    2-3-1. 神様が仔羊の opponent_id に自身の id を書き込む  
-    2-3-2. 仔羊は opponent_id の変更を検知。書き込まれた opponent_id の神様を探し、神様の opponent_id に自身の id を書き込む  
-   2-4. 自身の opponent_id != "" && 相手の opponent_id != ""(or 自分の id)なら成功
+2. 仔羊が messages コレクションの questions->id に質問内容を書き込み
 
-3. 仔羊が messages コレクションの questions->id に質問内容を書き込み
+3. 仔羊側からマッチング処理
+   3-0. isLogin = true && isSearching = true の神様がいる  
+   3-1. 仔羊は自身の isWaiting を true にする  
+   3-2. 神様は isLogin = true && isWaiting = true の仔羊を選ぶ
+   3-3. 書き込み処理  
+    3-3-1. 神様が仔羊の opponent_id に自身の id を書き込む  
+    3-3-2. 仔羊は opponent_id の変更を検知。書き込まれた opponent_id の神様を探し、神様の opponent_id に自身の id を書き込む  
+   3-4. 自身の opponent_id != "" && 相手の opponent_id != ""(or 自分の id)なら成功
 
 4. 神様は matching コレクションの id->opponent_id から仔羊の id を取得して、messages コレクションから質問内容を取得する([questions->opponent_id].last)
 
