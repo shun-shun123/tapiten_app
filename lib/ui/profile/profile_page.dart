@@ -28,10 +28,11 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     print('rebuild ProfilePage');
 
+    var profileEditviewModel = new ProfileEditViewModel();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProfileUserMode()),
-        ChangeNotifierProvider(create: (_) => ProfileEditViewModel()),
+        ChangeNotifierProvider.value(value: profileEditviewModel),
       ],
       child: Scaffold(
         backgroundColor: (UserMode.isGod) ? Colors.white : Color(0xFF909090),
@@ -44,15 +45,28 @@ class _ProfilePageState extends State<ProfilePage> {
                 Icons.edit,
                 color: (UserMode.isGod) ? Color(0xFF909090) : Colors.white,
               ),
-              onPressed: () => {
-                Navigator.of(context).push(SlidePageRoute(
-                  child: ProfileEditPage(
-                    initGodName: godName,
-                    initSheepName: sheepName,
-                    initDisplayId: displayId,
-                    initMessage: message,
+              onPressed: () async {
+                bool result = await Navigator.of(context).push(
+                  // SlidePageRoute(
+                  //   child: ProfileEditPage(
+                  //     initGodName: godName,
+                  //     initSheepName: sheepName,
+                  //     initDisplayId: displayId,
+                  //     initMessage: message,
+                  //   ),
+                  // ),
+                  MaterialPageRoute(
+                    builder: (context) => new ProfileEditPage(
+                      initGodName: godName,
+                      initSheepName: sheepName,
+                      initDisplayId: displayId,
+                      initMessage: message,
+                    ),
                   ),
-                ))
+                );
+                if (result) {
+                  profileEditviewModel.getProfile();
+                }
               },
             ),
           ],
