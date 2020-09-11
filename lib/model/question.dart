@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Question {
   String answererId;
+  String answererName;
   String questionContent;
   String answer1;
   String answer2;
@@ -10,6 +11,7 @@ class Question {
 
   Question({
     @required this.answererId,
+    @required this.answererName,
     @required this.questionContent,
     @required this.answer1,
     @required this.answer2,

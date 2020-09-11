@@ -63,6 +63,7 @@ class QuestionSheepViewModel extends ChangeNotifier {
         .doc(newDocumentIndex)
         .set({
       'answerer_id': null,
+      'answerer_name': null,
       'question_content': questionText,
       'answer1': firstChoiceText,
       'answer2': secondChoiceText,
