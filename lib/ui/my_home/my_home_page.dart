@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/answer/matching/matching_god_page.dart';
-import 'package:tapiten_app/ui/message/message_page.dart';
+import 'package:tapiten_app/ui/my_home/my_home_pageview.dart';
 import 'package:tapiten_app/ui/my_home/viewModel/page_controller_view_model.dart';
-import 'package:tapiten_app/ui/profile/profile_page.dart';
 import 'package:tapiten_app/ui/question/question/question_sheep_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
 
 class MyHomePage extends StatelessWidget {
-  final PageController _myPage = PageController(initialPage: 0);
-
-  void changePage(int pageIndex) {}
+  final myHomePageView = MyHomePageView();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +66,7 @@ class MyHomePage extends StatelessWidget {
             children: <Widget>[
               InkWell(
                 customBorder: CircleBorder(),
-                onTap: () => changePage(0),
+                onTap: () => pageControllerViewModel.changePageIndex(0),
                 child: BottomTabBarItem(
                   Icons.email,
                   'メッセージ',
@@ -78,7 +75,7 @@ class MyHomePage extends StatelessWidget {
               ),
               InkWell(
                 customBorder: CircleBorder(),
-                onTap: () => changePage(1),
+                onTap: () => pageControllerViewModel.changePageIndex(1),
                 child: BottomTabBarItem(
                   Icons.person,
                   'プロフィール',
@@ -89,17 +86,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: PageView(
-        controller: _myPage,
-        onPageChanged: (int pageIndex) {
-          pageControllerViewModel.changePageIndex(pageIndex);
-        },
-        children: <Widget>[
-          MessagePage(),
-          ProfilePage(),
-        ],
-        physics: NeverScrollableScrollPhysics(),
-      ),
+      body: myHomePageView,
     );
   }
 }
