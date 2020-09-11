@@ -89,7 +89,8 @@ class MatchingGodViewModel extends ChangeNotifier {
       });
     } else {
       // waitingSheepが空の場合は終了
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(seconds: 2), () {
+        print('cant find any sheep');
         status = MatchingStatus.failure;
         notifyListeners();
       });
@@ -118,7 +119,9 @@ class MatchingGodViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
-    _documentSnapshot.cancel();
+    if (_documentSnapshot != null) {
+      _documentSnapshot.cancel();
+    }
     _matchingSuccessAction.close();
     super.dispose();
   }
