@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/storage/user_id.dart';
@@ -35,7 +37,8 @@ Future loadUserMode() async {
 Future loadUserId() async {
   var userId = UserId();
   await userId.loadUserId();
-  if (UserId.userId == '') {
+  // StringIsNullOrEmpty
+  if (UserId.userId == null || UserId.userId == '') {
     print('This user does NOT have a userId in local storage.');
   } else {
     print('This users userId is ${UserId.userId}');
@@ -91,18 +94,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void checkLoggedInFirebase() async {
     try {
-      final user = _auth.currentUser;
-      print('success check');
-      if (user == null) {
+      final isLogIn = _auth.currentUser != null;  // ログイン済みか　
+      final hasAccount = UserId.userId != null && UserId.userId != ''; // IsNotNullAndEmpty
+      if (isLogIn) {
+        return;
+      } else if (hasAccount) {  
+        // ログインはしてないけどアカウントは持ってる
+        // TODO: ログインページへ行きたい
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => TopPage()),
         );
       } else {
-        print('current user: ${user.displayName}');
+        // ログインもしてないし、アカウントすら持っていない
+        // TODO: サインアップページへ行きたい
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => TopPage()),
+        );
       }
     } catch (e) {
+      // せめてもの情けでログだけ出力
       print(e);
+      // 何もみなかったことにしてアプリをそっと落とそう（🤔）
+      await SystemNavigator.pop();
     }
   }
 
@@ -119,11 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Color primaryColor = UserMode.isGod ? Color(0xffF8D825) : Color(0xff9FD53E);
     Color backgroundColor = UserMode.isGod ? Colors.white : Color(0xff909090);
     Color edgeColor = UserMode.isGod ? Color(0xffC7C7CC) : Colors.white;
-    print('-----main.dart rebuild-----');
     return Scaffold(
-      backgroundColor: Provider.of<UserMode>(context).isGodFlag
-          ? Colors.white
-          : Color(0xff909090),
+      backgroundColor: Provider.of<UserMode>(context).isGodFlag ? Colors.white : Color(0xff909090),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: primaryColor,
