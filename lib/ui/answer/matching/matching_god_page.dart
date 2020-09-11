@@ -65,9 +65,31 @@ class _MatchingGodPageBodyState extends State<MatchingGodPageBody> {
               ),
             ),
           ),
-          SizedBox(height: 60),
+          SizedBox(height: 48),
           MatchingStatusMessage(
             status: nonRebuildViewModel.status,
+          ),
+          Visibility(
+            visible: rebuildViewModel.status == MatchingStatus.failure,
+            child: Column(
+              children: [
+                SizedBox(height: 24),
+                RaisedButton(
+                  color: Color(0xffe8e8e8),
+                  child: Text(
+                    'もどる',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Color(0xff909090),
+                      fontFamily: 'RictyDiminished-Regular',
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),
