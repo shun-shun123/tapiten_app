@@ -12,7 +12,8 @@ class MessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var messageList = MessageList();
-    if (UserMode.isGod) {
+    var userMode = Provider.of<UserMode>(context);
+    if (userMode.isGodFlag) {
       messageList.fetchMessageListForGod();
     } else {
       messageList.fetchMessageListForSheep();
@@ -20,10 +21,11 @@ class MessagePage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => messageList,
       child: Scaffold(
-        backgroundColor: UserMode.isGod ? Colors.white : Color(0xff909090),
+        backgroundColor: userMode.isGodFlag ? Colors.white : Color(0xff909090),
         appBar: AppBar(
           title: MessagePageTitle(),
-          backgroundColor: UserMode.isGod ? Colors.white : Color(0xff909090),
+          backgroundColor:
+              userMode.isGodFlag ? Colors.white : Color(0xff909090),
         ),
         body: SafeArea(
           child: MessageListView(),
@@ -36,10 +38,11 @@ class MessagePage extends StatelessWidget {
 class MessagePageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var userMode = Provider.of<UserMode>(context);
     return Text(
       'メッセージ一覧',
       style: TextStyle(
-        color: UserMode.isGod ? Color(0xff909090) : Colors.white,
+        color: userMode.isGodFlag ? Color(0xff909090) : Colors.white,
         fontWeight: FontWeight.bold,
       ),
     );

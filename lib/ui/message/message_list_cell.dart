@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tapiten_app/model/answer.dart';
 import 'package:tapiten_app/model/question.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
@@ -30,11 +31,19 @@ class MessageListCell extends StatelessWidget {
   Widget _buildCardForGod(BuildContext context) {
     return BuildBaseCard(
       title: Text(
-        answer.questionContent,
+        '迷いすぎた子羊',
         style: TextStyle(
           color: Color(0xff909090),
           fontFamily: 'RictyDiminished-Regular',
           fontSize: 18,
+        ),
+      ),
+      subTitle: Text(
+        answer.questionContent,
+        style: TextStyle(
+          color: Color(0xFF909090),
+          fontFamily: "RictyDiminished-Regular",
+          fontSize: 14,
         ),
       ),
       iconImage: AssetImage("images/sheep.png"),
@@ -52,11 +61,19 @@ class MessageListCell extends StatelessWidget {
   Widget _buildCardForSheep(BuildContext context) {
     return BuildBaseCard(
       title: Text(
-        question.questionContent,
+        '迷いすぎた子羊',
         style: TextStyle(
           color: Color(0xff909090),
           fontFamily: 'RictyDiminished-Regular',
           fontSize: 18,
+        ),
+      ),
+      subTitle: Text(
+        question.questionContent,
+        style: TextStyle(
+          color: Color(0xFF909090),
+          fontFamily: "RictyDiminished-Regular",
+          fontSize: 14,
         ),
       ),
       iconImage: AssetImage("images/god.png"),
@@ -76,33 +93,35 @@ class BuildBaseCard extends StatelessWidget {
   BuildBaseCard({
     @required this.title,
     @required this.iconImage,
-    // @required this.subTitle,
+    @required this.subTitle,
     // @required this.icon,
     @required this.onTap,
   });
 
   final Text title;
+  final Text subTitle;
   final AssetImage iconImage;
 
-  // final Text subTitle;
   // final Icon icon;
   final GestureTapCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    var userMode = Provider.of<UserMode>(context);
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8),
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      color: UserMode.isGod ? Color(0xffe8e8e8) : Colors.white,
+      color: userMode.isGodFlag ? Color(0xffe8e8e8) : Colors.white,
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: 8,
         ),
         child: ListTile(
           title: title,
+          subtitle: subTitle,
           leading: Container(
             width: 40.0,
             height: 40.0,

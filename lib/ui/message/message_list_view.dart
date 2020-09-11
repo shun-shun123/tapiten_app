@@ -13,9 +13,10 @@ class MessageListView extends StatefulWidget {
 class _MessageListViewState extends State<MessageListView> {
   @override
   Widget build(BuildContext context) {
+    var userMode = Provider.of<UserMode>(context);
     var cells = <Widget>[];
     var messageList = Provider.of<MessageList>(context);
-    if (UserMode.isGod) {
+    if (userMode.isGodFlag) {
       var answers = messageList.answers;
       answers.forEach((answer) {
         cells.add(MessageListCell.god(
@@ -31,7 +32,7 @@ class _MessageListViewState extends State<MessageListView> {
       });
     }
     return Container(
-      color: UserMode.isGod ? Colors.white : Color(0xff909090),
+      color: userMode.isGodFlag ? Colors.white : Color(0xff909090),
       margin: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
       child: cells.length == 0
           ? EmptyMessage()
@@ -45,24 +46,25 @@ class _MessageListViewState extends State<MessageListView> {
 class EmptyMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var userMode = Provider.of<UserMode>(context);
     return Container(
       margin: EdgeInsets.only(top: 0),
       child: Center(
-        child: UserMode.isGod
+        child: userMode.isGodFlag
             ? Text(
-          '迷える仔羊の悩みを解決しましょう',
-          style: kTitleTextStyle.copyWith(
-            color: Color(0xff90909090),
-            fontSize: 18,
-          ),
-        )
+                '迷える仔羊の悩みを解決しましょう',
+                style: kTitleTextStyle.copyWith(
+                  color: Color(0xff90909090),
+                  fontSize: 18,
+                ),
+              )
             : Text(
-          '迷いを神さまに質問しましょう',
-          style: kTitleTextStyle.copyWith(
-            color: Colors.white,
-            fontSize: 18,
-          ),
-        ),
+                '迷いを神さまに質問しましょう',
+                style: kTitleTextStyle.copyWith(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
+              ),
       ),
     );
   }
