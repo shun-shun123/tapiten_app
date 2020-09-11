@@ -14,6 +14,7 @@ import 'package:tapiten_app/ui/question/finish/finish_sheep_page.dart';
 import 'package:tapiten_app/ui/question/matching/matching_sheep_page.dart';
 import 'package:tapiten_app/ui/question/question/question_sheep_page.dart';
 import 'package:tapiten_app/ui/tabbar/bottom_tabbar_item.dart';
+import 'package:tapiten_app/ui/top/top_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -95,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (user == null) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SigninWithGoogle()),
+          MaterialPageRoute(builder: (context) => TopPage()),
         );
       } else {
         print('current user: ${user.displayName}');
