@@ -32,6 +32,10 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
   final String initDisplayId;
   final String initMessage;
 
+  String currentUserName;
+  String currentDisplayId;
+  String currentMessage;
+
   _ProfileEditInfoState({
     this.initGodName,
     this.initSheepName,
@@ -43,7 +47,11 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
     var viewModel = Provider.of<ProfileEditViewModel>(context);
     var forms = <Widget>[];
 
-    print('initGodName = $initGodName');
+    viewModel.setUserName(currentUserName);
+    viewModel.setDisplayId(currentDisplayId);
+    viewModel.setMessage(currentMessage);
+
+    //print('initGodName = $initGodName');
     print('godName = ${viewModel.godName}');
 
     forms.add(
@@ -53,7 +61,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         maxLength: 20,
         initialValue: UserMode.isGod ? this.initGodName : this.initSheepName,
         onChanged: (value) {
-          viewModel.setUserName(value);
+          this.currentUserName = value;
         },
       ),
     );
@@ -64,7 +72,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         maxLength: 20,
         initialValue: this.initDisplayId,
         onChanged: (value) {
-          viewModel.setDisplayId(value);
+          this.currentDisplayId = value;
         },
       ),
     );
@@ -76,7 +84,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
           maxLength: 40,
           initialValue: this.initMessage,
           onChanged: (value) {
-            viewModel.setMessage(value);
+            this.currentMessage = value;
           },
         ),
       );
@@ -161,7 +169,10 @@ class _InfoFormState extends State<InfoForm> {
             obscureText: false,
             maxLines: this.maxLines,
             maxLength: this.maxLength,
-            onChanged: (value) => this.onChanged(value),
+            onChanged: (value) => {
+              this.onChanged(value),
+              print('onChanged'),
+            },
             decoration: const InputDecoration(
               hintText: '',
               filled: true,

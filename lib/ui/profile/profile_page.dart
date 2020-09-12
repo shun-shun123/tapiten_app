@@ -24,11 +24,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  var profileEditviewModel = new ProfileEditViewModel();
+
   @override
   Widget build(BuildContext context) {
     print('rebuild ProfilePage');
-
-    var profileEditviewModel = new ProfileEditViewModel();
 
     return MultiProvider(
       providers: [

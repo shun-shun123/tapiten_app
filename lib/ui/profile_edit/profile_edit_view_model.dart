@@ -19,6 +19,7 @@ class ProfileEditViewModel extends ChangeNotifier {
     } else {
       this.sheepName = name;
     }
+    print('set userName: ${this.godName}');
     notifyListeners();
   }
 
@@ -45,11 +46,9 @@ class ProfileEditViewModel extends ChangeNotifier {
       sheepName = value.get('sheep_name');
       displayId = value.get('display_id');
       message = value.get('god_message');
-    });
+    }).then((value) => print('get profile'));
 
     notifyListeners();
-
-    print('get profile');
   }
 
   void saveProfile() async {
@@ -60,8 +59,6 @@ class ProfileEditViewModel extends ChangeNotifier {
       'sheep_name': sheepName,
       'display_id': displayId,
       'god_message': message
-    });
-
-    print('save profile');
+    }).then((value) => print('save profile'));
   }
 }
