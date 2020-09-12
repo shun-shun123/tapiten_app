@@ -11,6 +11,9 @@ class QuestionSheepPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => QuestionSheepViewModel(),
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xff909090),
+        ),
         backgroundColor: Color(0xff909090),
         body: QuestionSheepPageBody(),
       ),

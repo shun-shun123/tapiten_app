@@ -27,6 +27,13 @@ class FirebaseManager {
     List<Answer> answers = List<Answer>();
     var completer = Completer<List<Answer>>();
 
+    var isLogIn = FirebaseAuth.instance.currentUser != null;
+    // ログインしていないものには何もあげません
+    if (isLogIn == false) {
+      completer.complete(answers);
+      return completer.future;
+    }
+
     var query = FirebaseFirestore.instance
         .collection('messages')
         .doc('answers')
@@ -42,7 +49,7 @@ class FirebaseManager {
             questionContent: element.get('question_content'),
             answer1: element.get('answer1'),
             answer2: element.get('answer2'),
-            reviewScore: element.get('review_score'),
+            reviewScore: element.get('review_score').toInt(),
             selectedAnswerIndex: element.get('selected_answer_index'),
           ),
         );
@@ -56,6 +63,14 @@ class FirebaseManager {
   Future<List<Question>> fetchQuestionMessagesCollectionAsync() async {
     List<Question> questions = List<Question>();
     var completer = Completer<List<Question>>();
+
+    var isLogIn = FirebaseAuth.instance.currentUser != null;
+    // ログインしていないものには何もあげません
+    if (isLogIn == false) {
+      completer.complete(questions);
+      return completer.future;
+    }
+
     var query = FirebaseFirestore.instance
         .collection('messages')
         .doc('questions')

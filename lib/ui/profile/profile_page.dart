@@ -36,6 +36,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     print('rebuild ProfilePage');
 
+    var profileEditviewModel = new ProfileEditViewModel();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProfileUserMode()),

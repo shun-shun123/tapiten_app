@@ -21,6 +21,7 @@ class ProfileEditViewModel extends ChangeNotifier {
 
   void setDisplayId(String id) {
     this.displayId = id;
+    print('in view model: $displayId');
     notifyListeners();
   }
 
@@ -54,7 +55,11 @@ class ProfileEditViewModel extends ChangeNotifier {
       'god_name': godName,
       'sheep_name': sheepName,
       'display_id': displayId,
-      'god_message': message
+
+      
+
+      'god_message': message,
+
     }).then((value) => print('save profile'));
   }
 }

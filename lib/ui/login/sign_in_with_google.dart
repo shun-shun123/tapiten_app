@@ -1,14 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tapiten_app/main.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/ui/login/login_page.dart';
+import 'package:tapiten_app/ui/my_home/my_home_page.dart';
 
 class SignInWithGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 100),
       child: SafeArea(
         child: Column(
           children: [
@@ -56,9 +59,33 @@ class _SigninWithGoogleState extends State<SigninWithGoogle> {
   // Google SignIn に成功したら Login ページに飛ぶ
   void transitionNextPage(User user) {
     if (user == null) return;
-    // TODO: リダイレクト先の入力項目は要調整
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+
+    // アカウントがすでに存在してるなら ID 入力飛ばす
+    print('ユーザID: ${UserId.userId}');
+    alreadyHasAccount(UserId.userId).then(
+      (value) => value
+      ? Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MyHomePage()))
+      : Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage())));
+  }
+
+  // アカウントがすでに存在しているかの確認
+  Future<bool> alreadyHasAccount(String userId) async {
+    var flag = true;
+    await FirebaseFirestore.instance
+        .collection('user_info')
+        .doc(userId)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.data() != null) {
+        flag = true;
+      } else {
+        flag = false;
+      }
+    });
+
+    return flag;
   }
 
   // ボタン
@@ -67,17 +94,30 @@ class _SigninWithGoogleState extends State<SigninWithGoogle> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Center(
-          child: RaisedButton(
-            child: Text("Googleではじめる"),
-            onPressed: () {
-              _handleGoogleSignIn().then((user) {
-                setState(() {
-                  transitionNextPage(user);
+          child: ButtonTheme(
+            buttonColor: Colors.grey,
+            minWidth: 300.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: RaisedButton(
+              child: Text(
+                "Googleではじめる",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'RictyDiminished-Regular',
+                    fontSize: 18),
+              ),
+              onPressed: () {
+                _handleGoogleSignIn().then((user) {
+                  setState(() {
+                    transitionNextPage(user);
+                  });
+                }).catchError((error) {
+                  print(error);
                 });
-              }).catchError((error) {
-                print(error);
-              });
-            },
+              },
+            ),
           ),
         ),
       ],
