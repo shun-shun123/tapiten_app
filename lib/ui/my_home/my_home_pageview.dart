@@ -20,7 +20,8 @@ class MyHomePageView extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
     );
 
-    if (_pageController.hasClients && viewModel.pageIndex != _pageController.page.floor()) {
+    if (_pageController.hasClients &&
+        viewModel.pageIndex != _pageController.page.toInt()) {
       _pageController.jumpToPage(viewModel.pageIndex);
     }
     return pageView;

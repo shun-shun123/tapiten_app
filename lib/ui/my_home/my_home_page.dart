@@ -13,11 +13,13 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var userMode = Provider.of<UserMode>(context);
-    Color primaryColor = userMode.isGodFlag ? Color(0xffF8D825) : Color(0xff9FD53E);
-    Color backgroundColor = userMode.isGodFlag ? Colors.white : Color(0xff909090);
-    Color edgeColor = userMode.isGodFlag ? Color(0xffC7C7CC) : Colors.white;
-
     var pageControllerViewModel = Provider.of<PageControllerViewModel>(context);
+
+    Color primaryColor =
+        userMode.isGodFlag ? Color(0xffF8D825) : Color(0xff9FD53E);
+    Color backgroundColor =
+        userMode.isGodFlag ? Colors.white : Color(0xff909090);
+    Color edgeColor = userMode.isGodFlag ? Color(0xffC7C7CC) : Colors.white;
 
     return Scaffold(
       backgroundColor: userMode.isGodFlag ? Colors.white : Color(0xff909090),
@@ -70,7 +72,9 @@ class MyHomePage extends StatelessWidget {
                 child: BottomTabBarItem(
                   Icons.email,
                   'メッセージ',
-                  pageControllerViewModel.pageIndex == 0 ? primaryColor : edgeColor,
+                  pageControllerViewModel.pageIndex == 0
+                      ? primaryColor
+                      : edgeColor,
                 ),
               ),
               InkWell(
@@ -79,7 +83,9 @@ class MyHomePage extends StatelessWidget {
                 child: BottomTabBarItem(
                   Icons.person,
                   'プロフィール',
-                  pageControllerViewModel.pageIndex == 1 ? primaryColor : edgeColor,
+                  pageControllerViewModel.pageIndex == 1
+                      ? primaryColor
+                      : edgeColor,
                 ),
               ),
             ],
