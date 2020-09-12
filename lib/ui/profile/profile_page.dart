@@ -24,6 +24,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  var profileEditviewModel = new ProfileEditViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    profileEditviewModel.getProfile();
+  }
+
   @override
   Widget build(BuildContext context) {
     print('rebuild ProfilePage');

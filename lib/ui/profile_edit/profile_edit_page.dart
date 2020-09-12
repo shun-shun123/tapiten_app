@@ -10,7 +10,7 @@ import 'package:tapiten_app/ui/question/styles/text_style.dart';
 import '../../main.dart';
 import '../../slide_page_route.dart';
 
-class ProfileEditPage extends StatelessWidget {
+class ProfileEditPage extends StatefulWidget {
   final String initGodName;
   final String initSheepName;
   final String initDisplayId;
@@ -23,10 +23,21 @@ class ProfileEditPage extends StatelessWidget {
       this.initMessage});
 
   @override
+  _ProfileEditPageState createState() => _ProfileEditPageState();
+}
+
+class _ProfileEditPageState extends State<ProfileEditPage> {
+  ProfileEditViewModel profileEditViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    profileEditViewModel = new ProfileEditViewModel();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
-
-    var profileEditViewModel = new ProfileEditViewModel();
 
     return ChangeNotifierProvider.value(
       value: profileEditViewModel,
@@ -66,10 +77,10 @@ class ProfileEditPage extends StatelessWidget {
               child: Column(children: [
                 ProfileEditIcon(),
                 ProfileEditInfo(
-                  initGodName: this.initGodName,
-                  initSheepName: this.initSheepName,
-                  initDisplayId: this.initDisplayId,
-                  initMessage: this.initMessage,
+                  initGodName: this.widget.initGodName,
+                  initSheepName: this.widget.initSheepName,
+                  initDisplayId: this.widget.initDisplayId,
+                  initMessage: this.widget.initMessage,
                 ),
               ]),
             ),

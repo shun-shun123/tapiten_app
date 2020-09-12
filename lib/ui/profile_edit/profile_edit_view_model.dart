@@ -9,16 +9,13 @@ class ProfileEditViewModel extends ChangeNotifier {
   String displayId;
   String message;
 
-  ProfileEditViewModel() {
-    getProfile();
-  }
-
   void setUserName(String name) {
     if (UserMode.isGod) {
       this.godName = name;
     } else {
       this.sheepName = name;
     }
+    print('set userName: ${this.godName}');
     notifyListeners();
   }
 
@@ -46,11 +43,9 @@ class ProfileEditViewModel extends ChangeNotifier {
       sheepName = value.get('sheep_name');
       displayId = value.get('display_id');
       message = value.get('god_message');
-    });
+    }).then((value) => print('get profile'));
 
     notifyListeners();
-
-    print('get profile');
   }
 
   void saveProfile() async {
@@ -60,7 +55,11 @@ class ProfileEditViewModel extends ChangeNotifier {
       'god_name': godName,
       'sheep_name': sheepName,
       'display_id': displayId,
+
+      
+
       'god_message': message,
+
     }).then((value) => print('save profile'));
   }
 }

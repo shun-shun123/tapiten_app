@@ -32,6 +32,8 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
   final String initDisplayId;
   final String initMessage;
 
+  ProfileEditViewModel viewModel;
+
   _ProfileEditInfoState({
     this.initGodName,
     this.initSheepName,
@@ -39,9 +41,16 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
     this.initMessage,
   });
 
+  @override
+  void initState() {
+    super.initState();
+    viewModel = Provider.of<ProfileEditViewModel>(context, listen: false);
+    viewModel.getProfile();
+  }
+
   Widget build(BuildContext context) {
-    var viewModel = Provider.of<ProfileEditViewModel>(context);
     var forms = <Widget>[];
+
 
     forms.add(
       InfoForm(
@@ -158,7 +167,10 @@ class _InfoFormState extends State<InfoForm> {
             obscureText: false,
             maxLines: this.maxLines,
             maxLength: this.maxLength,
-            onChanged: (value) => this.onChanged(value),
+            onChanged: (value) => {
+              this.onChanged(value),
+              print('onChanged'),
+            },
             decoration: const InputDecoration(
               hintText: '',
               filled: true,
