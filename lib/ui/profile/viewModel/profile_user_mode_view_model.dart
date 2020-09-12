@@ -5,37 +5,13 @@ import 'package:tapiten_app/storage/user_mode.dart';
 
 class ProfileUserMode extends ChangeNotifier {
   ProfileUserMode() {
-    getProfile();
     calculateGodRank();
   }
-
-  String godName;
-  String sheepName;
-  String displayId;
-  String message;
 
   bool get userMode => UserMode.isGod;
   double godScore = 0;
 
   bool isBusy = true;
-
-  void getProfile() async {
-    var userInfo = FirebaseFirestore.instance.collection('user_info');
-
-    await userInfo.doc(UserId.userId).get().then((value) {
-      godName = value.get('god_name');
-      sheepName = value.get('sheep_name');
-      displayId = value.get('display_id');
-      message = value.get('god_message');
-    }).then((value) {
-      print('get profile');
-      notifyListeners();
-    });
-
-    print(godName);
-    print(sheepName);
-    print(displayId);
-  }
 
   void changeUserMode(bool isGod) {
     print('changeUserMode');

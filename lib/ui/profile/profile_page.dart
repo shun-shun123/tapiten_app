@@ -12,10 +12,10 @@ import 'package:tapiten_app/ui/profile_edit/profile_edit_page.dart';
 import 'package:tapiten_app/ui/profile_edit/profile_edit_view_model.dart';
 import 'package:tapiten_app/ui/question/styles/text_style.dart';
 
-String _godName;
-String _sheepName;
-String _displayId;
-String _message;
+String godName;
+String sheepName;
+String displayId;
+String message;
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -23,24 +23,24 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  var profileEditViewModel = new ProfileEditViewModel();
+  var profileEditviewModel = new ProfileEditViewModel();
 
   @override
   void initState() {
     super.initState();
-    profileEditViewModel.getProfile();
+    profileEditviewModel.getProfile();
   }
 
   @override
   Widget build(BuildContext context) {
     print('rebuild ProfilePage');
 
-    var profileEditViewModel = ProfileEditViewModel();
+    var profileEditviewModel = new ProfileEditViewModel();
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProfileUserMode()),
-        ChangeNotifierProvider.value(value: profileEditViewModel),
+        ChangeNotifierProvider.value(value: profileEditviewModel),
       ],
       child: Scaffold(
         backgroundColor: (UserMode.isGod) ? Colors.white : Color(0xFF909090),
@@ -55,17 +55,25 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               onPressed: () async {
                 bool result = await Navigator.of(context).push(
+                  // SlidePageRoute(
+                  //   child: ProfileEditPage(
+                  //     initGodName: godName,
+                  //     initSheepName: sheepName,
+                  //     initDisplayId: displayId,
+                  //     initMessage: message,
+                  //   ),
+                  // ),
                   MaterialPageRoute(
                     builder: (context) => new ProfileEditPage(
-                      initGodName: _godName,
-                      initSheepName: _sheepName,
-                      initDisplayId: _displayId,
-                      initMessage: _message,
+                      initGodName: godName,
+                      initSheepName: sheepName,
+                      initDisplayId: displayId,
+                      initMessage: message,
                     ),
                   ),
                 );
                 if (result) {
-                  profileEditViewModel.getProfile();
+                  profileEditviewModel.getProfile();
                 }
               },
             ),
@@ -102,12 +110,11 @@ class _ProfileBodyState extends State<ProfileBody> {
   Widget build(BuildContext context) {
     print('rebuild ProfileBody');
 
-    var viewModel = Provider.of<ProfileUserMode>(context);
-    _godName = (viewModel.godName != null) ? viewModel.godName : '';
-    _sheepName = (viewModel.sheepName != null) ? viewModel.sheepName : '';
-    _displayId = (viewModel.displayId != null) ? viewModel.displayId : '';
-    _message = (viewModel.message != null) ? viewModel.message : '';
-    print('godName in ProfileBody: $_godName');
+    var viewModel = Provider.of<ProfileEditViewModel>(context);
+    godName = (viewModel.godName != null) ? viewModel.godName : '';
+    sheepName = (viewModel.sheepName != null) ? viewModel.sheepName : '';
+    displayId = (viewModel.displayId != null) ? viewModel.displayId : '';
+    message = (viewModel.message != null) ? viewModel.message : '';
 
     var userMode = Provider.of<UserMode>(context);
     return userMode.isGodFlag ? ProfileGodBody() : ProfileSheepBody();
@@ -129,18 +136,11 @@ class _ProfileGodBodyState extends State<ProfileGodBody> {
         Column(
           children: [
             SizedBox(height: 80.0),
-            ProfileName(
-              godName: _godName,
-              sheepName: _sheepName,
-            ),
+            ProfileName(),
             ProfileIcon(),
-            ProfileId(
-              displayId: _displayId,
-            ),
+            ProfileId(),
             SizedBox(height: 30.0),
-            ProfileMessage(
-              messageText: _message,
-            ),
+            ProfileMessage(),
             SizedBox(height: 30.0),
           ],
         ),
@@ -167,14 +167,9 @@ class _ProfileSheepBodyState extends State<ProfileSheepBody> {
         Column(
           children: [
             SizedBox(height: 80.0),
-            ProfileName(
-              godName: _godName,
-              sheepName: _sheepName,
-            ),
+            ProfileName(),
             ProfileIcon(),
-            ProfileId(
-              displayId: _displayId,
-            ),
+            ProfileId(),
           ],
         ),
         SizedBox(height: 50.0),
