@@ -9,10 +9,6 @@ class ProfileEditViewModel extends ChangeNotifier {
   String displayId;
   String message;
 
-  ProfileEditViewModel() {
-    getProfile();
-  }
-
   void setUserName(String name) {
     if (UserMode.isGod) {
       this.godName = name;

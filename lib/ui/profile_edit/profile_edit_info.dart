@@ -32,9 +32,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
   final String initDisplayId;
   final String initMessage;
 
-  String currentUserName;
-  String currentDisplayId;
-  String currentMessage;
+  ProfileEditViewModel viewModel;
 
   _ProfileEditInfoState({
     this.initGodName,
@@ -43,13 +41,15 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
     this.initMessage,
   });
 
-  Widget build(BuildContext context) {
-    var viewModel = Provider.of<ProfileEditViewModel>(context);
-    var forms = <Widget>[];
+  @override
+  void initState() {
+    super.initState();
+    viewModel = Provider.of<ProfileEditViewModel>(context, listen: false);
+    viewModel.getProfile();
+  }
 
-    viewModel.setUserName(currentUserName);
-    viewModel.setDisplayId(currentDisplayId);
-    viewModel.setMessage(currentMessage);
+  Widget build(BuildContext context) {
+    var forms = <Widget>[];
 
     //print('initGodName = $initGodName');
     print('godName = ${viewModel.godName}');
@@ -61,7 +61,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         maxLength: 20,
         initialValue: UserMode.isGod ? this.initGodName : this.initSheepName,
         onChanged: (value) {
-          this.currentUserName = value;
+          viewModel.setUserName(value);
         },
       ),
     );
@@ -72,7 +72,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
         maxLength: 20,
         initialValue: this.initDisplayId,
         onChanged: (value) {
-          this.currentDisplayId = value;
+          viewModel.setDisplayId(value);
         },
       ),
     );
@@ -84,7 +84,7 @@ class _ProfileEditInfoState extends State<ProfileEditInfo> {
           maxLength: 40,
           initialValue: this.initMessage,
           onChanged: (value) {
-            this.currentMessage = value;
+            viewModel.setMessage(value);
           },
         ),
       );
