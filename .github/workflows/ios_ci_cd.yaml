@@ -47,11 +47,12 @@ jobs:
         with:
           p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
           p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
-      - run: flutter build ios
 
       # 並列ビルドを設定
       - name: set build concurrent
         run: defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4
+      
+      - run: flutter build ios
       
       # 頑張ってipaを出力します
       - name: XCode Build Archive
