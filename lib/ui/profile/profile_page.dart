@@ -23,24 +23,21 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  var profileEditViewModel = new ProfileEditViewModel();
+  var viewModel = new ProfileUserMode();
 
   @override
   void initState() {
     super.initState();
-    profileEditViewModel.getProfile();
+    viewModel.getProfile();
   }
 
   @override
   Widget build(BuildContext context) {
     print('rebuild ProfilePage');
 
-    var profileEditViewModel = ProfileEditViewModel();
-
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProfileUserMode()),
-        ChangeNotifierProvider.value(value: profileEditViewModel),
+        ChangeNotifierProvider.value(value: viewModel),
       ],
       child: Scaffold(
         backgroundColor: (UserMode.isGod) ? Colors.white : Color(0xFF909090),
@@ -65,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 );
                 if (result) {
-                  profileEditViewModel.getProfile();
+                  viewModel.getProfile();
                 }
               },
             ),
