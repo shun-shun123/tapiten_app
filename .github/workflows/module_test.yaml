@@ -1,9 +1,7 @@
 name: Module test
 
-on:
-  pull_request:
-    # 全てのpull_requestに対して実行するCI
-    branches: [ * ]
+# pull_requestでトリガー
+on: [ pull_request ]
 
 jobs:
   moduleTest:
