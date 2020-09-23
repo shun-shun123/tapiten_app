@@ -8,9 +8,11 @@ import 'package:tapiten_app/view/message_list_view_model/message_list_questions_
 
 import 'message_list_page_title.dart';
 
+// メッセージ一覧画面のルートWidget
 class MessageListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // UserModeの取得
     var userMode = Provider.of<UserMode>(context);
 
     // 神さまモードのView生成

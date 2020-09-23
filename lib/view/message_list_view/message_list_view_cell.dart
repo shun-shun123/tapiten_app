@@ -5,22 +5,32 @@ import 'package:tapiten_app/model/question.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/message_detail/message_detail_page.dart';
 
+// メッセージ一覧画面で使用するListViewのCellWidget
 class MessageListViewCell extends StatelessWidget {
   final Answer answer;
   final Question question;
 
+  // 神さまモード用のCell生成コンストラクタ
   MessageListViewCell.god({this.answer}) : question = null;
+
+  // 仔羊モード用のCell生成コンストラクタ
   MessageListViewCell.sheep({this.question}) : answer = null;
 
   @override
   Widget build(BuildContext context) {
+    // UserMode取得
     var userMode = Provider.of<UserMode>(context);
+
+    // 神さまモード用のCell生成
     if (userMode.isGodFlag) {
       return _buildCellForGod(context);
     }
+
+    // 仔羊モード用のCell生成
     return _buildCellForSheep(context);
   }
 
+  // 神さまモード用のCell生成関数
   Widget _buildCellForGod(BuildContext context) {
     return BaseCard(
       isGod: true,
@@ -40,6 +50,7 @@ class MessageListViewCell extends StatelessWidget {
     );
   }
 
+  // 仔羊モード用のCell生成関数
   Widget _buildCellForSheep(BuildContext context) {
     return BaseCard(
       isGod: false,
@@ -60,18 +71,61 @@ class MessageListViewCell extends StatelessWidget {
   }
 }
 
+// 神さま・仔羊モード両方で使用するCellのベースクラス
+// 共通部分はこのクラスで管理している
 class BaseCard extends StatelessWidget {
   final bool isGod;
   final String title;
   final String subTitle;
   final GestureTapCallback onTap;
 
+  // モード間で異なるデータはコンストラクタを使用してセットする
   BaseCard({
     @required this.isGod,
     @required this.title,
     @required this.subTitle,
     @required this.onTap,
   });
+
+  // Card.Titleの生成
+  Text _buildTitle() {
+    return Text(
+      title,
+      style: TextStyle(
+        color: Color(0xFF909090),
+        fontFamily: "RictyDiminished-Regular",
+        fontSize: 18,
+      ),
+    );
+  }
+
+  // Card.subTitleの生成
+  Text _buildSubTitle() {
+    return Text(
+      subTitle,
+      style: TextStyle(
+        color: Color(0xFF909090),
+        fontFamily: "RictyDiminished-Regular",
+        fontSize: 14,
+      ),
+    );
+  }
+
+  // Card.leadingの生成
+  Container _buildLeading() {
+    return Container(
+      width: 40.0,
+      height: 40.0,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: isGod ? AssetImage("images/god.png") : AssetImage("images/sheep.png"),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,34 +141,9 @@ class BaseCard extends StatelessWidget {
           vertical: 8,
         ),
         child: ListTile(
-          title: Text(
-            title,
-            style: TextStyle(
-              color: Color(0xFF909090),
-              fontFamily: "RictyDiminished-Regular",
-              fontSize: 18,
-            ),
-          ),
-          subtitle: Text(
-            subTitle,
-            style: TextStyle(
-              color: Color(0xFF909090),
-              fontFamily: "RictyDiminished-Regular",
-              fontSize: 14,
-            ),
-          ),
-          leading: Container(
-            width: 40.0,
-            height: 40.0,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: isGod ? AssetImage("images/god.png") : AssetImage("images/sheep.png"),
-              ),
-            ),
-          ),
+          title: _buildTitle(),
+          subtitle: _buildSubTitle(),
+          leading: _buildLeading(),
           onTap: onTap,
         ),
       ),
