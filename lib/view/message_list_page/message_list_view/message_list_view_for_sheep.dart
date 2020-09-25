@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tapiten_app/view/message_list_view/empty_message.dart';
-import 'package:tapiten_app/view/message_list_view/message_list_view_cell.dart';
+import 'package:tapiten_app/view/message_list_page/message_list_view/empty_message.dart';
+import 'package:tapiten_app/view/message_list_page/message_list_view/message_list_view_cell.dart';
 import 'package:tapiten_app/view/message_list_view_model/message_list_questions_view_model.dart';
 
 // 仔羊モード用のListViewを管理するWidget
