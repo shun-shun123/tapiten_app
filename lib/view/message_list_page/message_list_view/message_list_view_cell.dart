@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tapiten_app/model/answer.dart';
 import 'package:tapiten_app/model/question.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
-import 'package:tapiten_app/ui/message_detail/message_detail_page.dart';
+import 'package:tapiten_app/view/message_list_detail_page/view/message_detail_page.dart';
 
 // メッセージ一覧画面で使用するListViewのCellWidget
 class MessageListViewCell extends StatelessWidget {

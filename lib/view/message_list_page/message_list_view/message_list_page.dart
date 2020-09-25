@@ -4,7 +4,7 @@ import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/view/message_list_page/message_list_view/message_list_view_for_god.dart';
 import 'package:tapiten_app/view/message_list_page/message_list_view/message_list_view_for_sheep.dart';
 import 'package:tapiten_app/view/message_list_page/message_list_view_model/message_list_answers_view_model.dart';
-import 'package:tapiten_app/view/message_list_view_model/message_list_questions_view_model.dart';
+import 'package:tapiten_app/view/message_list_page/message_list_view_model/message_list_questions_view_model.dart';
 
 import 'message_list_page_title.dart';
 
