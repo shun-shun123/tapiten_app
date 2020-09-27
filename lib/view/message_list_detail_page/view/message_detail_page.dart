@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:tapiten_app/model/answer.dart';
 import 'package:tapiten_app/model/question.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
-import 'package:tapiten_app/ui/message_detail/message_detail_page_icon.dart';
-import 'package:tapiten_app/ui/message_detail/message_detail_page_question_text.dart';
-import 'package:tapiten_app/ui/message_detail/message_detail_page_review.dart';
-import 'package:tapiten_app/ui/message_detail/message_detail_page_two_answer_buttons.dart';
-import 'package:tapiten_app/ui/message_detail/message_detail_remark.dart';
+import 'package:tapiten_app/view/message_list_detail_page/view/message_detail_page_icon.dart';
+import 'package:tapiten_app/view/message_list_detail_page/view/message_detail_page_question_text.dart';
+import 'package:tapiten_app/view/message_list_detail_page/view/message_detail_page_review.dart';
+import 'package:tapiten_app/view/message_list_detail_page/view/message_detail_page_two_answer_buttons.dart';
+import 'package:tapiten_app/view/message_list_detail_page/view/message_detail_remark.dart';
 
+// メッセージ一覧でセルを選択した際に生成される画面のRootWidget
+// コンストラクタで「神さまモード」「仔羊モード」それぞれに適した画面を生成する
 class MessageDetailPage extends StatelessWidget {
   final bool isGod;
   final Answer answer;
@@ -43,11 +45,9 @@ class MessageDetailPage extends StatelessWidget {
         ),
       ),
       body: Card(
-        margin:
-            EdgeInsets.only(top: 15.0, bottom: 100.0, left: 15.0, right: 15.0),
+        margin: EdgeInsets.only(top: 15.0, bottom: 100.0, left: 15.0, right: 15.0),
         color: cardBackgroundColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
         child: _buildBaseBody(isGod
             ? _buildBodyForGod(answer.selectedAnswerIndex)
             : _buildBodyForSheep(question.selectedAnswerIndex)),
