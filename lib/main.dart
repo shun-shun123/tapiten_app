@@ -10,8 +10,6 @@ import 'package:tapiten_app/ui/answer/finish/finish_god_page.dart';
 import 'package:tapiten_app/ui/answer/matching/matching_god_page.dart';
 import 'package:tapiten_app/ui/my_home/my_home_page.dart';
 import 'package:tapiten_app/ui/my_home/viewModel/page_controller_view_model.dart';
-import 'package:tapiten_app/ui/message/message_page.dart';
-import 'package:tapiten_app/ui/profile/profile_page.dart';
 import 'package:tapiten_app/ui/question/finish/finish_sheep_page.dart';
 import 'package:tapiten_app/ui/question/matching/matching_sheep_page.dart';
 import 'package:tapiten_app/ui/question/question/question_sheep_page.dart';
