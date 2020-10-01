@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
-import 'package:tapiten_app/ui/answer/answer/answer_god_page.dart';
 import 'package:tapiten_app/ui/answer/finish/finish_god_page.dart';
 import 'package:tapiten_app/ui/answer/matching/matching_god_page.dart';
 import 'package:tapiten_app/ui/my_home/my_home_page.dart';
@@ -14,6 +13,7 @@ import 'package:tapiten_app/ui/question/finish/finish_sheep_page.dart';
 import 'package:tapiten_app/ui/question/matching/matching_sheep_page.dart';
 import 'package:tapiten_app/ui/question/question/question_sheep_page.dart';
 import 'package:tapiten_app/ui/top/top_page.dart';
+import 'package:tapiten_app/view/god_answer_page/view/answer_god_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,7 +58,8 @@ Future signOut() async {
 
 // 強制的にアプリを終了させます
 Future forceQuitApp() async {
-  await SystemNavigator.pop(animated: true).then((value) => {print('finished pop')});
+  await SystemNavigator.pop(animated: true)
+      .then((value) => {print('finished pop')});
 }
 
 class MyApp extends StatelessWidget {
