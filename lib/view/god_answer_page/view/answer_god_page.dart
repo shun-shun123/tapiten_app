@@ -29,31 +29,18 @@ class AnswerGodPage extends StatelessWidget {
   }
 }
 
-class AnswerGodPageBody extends StatefulWidget {
+class AnswerGodPageBody extends StatelessWidget {
   @override
-  _AnswerGodPageBodyState createState() => _AnswerGodPageBodyState();
-}
-
-class _AnswerGodPageBodyState extends State<AnswerGodPageBody> {
-  AnswerGodViewModel nonRebuildViewModel;
-  AnswerGodViewModel rebuildViewModel;
-
-  @override
-  void initState() {
-    super.initState();
-    nonRebuildViewModel =
+  Widget build(BuildContext context) {
+    final AnswerGodViewModel rebuildViewModel =
+        Provider.of<AnswerGodViewModel>(context);
+    final AnswerGodViewModel nonRebuildViewModel =
         Provider.of<AnswerGodViewModel>(context, listen: false);
 
     nonRebuildViewModel.answerSuccessAction.stream.listen((_) {
       Navigator.pushReplacementNamed(context, '/finish_god');
     });
-
     nonRebuildViewModel.getCurrentUser();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    rebuildViewModel = Provider.of<AnswerGodViewModel>(context);
 
     return Scaffold(
       body: Container(
@@ -107,7 +94,6 @@ class _AnswerGodPageBodyState extends State<AnswerGodPageBody> {
             ),
             AnswerDecideButton(
               isSelectAnswer: rebuildViewModel.isSelectAnswer,
-              // TODO: ボタンをdisableにするにはonPressedにnullを渡すが、そうするとモックのスタイルと異なってしまう。
               onPressed: rebuildViewModel.isSelectAnswer
                   ? () => rebuildViewModel.onPressAnswerDecideButton()
                   : null,
