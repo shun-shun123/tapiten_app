@@ -27,7 +27,9 @@ class ProfileId extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: UserMode.isGod
+                ? new Image.asset("images/logout_gray.png")
+                : new Image.asset("images/logout_white.png"),
             onPressed: () async {
               var auth = FirebaseAuth.instance;
               if (auth != null) {
