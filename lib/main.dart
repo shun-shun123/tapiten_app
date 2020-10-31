@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tapiten_app/firestore/firestoreManager.dart';
+import 'package:tapiten_app/storage/profile_god_icon_model.dart';
+import 'package:tapiten_app/storage/profile_sheep_icon_model.dart';
 import 'package:tapiten_app/storage/user_id.dart';
 import 'package:tapiten_app/storage/user_mode.dart';
 import 'package:tapiten_app/ui/answer/answer/answer_god_page.dart';
@@ -22,6 +24,8 @@ void main() async {
   // await signOut();
   await loadUserMode();
   await loadUserId();
+  await loadProfileGodIconId();
+  await loadProfileSheepIconId();
   // await forceQuitApp();
 
   runApp(MyApp());
@@ -45,6 +49,28 @@ Future loadUserId() async {
     print('This user does NOT have a userId in local storage.');
   } else {
     print('This users userId is ${UserId.userId}');
+  }
+}
+
+// 神様モードのアイコンリソースキーのロード
+Future loadProfileGodIconId() async {
+  var profileGodIconId = ProfileGodIconModel();
+  await profileGodIconId.loadProfileGodIconModel();
+  if (ProfileGodIconModel.resourceId == null || ProfileGodIconModel.resourceId == '') {
+    print('This user does NOT saved godicon reosurceId');
+  } else {
+    print('god icon resourceId is ${ProfileGodIconModel.resourceId}');
+  }
+}
+
+// 子羊モードのアイコンリソースキーのロード
+Future loadProfileSheepIconId() async {
+  var profileSheepIconId = ProfileSheepIconModel();
+  await profileSheepIconId.loadProfileGodIconModel();
+  if (ProfileSheepIconModel.resourceId == null || ProfileSheepIconModel.resourceId == '') {
+    print('This user does NOT saved sheepicon reosurceid');
+  } else {
+    print('sheep icon resouceid is ${ProfileSheepIconModel.resourceId}');
   }
 }
 
@@ -76,6 +102,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<PageControllerViewModel>(
           create: (context) => PageControllerViewModel(),
+        ),
+        ChangeNotifierProvider<ProfileGodIconModel>(
+          create: (context) => ProfileGodIconModel(),
+        ),
+        ChangeNotifierProvider<ProfileSheepIconModel>(
+          create: (context) => ProfileSheepIconModel(),
         ),
       ],
       child: MaterialApp(
