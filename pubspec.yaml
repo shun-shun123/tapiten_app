@@ -28,6 +28,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - images/profile_icons/
 
   fonts:
     - family: RictyDiminished-Regular
